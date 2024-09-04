@@ -1,0 +1,122 @@
+[
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang++ -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glad/include -I/Users/joelmeuleman/Desktop/joelgl/external/stb/include -I/Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1 -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -o CMakeFiles/window.dir/src/room.cpp.o -c /Users/joelmeuleman/Desktop/joelgl/src/room.cpp",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/src/room.cpp"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/context.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/context.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/context.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/init.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/init.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/init.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/input.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/input.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/input.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/monitor.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/monitor.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/monitor.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/platform.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/platform.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/platform.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/vulkan.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/vulkan.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/vulkan.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/window.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/window.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/window.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/egl_context.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/egl_context.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/egl_context.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/osmesa_context.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/osmesa_context.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/osmesa_context.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_init.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_init.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_init.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_monitor.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_monitor.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_monitor.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_window.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_window.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_window.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_joystick.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_joystick.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_joystick.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_time.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_time.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_time.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_module.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/posix_module.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/posix_module.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_thread.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/posix_thread.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/posix_thread.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_init.m.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_init.m",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_init.m"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_joystick.m",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_joystick.m"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_monitor.m",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_monitor.m"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_window.m.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_window.m",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_window.m"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o external/glfw-3.4/src/CMakeFiles/glfw.dir/nsgl_context.m.o -c /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/nsgl_context.m",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/nsgl_context.m"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang -I/Users/joelmeuleman/Desktop/joelgl/external/glad/include -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -o external/glad/CMakeFiles/glad.dir/src/glad.c.o -c /Users/joelmeuleman/Desktop/joelgl/external/glad/src/glad.c",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glad/src/glad.c"
+},
+{
+  "directory": "/Users/joelmeuleman/Desktop/joelgl/build",
+  "command": "/usr/bin/clang++ -I/Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1 -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wno-c++98-compat -Wno-c++98-compat-pedantic -o external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o -c /Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1/glm/detail/glm.cpp",
+  "file": "/Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1/glm/detail/glm.cpp"
+}
+]

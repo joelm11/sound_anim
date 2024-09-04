@@ -1,0 +1,1033 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: joelgl
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/joelmeuleman/Desktop/joelgl/build/
+# =============================================================================
+# Object build statements for EXECUTABLE target window
+
+
+#############################################
+# Order-only phony target for window
+
+build cmake_object_order_depends_target_window: phony || cmake_object_order_depends_target_glad cmake_object_order_depends_target_glfw cmake_object_order_depends_target_glm
+
+build CMakeFiles/window.dir/src/room.cpp.o: CXX_COMPILER__window_Debug /Users/joelmeuleman/Desktop/joelgl/src/room.cpp || cmake_object_order_depends_target_window
+  DEP_FILE = CMakeFiles/window.dir/src/room.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glad/include -I/Users/joelmeuleman/Desktop/joelgl/external/stb/include -I/Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1
+  OBJECT_DIR = CMakeFiles/window.dir
+  OBJECT_FILE_DIR = CMakeFiles/window.dir/src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target window
+
+
+#############################################
+# Link the executable window
+
+build window: CXX_EXECUTABLE_LINKER__window_Debug CMakeFiles/window.dir/src/room.cpp.o | external/glfw-3.4/src/libglfw3.a external/glad/libglad.a external/glm-1.0.1/glm/libglm.a || external/glad/libglad.a external/glfw-3.4/src/libglfw3.a external/glm-1.0.1/glm/libglm.a
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LINK_LIBRARIES = external/glfw-3.4/src/libglfw3.a  external/glad/libglad.a  external/glm-1.0.1/glm/libglm.a  -framework Cocoa  -framework IOKit  -framework CoreFoundation
+  OBJECT_DIR = CMakeFiles/window.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = window
+  TARGET_PDB = window.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/joelmeuleman/Desktop/joelgl/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for uninstall
+
+build external/glfw-3.4/uninstall: phony external/glfw-3.4/CMakeFiles/uninstall
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glfw-3.4/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4 && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/edit_cache: phony external/glfw-3.4/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glfw-3.4/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4 && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/rebuild_cache: phony external/glfw-3.4/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glfw-3.4/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glfw-3.4/CMakeFiles/install.util: CUSTOM_COMMAND external/glfw-3.4/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4 && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/install: phony external/glfw-3.4/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glfw-3.4/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glfw-3.4/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4 && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/install/local: phony external/glfw-3.4/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glfw-3.4/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glfw-3.4/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4 && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/install/strip: phony external/glfw-3.4/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for external/glfw-3.4/CMakeFiles/uninstall
+
+build external/glfw-3.4/CMakeFiles/uninstall | ${cmake_ninja_workdir}external/glfw-3.4/CMakeFiles/uninstall: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4 && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/cmake_uninstall.cmake
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Order-only phony target for glfw
+
+build cmake_object_order_depends_target_glfw: phony || external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/context.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/context.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/init.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/init.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/input.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/input.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/input.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/monitor.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/monitor.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/platform.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/platform.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/platform.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/vulkan.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/vulkan.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/vulkan.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/window.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/window.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/egl_context.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/egl_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/egl_context.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/osmesa_context.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/osmesa_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/osmesa_context.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/null_init.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/null_init.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/null_monitor.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/null_monitor.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/null_window.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/null_window.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/null_joystick.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/null_joystick.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/null_joystick.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_time.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_time.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_time.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_module.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/posix_module.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_module.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_thread.c.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/posix_thread.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_thread.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_init.m.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_init.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_init.m.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_joystick.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_monitor.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_window.m.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/cocoa_window.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_window.m.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+build external/glfw-3.4/src/CMakeFiles/glfw.dir/nsgl_context.m.o: C_COMPILER__glfw_Debug /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src/nsgl_context.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw-3.4/src/CMakeFiles/glfw.dir/nsgl_context.m.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src -I/Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Link the static library external/glfw-3.4/src/libglfw3.a
+
+build external/glfw-3.4/src/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug external/glfw-3.4/src/CMakeFiles/glfw.dir/context.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/init.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/input.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/monitor.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/platform.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/vulkan.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/window.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/egl_context.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/osmesa_context.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_init.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_monitor.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_window.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/null_joystick.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_time.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_module.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/posix_thread.c.o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_init.m.o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o external/glfw-3.4/src/CMakeFiles/glfw.dir/cocoa_window.m.o external/glfw-3.4/src/CMakeFiles/glfw.dir/nsgl_context.m.o
+  ARCH_FLAGS = -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = external/glfw-3.4/src/CMakeFiles/glfw.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = external/glfw-3.4/src/libglfw3.a
+  TARGET_PDB = glfw3.a.dbg
+
+
+#############################################
+# Utility command for update_mappings
+
+build external/glfw-3.4/src/update_mappings: phony external/glfw-3.4/src/CMakeFiles/update_mappings
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glfw-3.4/src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/src/edit_cache: phony external/glfw-3.4/src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glfw-3.4/src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/src/rebuild_cache: phony external/glfw-3.4/src/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glfw-3.4/src/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glfw-3.4/src/CMakeFiles/install.util: CUSTOM_COMMAND external/glfw-3.4/src/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/src/install: phony external/glfw-3.4/src/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glfw-3.4/src/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glfw-3.4/src/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/src/install/local: phony external/glfw-3.4/src/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glfw-3.4/src/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glfw-3.4/src/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/src/install/strip: phony external/glfw-3.4/src/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for external/glfw-3.4/src/CMakeFiles/update_mappings
+
+build external/glfw-3.4/src/CMakeFiles/update_mappings | ${cmake_ninja_workdir}external/glfw-3.4/src/CMakeFiles/update_mappings: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/src && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/CMake/GenerateMappings.cmake mappings.h.in mappings.h
+  DESC = Updating gamepad mappings from upstream repository
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glfw-3.4/docs/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/docs && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/docs/edit_cache: phony external/glfw-3.4/docs/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glfw-3.4/docs/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/docs && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/docs/rebuild_cache: phony external/glfw-3.4/docs/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glfw-3.4/docs/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glfw-3.4/docs/CMakeFiles/install.util: CUSTOM_COMMAND external/glfw-3.4/docs/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/docs && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/docs/install: phony external/glfw-3.4/docs/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glfw-3.4/docs/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glfw-3.4/docs/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/docs && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/docs/install/local: phony external/glfw-3.4/docs/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glfw-3.4/docs/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glfw-3.4/docs/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/docs && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glfw-3.4/docs/install/strip: phony external/glfw-3.4/docs/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/joelmeuleman/Desktop/joelgl/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target glad
+
+
+#############################################
+# Order-only phony target for glad
+
+build cmake_object_order_depends_target_glad: phony || external/glad/CMakeFiles/glad.dir
+
+build external/glad/CMakeFiles/glad.dir/src/glad.c.o: C_COMPILER__glad_Debug /Users/joelmeuleman/Desktop/joelgl/external/glad/src/glad.c || cmake_object_order_depends_target_glad
+  DEP_FILE = external/glad/CMakeFiles/glad.dir/src/glad.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glad/include
+  OBJECT_DIR = external/glad/CMakeFiles/glad.dir
+  OBJECT_FILE_DIR = external/glad/CMakeFiles/glad.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target glad
+
+
+#############################################
+# Link the static library external/glad/libglad.a
+
+build external/glad/libglad.a: C_STATIC_LIBRARY_LINKER__glad_Debug external/glad/CMakeFiles/glad.dir/src/glad.c.o
+  ARCH_FLAGS = -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = external/glad/CMakeFiles/glad.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = external/glad/libglad.a
+  TARGET_PDB = glad.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glad/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glad && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build external/glad/edit_cache: phony external/glad/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glad/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glad && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glad/rebuild_cache: phony external/glad/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glad/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glad/CMakeFiles/install.util: CUSTOM_COMMAND external/glad/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glad && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glad/install: phony external/glad/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glad/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glad/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glad && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glad/install/local: phony external/glad/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glad/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glad/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glad && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glad/install/strip: phony external/glad/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/joelmeuleman/Desktop/joelgl/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/stb/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/stb && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build external/stb/edit_cache: phony external/stb/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/stb/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/stb && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/stb/rebuild_cache: phony external/stb/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/stb/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/stb/CMakeFiles/install.util: CUSTOM_COMMAND external/stb/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/stb && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/stb/install: phony external/stb/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/stb/CMakeFiles/install/local.util: CUSTOM_COMMAND external/stb/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/stb && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/stb/install/local: phony external/stb/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/stb/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/stb/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/stb && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/stb/install/strip: phony external/stb/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/joelmeuleman/Desktop/joelgl/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glm-1.0.1/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1 && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/edit_cache: phony external/glm-1.0.1/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glm-1.0.1/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1 && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/rebuild_cache: phony external/glm-1.0.1/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glm-1.0.1/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glm-1.0.1/CMakeFiles/install.util: CUSTOM_COMMAND external/glm-1.0.1/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1 && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/install: phony external/glm-1.0.1/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glm-1.0.1/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glm-1.0.1/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1 && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/install/local: phony external/glm-1.0.1/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glm-1.0.1/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glm-1.0.1/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1 && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/install/strip: phony external/glm-1.0.1/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target glm
+
+
+#############################################
+# Order-only phony target for glm
+
+build cmake_object_order_depends_target_glm: phony || external/glm-1.0.1/glm/CMakeFiles/glm.dir
+
+build external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o: CXX_COMPILER__glm_Debug /Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1/glm/detail/glm.cpp || cmake_object_order_depends_target_glm
+  DEP_FILE = external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wno-c++98-compat -Wno-c++98-compat-pedantic
+  INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1
+  OBJECT_DIR = external/glm-1.0.1/glm/CMakeFiles/glm.dir
+  OBJECT_FILE_DIR = external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target glm
+
+
+#############################################
+# Link the static library external/glm-1.0.1/glm/libglm.a
+
+build external/glm-1.0.1/glm/libglm.a: CXX_STATIC_LIBRARY_LINKER__glm_Debug external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o
+  ARCH_FLAGS = -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = external/glm-1.0.1/glm/CMakeFiles/glm.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = external/glm-1.0.1/glm/libglm.a
+  TARGET_PDB = glm.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glm-1.0.1/glm/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1/glm && /usr/local/Cellar/cmake/3.23.2/bin/ccmake -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/glm/edit_cache: phony external/glm-1.0.1/glm/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glm-1.0.1/glm/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1/glm && /usr/local/Cellar/cmake/3.23.2/bin/cmake --regenerate-during-build -S/Users/joelmeuleman/Desktop/joelgl -B/Users/joelmeuleman/Desktop/joelgl/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/glm/rebuild_cache: phony external/glm-1.0.1/glm/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glm-1.0.1/glm/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glm-1.0.1/glm/CMakeFiles/install.util: CUSTOM_COMMAND external/glm-1.0.1/glm/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1/glm && /usr/local/Cellar/cmake/3.23.2/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/glm/install: phony external/glm-1.0.1/glm/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glm-1.0.1/glm/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glm-1.0.1/glm/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1/glm && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/glm/install/local: phony external/glm-1.0.1/glm/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glm-1.0.1/glm/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glm-1.0.1/glm/all
+  COMMAND = cd /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1/glm && /usr/local/Cellar/cmake/3.23.2/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glm-1.0.1/glm/install/strip: phony external/glm-1.0.1/glm/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Target aliases.
+
+build glad: phony external/glad/libglad.a
+
+build glfw: phony external/glfw-3.4/src/libglfw3.a
+
+build glm: phony external/glm-1.0.1/glm/libglm.a
+
+build libglad.a: phony external/glad/libglad.a
+
+build libglfw3.a: phony external/glfw-3.4/src/libglfw3.a
+
+build libglm.a: phony external/glm-1.0.1/glm/libglm.a
+
+build uninstall: phony external/glfw-3.4/uninstall
+
+build update_mappings: phony external/glfw-3.4/src/update_mappings
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build
+
+build all: phony window external/glfw-3.4/all external/glad/all external/stb/all external/glm-1.0.1/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build/external/glad
+
+build external/glad/all: phony external/glad/libglad.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4
+
+build external/glfw-3.4/all: phony external/glfw-3.4/src/all external/glfw-3.4/docs/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/docs
+
+build external/glfw-3.4/docs/all: phony
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build/external/glfw-3.4/src
+
+build external/glfw-3.4/src/all: phony external/glfw-3.4/src/libglfw3.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1
+
+build external/glm-1.0.1/all: phony external/glm-1.0.1/glm/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build/external/glm-1.0.1/glm
+
+build external/glm-1.0.1/glm/all: phony external/glm-1.0.1/glm/libglm.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/joelmeuleman/Desktop/joelgl/build/external/stb
+
+build external/stb/all: phony
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../external/glad/CMakeLists.txt ../external/glfw-3.4/CMake/cmake_uninstall.cmake.in ../external/glfw-3.4/CMake/glfw3.pc.in ../external/glfw-3.4/CMake/glfw3Config.cmake.in ../external/glfw-3.4/CMakeLists.txt ../external/glfw-3.4/docs/CMakeLists.txt ../external/glfw-3.4/src/CMakeLists.txt ../external/glm-1.0.1/CMakeLists.txt ../external/glm-1.0.1/glm/CMakeLists.txt ../external/stb/CMakeLists.txt /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeCInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeCXXInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeDependentOption.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakePackageConfigHelpers.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CheckCSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CheckIncludeFile.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CheckLibraryExists.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/Clang.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/GNU.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindDoxygen.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindPackageMessage.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindThreads.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/GNUInstallDirs.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Internal/CheckSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-Clang-C.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-Clang.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Darwin-Initialize.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Darwin.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/UnixPaths.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build ../CMakeLists.txt ../external/glad/CMakeLists.txt ../external/glfw-3.4/CMake/cmake_uninstall.cmake.in ../external/glfw-3.4/CMake/glfw3.pc.in ../external/glfw-3.4/CMake/glfw3Config.cmake.in ../external/glfw-3.4/CMakeLists.txt ../external/glfw-3.4/docs/CMakeLists.txt ../external/glfw-3.4/src/CMakeLists.txt ../external/glm-1.0.1/CMakeLists.txt ../external/glm-1.0.1/glm/CMakeLists.txt ../external/stb/CMakeLists.txt /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeCInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeCXXInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeDependentOption.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakePackageConfigHelpers.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CheckCSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CheckIncludeFile.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/CheckLibraryExists.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/Clang.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Compiler/GNU.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindDoxygen.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindPackageMessage.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/FindThreads.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/GNUInstallDirs.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Internal/CheckSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-Clang-C.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Apple-Clang.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Darwin-Initialize.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/Darwin.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/Platform/UnixPaths.cmake /usr/local/Cellar/cmake/3.23.2/share/cmake/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all

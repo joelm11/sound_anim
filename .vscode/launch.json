@@ -1,0 +1,16 @@
+{
+    "configurations": [
+    {
+        "name": "Window Debug",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "/Users/joelmeuleman/Desktop/joelgl/build/window",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": ".",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb"
+    }
+    ]
+}
