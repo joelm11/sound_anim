@@ -31,6 +31,8 @@
 2. Move camera to view cube from different views.
 3. Adjust views to match dimensions given in drawings.
 4. Add textures to cube walls.
-5. Add models to cube views.
-6. Add speaker placements in unit cube.
-7. Attempt to draw speakers for each room view.
+5. Remove textures from wall to see into cube.
+6. Add different textures to different walls.
+7. Add models to cube views.
+8. Add speaker placements in unit cube.
+9. Attempt to draw speakers for each room view.
