@@ -1,5 +1,6 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/quaternion_transform.hpp"
+#include "glm/ext/quaternion_trigonometric.hpp"
 #include "glm/trigonometric.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -8,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "room_vertices.hpp"
 
 #include "shader_m.h"
 
@@ -60,49 +62,9 @@ int main()
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    float vertices[] = {
-        -1.f, -1.f, -1.f,  0.0f, 0.0f,
-         1.f, -1.f, -1.f,  1.0f, 0.0f,
-         1.f,  1.f, -1.f,  1.0f, 1.0f,
-        -1.f,  1.f, -1.f,  0.0f, 1.0f,
-         1.f,  1.f, -1.f,  1.0f, 1.0f,
-        -1.f, -1.f, -1.f,  0.0f, 0.0f,
-
-        -1.f, -1.f,  1.f,  0.0f, 0.0f,
-         1.f, -1.f,  1.f,  1.0f, 0.0f,
-         1.f,  1.f,  1.f,  1.0f, 1.0f,
-         1.f,  1.f,  1.f,  1.0f, 1.0f,
-        -1.f,  1.f,  1.f,  0.0f, 1.0f,
-        -1.f, -1.f,  1.f,  0.0f, 0.0f,
-
-        -1.f,  1.f,  1.f,  1.0f, 0.0f,
-        -1.f,  1.f, -1.f,  1.0f, 1.0f,
-        -1.f, -1.f, -1.f,  0.0f, 1.0f,
-        -1.f, -1.f, -1.f,  0.0f, 1.0f,
-        -1.f, -1.f,  1.f,  0.0f, 0.0f,
-        -1.f,  1.f,  1.f,  1.0f, 0.0f,
-
-         1.f,  1.f,  1.f,  1.0f, 0.0f,
-         1.f,  1.f, -1.f,  1.0f, 1.0f,
-         1.f, -1.f, -1.f,  0.0f, 1.0f,
-         1.f, -1.f, -1.f,  0.0f, 1.0f,
-         1.f, -1.f,  1.f,  0.0f, 0.0f,
-         1.f,  1.f,  1.f,  1.0f, 0.0f,
-
-        -1.f, -1.f, -1.f,  0.0f, 1.0f,
-         1.f, -1.f, -1.f,  1.0f, 1.0f,
-         1.f, -1.f,  1.f,  1.0f, 0.0f,
-         1.f, -1.f,  1.f,  1.0f, 0.0f,
-        -1.f, -1.f,  1.f,  0.0f, 0.0f,
-        -1.f, -1.f, -1.f,  0.0f, 1.0f,
-
-        -1.f,  1.f, -1.f,  0.0f, 1.0f,
-         1.f,  1.f, -1.f,  1.0f, 1.0f,
-         1.f,  1.f,  1.f,  1.0f, 0.0f,
-         1.f,  1.f,  1.f,  1.0f, 0.0f,
-        -1.f,  1.f,  1.f,  0.0f, 0.0f,
-        -1.f,  1.f, -1.f,  0.0f, 1.0f
-    };
+    float vertices[150];
+    const float* source_verts = ktop_room;
+    std::copy(source_verts, source_verts + 150, vertices);
 
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
@@ -129,25 +91,28 @@ int main()
     // ---------
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
-    // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
+
+    // Set texture wrapping parameters (correctly apply to both axes)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load(std::string("/Users/joelmeuleman/Desktop/joelgl/resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(std::string("/Users/joelmeuleman/Desktop/joelgl/resources/textures/RoomTexture3.png").c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        // glGenerateMipmap(GL_TEXTURE_2D); // Don't use mip-map as it nukes resolution.
     }
     else
     {
         std::cout << "Failed to load texture" << std::endl;
     }
+    std::cout << "Image width: " << width << " Image height: " << height << " Channels: " << nrChannels << "\n";
     stbi_image_free(data);
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
@@ -189,19 +154,20 @@ int main()
        
         // // Debug-view. (White Blue Green Red)
         // model = glm::scale(model, glm::vec3(1.0f, 0.6f, 2.5f));
+        // model = glm::rotate(model, glm::radians(45.f), glm::vec3(0.f, 1.f, 0.f));
         // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
 
-        // Rear-view. (White Blue Green Red)
-        model = glm::scale(model, glm::vec3(1.0f, 0.6f, 2.5f));
-        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+        // // Rear-view. (White Blue Green Red)
+        // model = glm::scale(model, glm::vec3(1.0f, 0.6f, 2.5f));
+        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
        
         // // Side-view. (Blue Blue Green Green)
         // model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.5f));
         // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
        
-        // // Top-view. (Red Green Green Red)
-        // model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.3f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f));
+        // Top-view. (Red Green Green Red)
+        model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.3f));
+        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f));
        
         // Constant.
         projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -213,7 +179,7 @@ int main()
 
         // render container
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 30);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

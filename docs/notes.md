@@ -36,3 +36,4 @@
 7. Add models to cube views.
 8. Add speaker placements in unit cube.
 9. Attempt to draw speakers for each room view.
+10. Attempt to draw spheres that move within the space for each room view.
