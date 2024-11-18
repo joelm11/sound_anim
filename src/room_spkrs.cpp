@@ -1,6 +1,7 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/quaternion_transform.hpp"
 #include "glm/ext/quaternion_trigonometric.hpp"
+#include "glm/ext/vector_float3.hpp"
 #include "glm/trigonometric.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -55,70 +56,42 @@ int main()
         return -1;
     }
 
-    // build and compile our shader zprogram
-    // ------------------------------------
-    Shader ourShader("/Users/joelmeuleman/Desktop/joelgl/src/room.vs", "/Users/joelmeuleman/Desktop/joelgl/src/room.fs");
+    // Build shader program.
+    Shader ourShader("/Users/joelmeuleman/Desktop/joelgl/src/spkr.vs", "/Users/joelmeuleman/Desktop/joelgl/src/spkr.fs");
     std::cout << "Built shaders\n";
 
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
-    const float* source_verts = ktop_room;
-    float vertices[150];
-    std::copy(source_verts, source_verts + 150, vertices);
+    // Calculate vertices for speakers in room view.
+    const auto front_spkr_coords = kfront_spkrs;
+    const auto room_spkr_verts = spkr_from_coord(front_spkr_coords.begin(), front_spkr_coords.size(), glm::vec3(.05f, 0.0f, 0.0f));
+    // Construct index buffer for EBO.
+    const std::array<float, 6> spkr_vert_idx = {
+        0, 1, 3,
+        3, 2, 0
+    };
+    std::vector<std::array<float, 6>> spkr_vert_idxs;
+    for (int i = 0; i < front_spkr_coords.size(); ++i) {
+        spkr_vert_idxs.push_back(spkr_vert_idx);
+    }
 
-    unsigned int room_vert_buffer, room_spkr_buffer, VAO;
+    unsigned int room_spkr_buffer, VAO, EBO;
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &room_vert_buffer);
     glGenBuffers(1, &room_spkr_buffer);
+    glGenBuffers(1, &EBO);
 
     glBindVertexArray(VAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, room_vert_buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    // Bind vertex buffer and describe buffer attributes.
+    glBindBuffer(GL_ARRAY_BUFFER, room_spkr_buffer);
+    glBufferData(GL_ARRAY_BUFFER, room_spkr_verts.size() * sizeof(glm::vec3), room_spkr_verts.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // Texture coord buffer.
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    // Bind element buffer.
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, spkr_vert_idxs.size() * 6 * sizeof(float), spkr_vert_idxs.data(), GL_STATIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    // Load and map textures.
-    // -------------------------
-    unsigned int texture1;
-    // texture 1
-    // ---------
-    glGenTextures(1, &texture1);
-    glBindTexture(GL_TEXTURE_2D, texture1);
-
-    // Set texture wrapping parameters (correctly apply to both axes)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load(std::string("/Users/joelmeuleman/Desktop/joelgl/resources/textures/RoomTexture3.png").c_str(), &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        // glGenerateMipmap(GL_TEXTURE_2D); // Don't use mip-map as it nukes resolution.
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    std::cout << "Image width: " << width << " Image height: " << height << " Channels: " << nrChannels << "\n";
-    stbi_image_free(data);
-
-    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-    // -------------------------------------------------------------------------------------------
-    ourShader.setInt("texture1", 0);
 
     std::cout << "Finished init\n";
 
@@ -143,30 +116,13 @@ int main()
   
         // activate shader
         ourShader.use();
-
-        // bind Texture
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture1);
       
         // create transformations
         glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 view          = glm::mat4(1.0f);
         glm::mat4 projection    = glm::mat4(1.0f);
        
-        // // Debug-view. (White Blue Green Red)
-        // model = glm::scale(model, glm::vec3(1.0f, 0.6f, 2.5f));
-        // model = glm::rotate(model, glm::radians(45.f), glm::vec3(0.f, 1.f, 0.f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-
-        // // Rear-view. (White Blue Green Red)
-        // model = glm::scale(model, glm::vec3(1.0f, 0.6f, 2.5f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-       
-        // // Side-view. (Blue Blue Green Green)
-        // model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.5f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
-       
-        // Top-view. (Red Green Green Red)
+        // Top-view.
         model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.3f));
         view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f));
        
@@ -180,7 +136,7 @@ int main()
 
         // render container
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 30);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -191,7 +147,7 @@ int main()
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &room_vert_buffer);
+    glDeleteBuffers(1, &room_spkr_buffer);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------

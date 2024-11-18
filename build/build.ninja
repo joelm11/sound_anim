@@ -48,7 +48,7 @@ build cmake_object_order_depends_target_window: phony || cmake_object_order_depe
 
 build CMakeFiles/window.dir/src/room.cpp.o: CXX_COMPILER__window_Debug /Users/joelmeuleman/Desktop/joelgl/src/room.cpp || cmake_object_order_depends_target_window
   DEP_FILE = CMakeFiles/window.dir/src/room.cpp.o.d
-  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++20
   INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glfw-3.4/include -I/Users/joelmeuleman/Desktop/joelgl/external/glad/include -I/Users/joelmeuleman/Desktop/joelgl/external/stb/include -I/Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1
   OBJECT_DIR = CMakeFiles/window.dir
   OBJECT_FILE_DIR = CMakeFiles/window.dir/src
@@ -832,7 +832,7 @@ build cmake_object_order_depends_target_glm: phony || external/glm-1.0.1/glm/CMa
 
 build external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o: CXX_COMPILER__glm_Debug /Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1/glm/detail/glm.cpp || cmake_object_order_depends_target_glm
   DEP_FILE = external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o.d
-  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wno-c++98-compat -Wno-c++98-compat-pedantic
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wno-c++98-compat -Wno-c++98-compat-pedantic -std=c++20
   INCLUDES = -I/Users/joelmeuleman/Desktop/joelgl/external/glm-1.0.1
   OBJECT_DIR = external/glm-1.0.1/glm/CMakeFiles/glm.dir
   OBJECT_FILE_DIR = external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail
