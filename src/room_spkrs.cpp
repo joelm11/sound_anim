@@ -60,10 +60,10 @@ int main()
     Shader ourShader("/Users/joelm/Downloads/joelgl 2/src/spkr.vs", "/Users/joelm/Downloads/joelgl 2/src/spkr.fs");
 
     // Define vertices and indices
-float spkr_verts[] = {
-    -0.5f, 0.0f, -1.0f,
-    0.5f, 0.0f, -1.0f,
-    0.0f, 0.8f, -1.0f,
+std::vector<glm::vec3> spkr_verts = {
+    glm::vec3(-0.5f, 0.0f, -1.0f),
+    glm::vec3(0.5f, 0.0f, -1.0f),
+    glm::vec3(0.0f, 0.8f, -1.0f),
 };
 
 std::array<unsigned int, 3> spkr_vert_idx = { 0, 1, 2 };
@@ -77,8 +77,8 @@ glGenBuffers(1, &EBO);
 glBindVertexArray(VAO);
 
 glBindBuffer(GL_ARRAY_BUFFER, VBO);
-glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), spkr_verts, GL_STATIC_DRAW);
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+glBufferData(GL_ARRAY_BUFFER, spkr_verts.size() * sizeof(glm::vec3), spkr_verts.data(), GL_STATIC_DRAW);
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 glEnableVertexAttribArray(0);
 
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -94,23 +94,22 @@ view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, g
 
 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
-ourShader.setMat4("model", model);
-ourShader.setMat4("view", view);
-ourShader.setMat4("projection", projection);
-
 // Main render loop
 while (!glfwWindowShouldClose(window)) {
+    processInput(window);
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    // // Enable depth test
-    // glEnable(GL_DEPTH_TEST);
-    // // Accept fragment if it closer to the camera than the former one
-    // glDepthFunc(GL_LESS);   
+    // Enable depth test
+    glEnable(GL_DEPTH_TEST);
+    // Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);   
     // Clear the screen
-    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Use shader program
     ourShader.use();
+    ourShader.setMat4("model", model);
+    ourShader.setMat4("view", view);
+    ourShader.setMat4("projection", projection);
 
     // Bind VAO and draw
     glBindVertexArray(VAO);
