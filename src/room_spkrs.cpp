@@ -60,10 +60,10 @@ int main()
     Shader ourShader("/Users/joelm/Downloads/joelgl 2/src/spkr.vs", "/Users/joelm/Downloads/joelgl 2/src/spkr.fs");
 
     // Define vertices and indices
-std::vector<glm::vec3> spkr_verts = {
-    glm::vec3(-0.5f, 0.0f, -1.0f),
-    glm::vec3(0.5f, 0.0f, -1.0f),
-    glm::vec3(0.0f, 0.8f, -1.0f),
+float spkr_verts[] = {
+    -0.5f, 0.0f, -1.0f,
+    0.5f, 0.0f, -1.0f,
+    0.0f, 0.8f, -1.0f,
 };
 
 std::array<unsigned int, 3> spkr_vert_idx = { 0, 1, 2 };
@@ -77,9 +77,8 @@ glGenBuffers(1, &EBO);
 glBindVertexArray(VAO);
 
 glBindBuffer(GL_ARRAY_BUFFER, VBO);
-glBufferData(GL_ARRAY_BUFFER, spkr_verts.size() * sizeof(glm::vec3), spkr_verts.data(), GL_STATIC_DRAW);
-
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), spkr_verts, GL_STATIC_DRAW);
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 glEnableVertexAttribArray(0);
 
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
