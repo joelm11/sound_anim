@@ -85,11 +85,9 @@ int main() {
   std::cout << "Built shaders\n";
 
   // Calculate speaker uniform source positions
-  const std::vector<glm::vec3> spkrPos = {
-      sphericalToCartesian(1.f, 30.f, 0.f),
-      sphericalToCartesian(1.f, -30.f, 0.f),
-      // sphericalToCartesian(1.f, 0.f, 0.f)
-  };
+  const std::vector<glm::vec3> spkrPos = {sphericalToCartesian(1.f, 30.f, 0.f),
+                                          sphericalToCartesian(1.f, -30.f, 0.f),
+                                          sphericalToCartesian(1.f, 0.f, 0.f)};
   // Calculate speaker loudnesses
   const std::vector<float> spkrDb = {
       1.f,
@@ -122,8 +120,8 @@ int main() {
   // shader.
   glParams();
   ourShader.use();
+  // Set uniforms
   setMVP(ourShader);
-  // Set speaker source positions.
   ourShader.setVec3Array("u_spkrPos", spkrPos.data(), spkrPos.size());
   ourShader.setFloatArray("u_spkrDb", spkrDb.data(), spkrDb.size());
   std::cout << "Finished init\n";
