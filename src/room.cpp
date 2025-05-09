@@ -1,167 +1,177 @@
+#define GL_SILENCE_DEPRECATION
+#define GLFW_INCLUDE_NONE
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
-#include "glm/ext/quaternion_transform.hpp"
-#include "glm/ext/quaternion_trigonometric.hpp"
 #include "glm/trigonometric.hpp"
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
+#include "room_vertices.hpp"
+#include "shader_m.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "room_vertices.hpp"
-#include "shader_m.h"
+#include <stb/stb_image.h>
 
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 void glParams() {
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    
-    // Enable depth test
-    // glEnable(GL_DEPTH_TEST);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    // // Accept fragment if it closer to the camera than the former one
-    // glDepthFunc(GL_LESS);
+  // Enable depth test
+  // glEnable(GL_DEPTH_TEST);
+
+  // // Accept fragment if it closer to the camera than the former one
+  // glDepthFunc(GL_LESS);
 }
 
 // settings
 const unsigned int SCR_WIDTH = 720;
 const unsigned int SCR_HEIGHT = 546;
 
-int main()
-{
-    // glfw: initialize and configure
-    // ------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+int main() {
+  // glfw: initialize and configure
+  // ------------------------------
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    // glfw window creation
-    // --------------------
-    GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    // build and compile our shader zprogram
-    // ------------------------------------
-    Shader ourShader("/Users/joelm/Desktop/joelgl 2/src/room.vs", "/Users/joelm/Desktop/joelgl 2/src/room.fs");
-    std::cout << "Built shaders\n";
-
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
-    const int kNumPoints = 150;
-    auto spherePoints = generateFibonacciSpherePoints(kNumPoints);
-
-    unsigned int sphere_vert_buffer, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &sphere_vert_buffer);
-
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, sphere_vert_buffer);
-    glBufferData(GL_ARRAY_BUFFER, spherePoints.size() * sizeof(glm::vec3), spherePoints.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    glParams();
-    std::cout << "Finished init\n";
-
-    // render loop
-    // -----------
-    while (!glfwWindowShouldClose(window))
-    {
-        // activate shader
-        ourShader.use();
-
-        // input
-        // -----
-        processInput(window);
-
-        // render
-        // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-
-        // create transformations
-        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 projection = glm::mat4(1.0f);
-
-        // Ortho-view.
-        model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, .0f));
-        model = glm::rotate(model, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-
-        // Constant.
-        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-
-        // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-        ourShader.setMat4("model", model);
-        ourShader.setMat4("view", view);
-        ourShader.setMat4("projection", projection);
-
-        // render container
-        glBindVertexArray(VAO);
-        glPointSize(7.f);
-        glDrawArrays(GL_POINTS, 0, kNumPoints);
-
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-
-    // optional: de-allocate all resources once they've outlived their purpose:
-    // ------------------------------------------------------------------------
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &sphere_vert_buffer);
-
-    // glfw: terminate, clearing all previously allocated GLFW resources.
-    // ------------------------------------------------------------------
+  // glfw window creation
+  // --------------------
+  GLFWwindow *window =
+      glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+  if (window == NULL) {
+    std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
-    return 0;
+    return -1;
+  }
+  glfwMakeContextCurrent(window);
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+  // glad: load all OpenGL function pointers
+  // ---------------------------------------
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+    std::cout << "Failed to initialize GLAD" << std::endl;
+    return -1;
+  }
+
+  // build and compile our shader zprogram
+  // ------------------------------------
+  Shader ourShader("/Users/joelm/Desktop/joelgl 2/src/room.vs",
+                   "/Users/joelm/Desktop/joelgl 2/src/room.fs");
+  std::cout << "Built shaders\n";
+
+  // set up vertex data (and buffer(s)) and configure vertex attributes
+  // ------------------------------------------------------------------
+  const int kNumPoints = 150;
+  auto spherePoints = generateFibonacciSpherePoints(kNumPoints);
+
+  unsigned int sphere_vert_buffer, VAO;
+  glGenVertexArrays(1, &VAO);
+  glGenBuffers(1, &sphere_vert_buffer);
+
+  glBindVertexArray(VAO);
+
+  glBindBuffer(GL_ARRAY_BUFFER, sphere_vert_buffer);
+  glBufferData(GL_ARRAY_BUFFER, spherePoints.size() * sizeof(glm::vec3),
+               spherePoints.data(), GL_STATIC_DRAW);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glEnableVertexAttribArray(0);
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindVertexArray(0);
+
+  glParams();
+  std::cout << "Finished init\n";
+
+  double startTime = glfwGetTime(); // Get the start time
+  // render loop
+  // -----------
+  while (!glfwWindowShouldClose(window)) {
+    // calculate delta time
+    double currentTime = glfwGetTime();
+    float time = static_cast<float>(currentTime - startTime);
+
+    // activate shader
+    ourShader.use();
+    ourShader.setFloat("u_time", time); // Set the time uniform
+
+    // input
+    // -----
+    processInput(window);
+
+    // render
+    // ------
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // create transformations
+    glm::mat4 model = glm::mat4(
+        1.0f); // make sure to initialize matrix to identity matrix first
+    glm::mat4 view = glm::mat4(1.0f);
+    glm::mat4 projection = glm::mat4(1.0f);
+
+    // Ortho-view.
+    model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, .0f));
+    model =
+        glm::rotate(model, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+
+    // Constant.
+    projection =
+        glm::perspective(glm::radians(45.0f),
+                         (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
+    // note: currently we set the projection matrix each frame, but since the
+    // projection matrix rarely changes it's often best practice to set it
+    // outside the main loop only once.
+    ourShader.setMat4("model", model);
+    ourShader.setMat4("view", view);
+    ourShader.setMat4("projection", projection);
+
+    // render container
+    glBindVertexArray(VAO);
+    glPointSize(7.f);
+    glDrawArrays(GL_POINTS, 0, kNumPoints);
+
+    // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
+    // etc.)
+    // -------------------------------------------------------------------------------
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  // optional: de-allocate all resources once they've outlived their purpose:
+  // ------------------------------------------------------------------------
+  glDeleteVertexArrays(1, &VAO);
+  glDeleteBuffers(1, &sphere_vert_buffer);
+
+  // glfw: terminate, clearing all previously allocated GLFW resources.
+  // ------------------------------------------------------------------
+  glfwTerminate();
+  return 0;
 }
 
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
+// process all input: query GLFW whether relevant keys are pressed/released this
+// frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
-void processInput(GLFWwindow *window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+void processInput(GLFWwindow *window) {
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    glfwSetWindowShouldClose(window, true);
 }
 
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+// glfw: whenever the window size changed (by OS or user resize) this callback
+// function executes
 // ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow *window, int width, int height)
-{
-    // make sure the viewport matches the new window dimensions; note that width and
-    // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+  // make sure the viewport matches the new window dimensions; note that width
+  // and height will be significantly larger than specified on retina displays.
+  glViewport(0, 0, width, height);
 }

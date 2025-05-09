@@ -1,6 +1,0 @@
-Index:
-Blacklist: - "._build._" - "._external._"
-
-CompileFlags:
-Remove: -Ibuild
-Remove: -Iexternal
