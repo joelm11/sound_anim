@@ -83,6 +83,10 @@ public:
   void setFloat(const std::string &name, float value) const {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
   }
+  void setFloatArray(const std::string &name, const float *values,
+                     size_t count) const {
+    glUniform1fv(glGetUniformLocation(ID, name.c_str()), count, values);
+  }
   // ------------------------------------------------------------------------
   void setVec2(const std::string &name, const glm::vec2 &value) const {
     glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);

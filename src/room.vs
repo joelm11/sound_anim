@@ -49,7 +49,7 @@ void main() {
         float propagationDecay = exp(-propagationDecayRate * waveRadialPos);
 
         // Temporal oscillation: A sinusoidal function of time
-        float timeOscillation = 2.0 * sin(u_time * oscillationFrequency);
+        float timeOscillation = u_spkrDb[i] * sin(u_time * oscillationFrequency);
 
         // Combine factors to get the signed displacement magnitude
         signedDisplacementMagnitude = signedDisplacementMagnitude + maxInitialDisplacement * propagationDecay * spatialStrength * timeOscillation;
