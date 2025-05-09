@@ -6,6 +6,7 @@ uniform mat4 u_model;
 uniform mat4 u_view;
 uniform mat4 u_projection;
 uniform float u_time;
+uniform float u_spkrDb[NUM_SPKRS];
 uniform vec3 u_spkrPos[NUM_SPKRS];
 
 // Output the absolute displacement magnitude to the fragment shader
@@ -48,7 +49,7 @@ void main() {
         float propagationDecay = exp(-propagationDecayRate * waveRadialPos);
 
         // Temporal oscillation: A sinusoidal function of time
-        float timeOscillation = sin(u_time * oscillationFrequency);
+        float timeOscillation = 2.0 * sin(u_time * oscillationFrequency);
 
         // Combine factors to get the signed displacement magnitude
         signedDisplacementMagnitude = signedDisplacementMagnitude + maxInitialDisplacement * propagationDecay * spatialStrength * timeOscillation;
