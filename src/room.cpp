@@ -84,7 +84,7 @@ int main() {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-  const int kNumPoints = 300;
+  const int kNumPoints = 1000;
   auto spherePoints = generateFibonacciSpherePoints(kNumPoints);
 
   unsigned int sphere_vert_buffer, VAO;
