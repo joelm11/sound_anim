@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
@@ -38,7 +38,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -63,67 +63,29 @@ int main()
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    const float* source_verts = kside_room;
+    const float *source_verts = kside_room;
     float vertices[150];
     std::copy(source_verts, source_verts + 150, vertices);
 
-    unsigned int room_vert_buffer, room_spkr_buffer, VAO;
+    unsigned int room_vert_buffer, VAO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &room_vert_buffer);
-    glGenBuffers(1, &room_spkr_buffer);
 
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, room_vert_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
-
-    // Texture coord buffer.
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    // Load and map textures.
-    // -------------------------
-    unsigned int texture1;
-    // texture 1
-    // ---------
-    glGenTextures(1, &texture1);
-    glBindTexture(GL_TEXTURE_2D, texture1);
-
-    // Set texture wrapping parameters (correctly apply to both axes)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load(std::string("/Users/joelm/Desktop/joelgl 2/resources/textures/RoomTexture3.png").c_str(), &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        // glGenerateMipmap(GL_TEXTURE_2D); // Don't use mip-map as it nukes resolution.
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    std::cout << "Image width: " << width << " Image height: " << height << " Channels: " << nrChannels << "\n";
-    stbi_image_free(data);
-
-    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-    // -------------------------------------------------------------------------------------------
-    ourShader.setInt("texture1", 0);
-
     std::cout << "Finished init\n";
 
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // Enable depth test
+    glEnable(GL_DEPTH_TEST);
 
     // render loop
     // -----------
@@ -136,63 +98,25 @@ int main()
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        // Enable depth test
-        glEnable(GL_DEPTH_TEST);
         // Accept fragment if it closer to the camera than the former one
-        glDepthFunc(GL_LESS);        
+        glDepthFunc(GL_LESS);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  
+
         // activate shader
         ourShader.use();
 
-        // bind Texture
-        // glActiveTexture(GL_TEXTURE0);
-        // glBindTexture(GL_TEXTURE_2D, texture1);
-      
         // create transformations
-        glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        glm::mat4 view          = glm::mat4(1.0f);
-        glm::mat4 projection    = glm::mat4(1.0f);
-       
-        // // Debug-view. (White Blue Green Red)
-        // model = glm::scale(model, glm::vec3(1.0f, 0.6f, 2.5f));
-        // model = glm::rotate(model, glm::radians(45.f), glm::vec3(0.f, 1.f, 0.f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 projection = glm::mat4(1.0f);
 
-        // // Rear-view. (White Blue Green Red)
-        // model = glm::scale(model, glm::vec3(1.2f, 0.9f, 2.5f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-       
-        // // Side-view. (Blue Blue Green Green)
-        // model = glm::scale(model, glm::vec3(0.9f, 1.0f, 1.3f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -4.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
-       
-        // Top-view. (Red Green Green Red)
-        // model = glm::scale(model, glm::vec3(1.2f, 1.f, 1.4f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f));
-       
         // Ortho-view.
         model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, .0f));
         model = glm::rotate(model, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
 
         // Constant.
-        // projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-
-        // Projection matrix: orthographic projection
-        float orthoScale = 1.5f; // Adjust this value to zoom in/out
-        float aspectRatio = (float)SCR_WIDTH / (float)SCR_HEIGHT;
-        projection = glm::ortho(-orthoScale * aspectRatio, orthoScale * aspectRatio, -orthoScale, orthoScale, 0.1f, 100.0f);
-
-        // // Print the final transform matrix.
-        // std::cout << "MVP matrix: " << std::endl;
-        // auto mvp =  projection * view * model;
-        // for (int i = 0; i < 4; ++i) {
-        //     for (int j = 0; j < 4; ++j) {
-        //         std::cout << mvp[i][j] << " ";
-        //     }
-        //     std::cout << std::endl;
-        // } 
+        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         ourShader.setMat4("model", model);
@@ -226,14 +150,13 @@ void processInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
-    // make sure the viewport matches the new window dimensions; note that width and 
+    // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }

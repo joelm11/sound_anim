@@ -1,0 +1,1 @@
+     clang-format -style=Google input.cpp -o formatted_output.cpp
