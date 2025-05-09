@@ -33,9 +33,6 @@ void setMVP(const Shader shader) {
   glm::mat4 model, view, projection;
   model = view = projection = glm::mat4(1.0f);
 
-  // Ortho-view.
-  model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, .0f));
-  model = glm::rotate(model, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
   view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
 
   // Constant.
@@ -87,7 +84,7 @@ int main() {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-  const int kNumPoints = 150;
+  const int kNumPoints = 300;
   auto spherePoints = generateFibonacciSpherePoints(kNumPoints);
 
   unsigned int sphere_vert_buffer, VAO;
@@ -128,7 +125,6 @@ int main() {
     // render
     // ------
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // render container
