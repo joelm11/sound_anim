@@ -1,3 +1,4 @@
+#include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/quaternion_transform.hpp"
 #include "glm/ext/quaternion_trigonometric.hpp"
@@ -19,8 +20,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 720;
+const unsigned int SCR_HEIGHT = 546;
 
 int main()
 {
@@ -57,12 +58,12 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader ourShader("/Users/joelmeuleman/Desktop/joelgl/src/room.vs", "/Users/joelmeuleman/Desktop/joelgl/src/room.fs");
+    Shader ourShader("/Users/joelm/Downloads/joelgl 2/src/room.vs", "/Users/joelm/Downloads/joelgl 2/src/room.fs");
     std::cout << "Built shaders\n";
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    const float* source_verts = ktop_room;
+    const float* source_verts = kside_room;
     float vertices[150];
     std::copy(source_verts, source_verts + 150, vertices);
 
@@ -103,7 +104,7 @@ int main()
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load(std::string("/Users/joelmeuleman/Desktop/joelgl/resources/textures/RoomTexture3.png").c_str(), &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(std::string("/Users/joelm/Downloads/joelgl 2/resources/textures/RoomTexture3.png").c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -145,8 +146,8 @@ int main()
         ourShader.use();
 
         // bind Texture
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture1);
+        // glActiveTexture(GL_TEXTURE0);
+        // glBindTexture(GL_TEXTURE_2D, texture1);
       
         // create transformations
         glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
@@ -159,19 +160,39 @@ int main()
         // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
 
         // // Rear-view. (White Blue Green Red)
-        // model = glm::scale(model, glm::vec3(1.0f, 0.6f, 2.5f));
+        // model = glm::scale(model, glm::vec3(1.2f, 0.9f, 2.5f));
         // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
        
         // // Side-view. (Blue Blue Green Green)
-        // model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.5f));
-        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
+        // model = glm::scale(model, glm::vec3(0.9f, 1.0f, 1.3f));
+        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -4.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
        
         // Top-view. (Red Green Green Red)
-        model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.3f));
-        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f));
+        // model = glm::scale(model, glm::vec3(1.2f, 1.f, 1.4f));
+        // view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f));
        
+        // Ortho-view.
+        model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, .0f));
+        model = glm::rotate(model, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+
         // Constant.
-        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        // projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
+        // Projection matrix: orthographic projection
+        float orthoScale = 1.5f; // Adjust this value to zoom in/out
+        float aspectRatio = (float)SCR_WIDTH / (float)SCR_HEIGHT;
+        projection = glm::ortho(-orthoScale * aspectRatio, orthoScale * aspectRatio, -orthoScale, orthoScale, 0.1f, 100.0f);
+
+        // Print the final transform matrix.
+        std::cout << "MVP matrix: " << std::endl;
+        auto mvp =  projection * view * model;
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                std::cout << mvp[i][j] << " ";
+            }
+            std::cout << std::endl;
+        } 
 
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         ourShader.setMat4("model", model);
@@ -205,6 +226,7 @@ void processInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

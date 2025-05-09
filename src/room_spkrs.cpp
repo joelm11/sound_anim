@@ -66,7 +66,37 @@ std::vector<glm::vec3> spkr_verts = {
     glm::vec3(0.0f, 0.8f, -1.0f),
 };
 
-std::array<unsigned int, 3> spkr_vert_idx = { 0, 1, 2 };
+const float norm_offset = 0.06f;
+auto front_speaker_coords = kfront_spkrs;
+auto front_speaker_norm = glm::vec3(norm_offset, 0.f, 0.f);
+auto front_speaker_verts = spkr_from_coord(front_speaker_coords.data(), front_speaker_coords.size(), front_speaker_norm);
+
+auto side_speaker_coords = kside_spkrs;
+auto side_speaker_norm = glm::vec3(0.f, 0.f, norm_offset);
+auto side_speaker_verts = spkr_from_coord(side_speaker_coords.data(), side_speaker_coords.size(), side_speaker_norm);
+
+auto rear_speaker_coords = krear_spkrs;
+auto rear_speaker_norm = glm::vec3(norm_offset, 0.f, 0.f);
+auto rear_speaker_verts = spkr_from_coord(rear_speaker_coords.data(), rear_speaker_coords.size(), rear_speaker_norm);
+
+// Combine all speaker vertices into one vector
+std::vector<glm::vec3> all_speaker_verts;
+all_speaker_verts.reserve(front_speaker_verts.size() + side_speaker_verts.size() + rear_speaker_verts.size());
+all_speaker_verts.insert(all_speaker_verts.end(), front_speaker_verts.begin(), front_speaker_verts.end());
+all_speaker_verts.insert(all_speaker_verts.end(), side_speaker_verts.begin(), side_speaker_verts.end());
+all_speaker_verts.insert(all_speaker_verts.end(), rear_speaker_verts.begin(), rear_speaker_verts.end());
+
+std::array<unsigned int, 6> spkr_vert_idx = 
+{   0, 1, 2, 
+    1, 2, 3,
+};
+std::vector<unsigned int> all_spkr_vert_idx;
+// Fill the vector with multiple copies of spkr_vert_idx
+for (int i = 0; i < (kfront_spkrs.size() + kside_spkrs.size() + krear_spkrs.size()); ++i) {
+    for (int j = 0; j < spkr_vert_idx.size(); ++j) {
+        all_spkr_vert_idx.push_back(spkr_vert_idx[j] + i * 4);
+    }
+}
 
 // Generate and bind VAO, VBO, and EBO
 unsigned int VAO, VBO, EBO;
@@ -77,12 +107,12 @@ glGenBuffers(1, &EBO);
 glBindVertexArray(VAO);
 
 glBindBuffer(GL_ARRAY_BUFFER, VBO);
-glBufferData(GL_ARRAY_BUFFER, spkr_verts.size() * sizeof(glm::vec3), spkr_verts.data(), GL_STATIC_DRAW);
+glBufferData(GL_ARRAY_BUFFER, all_speaker_verts.size() * sizeof(glm::vec3), all_speaker_verts.data(), GL_STATIC_DRAW);
 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 glEnableVertexAttribArray(0);
 
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(spkr_vert_idx), spkr_vert_idx.data(), GL_STATIC_DRAW);
+glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(spkr_vert_idx) * all_spkr_vert_idx.size(), all_spkr_vert_idx.data(), GL_STATIC_DRAW);
 
 glm::mat4 model      = glm::mat4(1.0f);
 glm::mat4 view       = glm::mat4(1.0f);
@@ -93,6 +123,15 @@ model = glm::scale(model, glm::vec3(1.0f, 1.f, 1.3f));
 view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)) * glm::rotate(view, glm::radians(90.f), glm::vec3(1.f, 0.f, 0.f));
 
 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
+// Print projection matrix.
+std::cout << "Projection matrix: " << std::endl;
+for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 4; ++j) {
+        std::cout << projection[i][j] << " ";
+    }
+    std::cout << std::endl;
+}
 
 // Main render loop
 while (!glfwWindowShouldClose(window)) {
@@ -111,9 +150,14 @@ while (!glfwWindowShouldClose(window)) {
     ourShader.setMat4("view", view);
     ourShader.setMat4("projection", projection);
 
+    // Set speaker colour.
+    double  timeValue = glfwGetTime();
+    float greenValue = static_cast<float>(sin(timeValue) / 2.0 + 0.5);
+    ourShader.setVec3("lightColour", glm::vec3(0.0f, greenValue, 0.0f));
+
     // Bind VAO and draw
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, all_spkr_vert_idx.size(), GL_UNSIGNED_INT, 0);
 
     // Swap buffers and poll events
     glfwSwapBuffers(window);
