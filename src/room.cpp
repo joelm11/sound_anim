@@ -58,7 +58,7 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader ourShader("/Users/joelm/Downloads/joelgl 2/src/room.vs", "/Users/joelm/Downloads/joelgl 2/src/room.fs");
+    Shader ourShader("/Users/joelm/Desktop/joelgl 2/src/room.vs", "/Users/joelm/Desktop/joelgl 2/src/room.fs");
     std::cout << "Built shaders\n";
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -104,7 +104,7 @@ int main()
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load(std::string("/Users/joelm/Downloads/joelgl 2/resources/textures/RoomTexture3.png").c_str(), &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(std::string("/Users/joelm/Desktop/joelgl 2/resources/textures/RoomTexture3.png").c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -184,15 +184,15 @@ int main()
         float aspectRatio = (float)SCR_WIDTH / (float)SCR_HEIGHT;
         projection = glm::ortho(-orthoScale * aspectRatio, orthoScale * aspectRatio, -orthoScale, orthoScale, 0.1f, 100.0f);
 
-        // Print the final transform matrix.
-        std::cout << "MVP matrix: " << std::endl;
-        auto mvp =  projection * view * model;
-        for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 4; ++j) {
-                std::cout << mvp[i][j] << " ";
-            }
-            std::cout << std::endl;
-        } 
+        // // Print the final transform matrix.
+        // std::cout << "MVP matrix: " << std::endl;
+        // auto mvp =  projection * view * model;
+        // for (int i = 0; i < 4; ++i) {
+        //     for (int j = 0; j < 4; ++j) {
+        //         std::cout << mvp[i][j] << " ";
+        //     }
+        //     std::cout << std::endl;
+        // } 
 
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         ourShader.setMat4("model", model);
