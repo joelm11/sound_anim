@@ -4,7 +4,7 @@
         "name": "Window Debug",
         "type": "cppdbg",
         "request": "launch",
-        "program": "/Users/joelm/Downloads/joelgl 2/build/window",
+        "program": "/Users/joelm/Desktop/joelgl 2/build/window",
         "args": [],
         "stopAtEntry": false,
         "cwd": ".",

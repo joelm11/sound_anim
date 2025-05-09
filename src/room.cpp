@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "shader_m.h"
+#include "speaker_points/speaker_dbs.hpp"
 #include "speaker_points/speaker_points.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -85,14 +86,15 @@ int main() {
   std::cout << "Built shaders\n";
 
   // Calculate speaker uniform source positions
-  const std::vector<glm::vec3> spkrPos = {sphericalToCartesian(1.f, 30.f, 0.f),
-                                          sphericalToCartesian(1.f, -30.f, 0.f),
-                                          sphericalToCartesian(1.f, 0.f, 0.f)};
+  const std::vector<glm::vec3> spkrPos = {
+      sphericalToCartesian(1.f, 30.f, 0.f),
+      sphericalToCartesian(1.f, -30.f, 0.f),
+      // sphericalToCartesian(1.f, 0.f, 0.f)
+  };
   // Calculate speaker loudnesses
-  const std::vector<float> spkrDb = {
-      1.f,
-      .3f,
-      .5f,
+  std::vector<float> spkrDb = {
+      1.f, .3f,
+      // .5f,
   };
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -127,6 +129,11 @@ int main() {
   std::cout << "Finished init\n";
 
   const double kStartTime = glfwGetTime(); // Get the start time
+  LoudnessGenerator loudnessGenerator(
+      "resources/audio/Mau P - Gimme That Bounce (Official Video).wav", .1);
+
+  LoudnessEpoch loudnessEpoch = loudnessGenerator.nextLoudnessEpoch();
+
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
@@ -134,6 +141,17 @@ int main() {
     double currentTime = glfwGetTime();
     float time = static_cast<float>(currentTime - kStartTime);
     ourShader.setFloat("u_time", time); // Set the time uniform
+
+    if (time > loudnessEpoch.timeStamp) {
+      for (const auto db : loudnessEpoch.speakerDbs) {
+        std::cout << db << "\t";
+      }
+      std::cout << std::endl;
+      // Do a size check here later for safety!
+      ourShader.setFloatArray("u_spkrDb", loudnessEpoch.speakerDbs.data(),
+                              loudnessEpoch.speakerDbs.size());
+      loudnessEpoch = loudnessGenerator.nextLoudnessEpoch();
+    }
 
     // input
     // -----
