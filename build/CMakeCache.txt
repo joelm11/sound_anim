@@ -14,8 +14,23 @@
 # EXTERNAL cache entries
 ########################
 
+//Value Computed by CMake
+AudioFile_BINARY_DIR:STATIC=/Users/joelm/Desktop/joelgl 2/build/external/AudioFile
+
+//Value Computed by CMake
+AudioFile_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+AudioFile_SOURCE_DIR:STATIC=/Users/joelm/Desktop/joelgl 2/external/AudioFile
+
+//Build examples
+BUILD_EXAMPLES:BOOL=ON
+
 //Build shared libraries
 BUILD_SHARED_LIBS:BOOL=OFF
+
+//Build tests
+BUILD_TESTS:BOOL=ON
 
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=CMAKE_ADDR2LINE-NOTFOUND
@@ -517,7 +532,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
