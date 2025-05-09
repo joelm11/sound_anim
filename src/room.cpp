@@ -18,6 +18,15 @@
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
+void glParams() {
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    
+    // Enable depth test
+    // glEnable(GL_DEPTH_TEST);
+
+    // // Accept fragment if it closer to the camera than the former one
+    // glDepthFunc(GL_LESS);
+}
 
 // settings
 const unsigned int SCR_WIDTH = 720;
@@ -63,34 +72,33 @@ int main()
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    const float *source_verts = kside_room;
-    float vertices[150];
-    std::copy(source_verts, source_verts + 150, vertices);
+    const int kNumPoints = 150;
+    auto spherePoints = generateFibonacciSpherePoints(kNumPoints);
 
-    unsigned int room_vert_buffer, VAO;
+    unsigned int sphere_vert_buffer, VAO;
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &room_vert_buffer);
+    glGenBuffers(1, &sphere_vert_buffer);
 
     glBindVertexArray(VAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, room_vert_buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
+    glBindBuffer(GL_ARRAY_BUFFER, sphere_vert_buffer);
+    glBufferData(GL_ARRAY_BUFFER, spherePoints.size() * sizeof(glm::vec3), spherePoints.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
+    glParams();
     std::cout << "Finished init\n";
-
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    // Enable depth test
-    glEnable(GL_DEPTH_TEST);
 
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        // activate shader
+        ourShader.use();
+
         // input
         // -----
         processInput(window);
@@ -98,12 +106,9 @@ int main()
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        // Accept fragment if it closer to the camera than the former one
-        glDepthFunc(GL_LESS);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
 
-        // activate shader
-        ourShader.use();
 
         // create transformations
         glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
@@ -125,7 +130,8 @@ int main()
 
         // render container
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 30);
+        glPointSize(7.f);
+        glDrawArrays(GL_POINTS, 0, kNumPoints);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -136,7 +142,7 @@ int main()
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &room_vert_buffer);
+    glDeleteBuffers(1, &sphere_vert_buffer);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
