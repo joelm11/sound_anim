@@ -1,5 +1,5 @@
 #version 330 core
-#define NUM_SPKRS 2
+#define NUM_SPKRS 3
 layout(location = 0) in vec3 a_position; // Base position of the point
 
 uniform mat4 u_model;
@@ -13,7 +13,6 @@ out float v_displacementMagnitude;
 
 void main() {
     // --- Wave Simulation Parameters ---
-    // const vec3 waveOrigin = vec3(0.0, 1.0, 0.0); // Top of the sphere (assuming Y is up)
     const float waveSpeed = 1.0; // How fast the wave propagates radially (adjust as needed)
     const float maxInitialDisplacement = 0.5; // Maximum displacement amplitude at the origin
     const float spatialDecayRate = 10.0; // Controls how quickly the displacement decays with distance FROM wave center
@@ -25,9 +24,9 @@ void main() {
 
     // Calculate displacement from each audio source
     vec3 displacedPosition = basePosition;
-    for(int i = 0; i < 1; ++i) {
-        // vec3 waveOrigin = u_spkrPos[0];
-        vec3 waveOrigin = vec3(0, 1, 0);
+    float signedDisplacementMagnitude = 0.0;
+    for(int i = 0; i < NUM_SPKRS; ++i) {
+        vec3 waveOrigin = u_spkrPos[i];
         // --- Calculate Surface Distance from Point to Wave Origin (Top) ---
         float dot_product = dot(normalize(basePosition), normalize(waveOrigin));
         dot_product = clamp(dot_product, -1.0, 1.0);
@@ -52,17 +51,17 @@ void main() {
         float timeOscillation = sin(u_time * oscillationFrequency);
 
         // Combine factors to get the signed displacement magnitude
-        float signedDisplacementMagnitude = maxInitialDisplacement * propagationDecay * spatialStrength * timeOscillation;
+        signedDisplacementMagnitude = signedDisplacementMagnitude + maxInitialDisplacement * propagationDecay * spatialStrength * timeOscillation;
 
         // Calculate the final displaced position
         // Displacement direction is outwards along the normal (normalized base position)
         vec3 displacementDirection = normalize(basePosition);
-        vec3 displacedPosition = displacedPosition + displacementDirection * signedDisplacementMagnitude;
-
-         // Pass the absolute displacement magnitude to the fragment shader
-        v_displacementMagnitude = abs(signedDisplacementMagnitude);
-
-        // Apply Model, View, and Projection matrices
-        gl_Position = u_projection * u_view * u_model * vec4(displacedPosition, 1.0);
+        displacedPosition = displacedPosition + displacementDirection * signedDisplacementMagnitude;
     }
+
+    // Pass the absolute displacement magnitude to the fragment shader
+    v_displacementMagnitude = abs(signedDisplacementMagnitude);
+
+    // Apply Model, View, and Projection matrices
+    gl_Position = u_projection * u_view * u_model * vec4(displacedPosition, 1.0);
 }

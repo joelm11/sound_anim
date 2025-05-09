@@ -85,12 +85,11 @@ int main() {
   std::cout << "Built shaders\n";
 
   // Calculate and set speaker uniform source positions
-  // const std::vector<glm::vec3> spkrPos = {
-  //     sphericalToCartesian(1.f, 0.f, 30.f),
-  //     sphericalToCartesian(1.f, 0.f, -30.f)};
-  const std::vector<glm::vec3> spkrPos = {{0.f, 1.f, 0.f}};
-  ourShader.setVec3Array("u_spkrPos[NUM_SPKRS]", spkrPos.data(),
-                         spkrPos.size());
+  const std::vector<glm::vec3> spkrPos = {
+      sphericalToCartesian(1.f, 30.f, 0.f),
+      sphericalToCartesian(1.f, -30.f, 0.f),
+      // sphericalToCartesian(1.f, 0.f, 0.f)
+  };
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
@@ -118,6 +117,8 @@ int main() {
   glParams();
   ourShader.use();
   setMVP(ourShader);
+  // Set speaker source positions.
+  ourShader.setVec3Array("u_spkrPos", spkrPos.data(), spkrPos.size());
   std::cout << "Finished init\n";
 
   const double kStartTime = glfwGetTime(); // Get the start time
