@@ -1,3 +1,5 @@
+#include "glm/ext/vector_float3.hpp"
+#include <vector>
 #define GL_SILENCE_DEPRECATION
 #define GLFW_INCLUDE_NONE
 #include "glm/ext/matrix_clip_space.hpp"
@@ -5,8 +7,8 @@
 #include "glm/trigonometric.hpp"
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include "room_vertices.hpp"
 #include "shader_m.h"
+#include "speaker_points/speaker_points.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -82,10 +84,19 @@ int main() {
                    "/Users/joelm/Desktop/joelgl 2/src/room.fs");
   std::cout << "Built shaders\n";
 
+  // Calculate and set speaker uniform source positions
+  // const std::vector<glm::vec3> spkrPos = {
+  //     sphericalToCartesian(1.f, 0.f, 30.f),
+  //     sphericalToCartesian(1.f, 0.f, -30.f)};
+  const std::vector<glm::vec3> spkrPos = {{0.f, 1.f, 0.f}};
+  ourShader.setVec3Array("u_spkrPos[NUM_SPKRS]", spkrPos.data(),
+                         spkrPos.size());
+
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
   const int kNumPoints = 1000;
-  auto spherePoints = generateFibonacciSpherePoints(kNumPoints);
+  std::vector<glm::vec3> spherePoints =
+      generateFibonacciSpherePoints(kNumPoints);
 
   unsigned int sphere_vert_buffer, VAO;
   glGenVertexArrays(1, &VAO);
