@@ -1,10 +1,11 @@
+// Vertex Shader (room.vs)
 #version 330 core
 layout(location = 0) in vec3 a_position; // Base position of the point
 
 uniform mat4 u_model;
 uniform mat4 u_view;
 uniform mat4 u_projection;
-uniform float u_time;
+uniform float u_time; // Time uniform for animation
 
 void main() {
     // Base position is on the unit sphere
@@ -12,64 +13,52 @@ void main() {
 
     // --- Wave Simulation Parameters ---
     vec3 waveOrigin = vec3(0.0, 1.0, 0.0); // Top of the sphere (assuming Y is up)
-    float waveSpeed = 0.5; // How fast the wave propagates across the surface (adjust as needed)
+    float waveSpeed = 1.0; // How fast the wave propagates radially (adjust as needed)
     float maxDisplacement = 0.5; // Maximum displacement magnitude
-    float decayRate = 20.0; // Controls how quickly the displacement decays with distance
-    float waveWidth = 0.4; // Controls the width of the wave's influence zone
-    float waveAmp = 0.5;
+    float decayRate = 20.0; // Controls how quickly the displacement decays with distance from wave center
+    float oscillationFrequency = 5.0; // Controls how fast points oscillate up/down over time
 
-    // --- Calculate Surface Distance from Point to Wave Origin ---
+    // --- Calculate Surface Distance from Point to Wave Origin (Top) ---
     // Distance on a unit sphere's surface is the angle between the normalized vectors
     // Use the dot product and acos to find the angle in radians
-    float angleFromOrigin = waveAmp * acos(dot(normalize(basePosition), normalize(waveOrigin)));
+    // Clamp dot product to avoid issues with floating point precision near 1 or -1
+    float dot_product = dot(normalize(basePosition), normalize(waveOrigin));
+    dot_product = clamp(dot_product, -1.0, 1.0);
+    float angleFromOrigin = acos(dot_product); // Angle in radians (distance from top pole on surface)
 
-    // --- Calculate Wave Position and Influence ---
-    // The wave front propagates outwards from the origin over time
-    float currentWaveDistance = mod(u_time * waveSpeed, 2.0 * 3.14159); // Wave wraps around the sphere horizontally based on angle
+    // --- Calculate Wave's Current Radial Position ---
+    // The wave front propagates outwards from the origin over time (from angle 0 towards PI)
+    // Use mod to make the wave wrap around the sphere vertically (e.g., resurface from bottom)
+    float waveRadialPos = mod(u_time * waveSpeed, 2.0 * 3.14159); // Wave wraps around the full circle
 
-    // Calculate the distance of the point from the current wave front
-    // We'll consider the wave propagating radially outwards from the top (angle 0)
-    // The distance on the surface is the angle itself
-    float distanceToWaveFront = abs(angleFromOrigin - currentWaveDistance);
+    // Consider a simpler wrap that resets after reaching the bottom (PI)
+    // float waveRadialPos = mod(u_time * waveSpeed, 3.14159); // Wave travels from top to bottom
 
-    // Account for wrapping around the sphere for shortest distance
-    distanceToWaveFront = min(distanceToWaveFront, 2.0 * 3.14159 - distanceToWaveFront);
+    // --- Calculate Distance of Point from Current Wave Radial Position ---
+    // How far is the point's angleFromOrigin from the current wave's radial position?
+    float distanceToWave = abs(angleFromOrigin - waveRadialPos);
 
-    // --- Calculate Displacement ---
-    float displacement = 0.0;
+    // Account for wrap-around if using the full 2*PI modulation
+    distanceToWave = min(distanceToWave, 2.0 * 3.14159 - distanceToWave);
 
-    // Apply displacement only within a certain range around the wave front
-    // A simple approach is a smooth step or exponential decay within a window
-    if(distanceToWaveFront < waveWidth) {
-        //  // Calculate decay based on distance from the nearest edge of the wave front
-        // float decayDistance = distanceToWaveFront; // Decay based on distance to the wave front's center line
+    // --- Calculate Displacement Strength (Spatial and Temporal) ---
 
-        // // Simple exponential decay: displacement is highest at the wavefront (decayDistance=0) and drops off
-        // displacement = maxDisplacement * exp(-decayRate * decayDistance);
+    // Spatial decay: displacement strength based on distance from the wave's core
+    // Use an exponential decay (Gaussian-like shape)
+    float spatialStrength = exp(-decayRate * distanceToWave * distanceToWave); // Exponential of negative distance squared for sharper falloff
 
-        //  // You could also model a peak that travels, and decay based on distance from the peak:
-        // float peakDistance = u_time * waveSpeed; // Peak is at this distance from origin
-        // float distanceToPeak = abs(angleFromOrigin - peakDistance);
-        // distanceToPeak = min(distanceToPeak, 2.0 * 3.14159 - distanceToPeak);
-        // displacement = maxDisplacement * exp(-decayRate * distanceToPeak);
+    // Temporal oscillation: A sinusoidal function of time
+    // This makes the points oscillate up and down as the wave affects them
+    float timeOscillation = sin(u_time * oscillationFrequency);
 
-        //  // Or, create a pulse-like effect that travels:
-        // float pulsePosition = mod(u_time * waveSpeed, 2.0 * 3.14159 + waveWidth * 2.0) - waveWidth;
-        // float relativePosition = angleFromOrigin - pulsePosition;
-        // if(relativePosition > -waveWidth && relativePosition < waveWidth) {
-        //     // Simple linear falloff within the pulse width
-        //     float strength = 1.0 - abs(relativePosition) / waveWidth;
-        //     displacement = maxDisplacement * strength;
-        //     // Or exponential/smoothstep falloff
-        // }
-
-    }
+    // Combine spatial decay and temporal oscillation
+    float displacementMagnitude = maxDisplacement * spatialStrength * timeOscillation;
 
     // Direction of displacement is outwards along the normal (normalized base position)
     vec3 displacementDirection = normalize(basePosition);
 
     // Calculate the final displaced position
-    vec3 displacedPosition = basePosition + displacementDirection * displacement;
+    vec3 displacedPosition = basePosition + displacementDirection * displacementMagnitude;
 
     // Apply Model, View, and Projection matrices
     gl_Position = u_projection * u_view * u_model * vec4(displacedPosition, 1.0);
