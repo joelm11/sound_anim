@@ -14,6 +14,10 @@
 
 #include <iostream>
 
+// settings
+const unsigned int SCR_WIDTH = 720;
+const unsigned int SCR_HEIGHT = 546;
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 void glParams() {
@@ -25,10 +29,24 @@ void glParams() {
   // // Accept fragment if it closer to the camera than the former one
   // glDepthFunc(GL_LESS);
 }
+void setMVP(const Shader shader) {
+  glm::mat4 model, view, projection;
+  model = view = projection = glm::mat4(1.0f);
 
-// settings
-const unsigned int SCR_WIDTH = 720;
-const unsigned int SCR_HEIGHT = 546;
+  // Ortho-view.
+  model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, .0f));
+  model = glm::rotate(model, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+  view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+
+  // Constant.
+  projection = glm::perspective(
+      glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
+  // We set these uniforms once as our view is constant for now.
+  shader.setMat4("u_model", model);
+  shader.setMat4("u_view", view);
+  shader.setMat4("u_projection", projection);
+}
 
 int main() {
   // glfw: initialize and configure
@@ -87,19 +105,20 @@ int main() {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
 
+  // Set constants before loop like rendering params, MVP uniforms, and activate
+  // shader.
   glParams();
+  ourShader.use();
+  setMVP(ourShader);
   std::cout << "Finished init\n";
 
-  double startTime = glfwGetTime(); // Get the start time
+  const double kStartTime = glfwGetTime(); // Get the start time
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
     // calculate delta time
     double currentTime = glfwGetTime();
-    float time = static_cast<float>(currentTime - startTime);
-
-    // activate shader
-    ourShader.use();
+    float time = static_cast<float>(currentTime - kStartTime);
     ourShader.setFloat("u_time", time); // Set the time uniform
 
     // input
@@ -111,30 +130,6 @@ int main() {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    // create transformations
-    glm::mat4 model = glm::mat4(
-        1.0f); // make sure to initialize matrix to identity matrix first
-    glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 projection = glm::mat4(1.0f);
-
-    // Ortho-view.
-    model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, .0f));
-    model =
-        glm::rotate(model, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-
-    // Constant.
-    projection =
-        glm::perspective(glm::radians(45.0f),
-                         (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-
-    // note: currently we set the projection matrix each frame, but since the
-    // projection matrix rarely changes it's often best practice to set it
-    // outside the main loop only once.
-    ourShader.setMat4("model", model);
-    ourShader.setMat4("view", view);
-    ourShader.setMat4("projection", projection);
 
     // render container
     glBindVertexArray(VAO);
