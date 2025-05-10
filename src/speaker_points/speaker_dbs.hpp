@@ -57,7 +57,7 @@ public:
                   inFile.samples[ch][current_sample_idx];
       }
       float db = 10 * std::log10(sum_sq / static_cast<float>(samplesToRead));
-      ldness[ch] = db;
+      ldness[ch] = std::abs(db);
     }
 
     const float timeStamp = static_cast<float>(sampleIdx) / sampleRate;

@@ -1,37 +1,58 @@
 #version 330 core
+
+// Input varying variables from the vertex shader
+in float v_displacementMagnitude; // Absolute magnitude of the total displacement at this vertex
+in vec3 v_normal;                 // The recalculated normal vector of the displaced vertex (in a consistent space, e.g., World or View)
+
+// Output fragment color
 out vec4 FragColor;
 
-// Receive the interpolated absolute displacement magnitude from the vertex shader
-in float v_displacementMagnitude;
+// --- Lighting Uniforms ---
+// Assuming a simple directional light model for this example
+uniform vec3 u_lightDir;   // Direction *to* the light source (e.g., in the same space as v_normal)
+uniform vec3 u_lightColor; // Color/intensity of the light
+uniform vec3 u_ambientColor; // Ambient light color
+
+// --- Material/Coloring Uniforms ---
+uniform vec3 u_baseColor;       // Color for areas with low or no displacement
+uniform vec3 u_wavePeakColor;   // Color for areas with high displacement (wave crests/troughs)
+uniform float u_waveColorScale; // Scales the v_displacementMagnitude to map it to the [0, 1] range for color interpolation
+uniform float u_waveColorOffset; // Optional offset for the displacement mapping
 
 void main() {
-    // Use gl_PointCoord to make the points round
-    float distToCenter = distance(gl_PointCoord, vec2(0.5, 0.5));
-    if(distToCenter > 0.5) {
-        discard; // Discard fragments outside the circle
-    }
+    // --- Basic Lighting ---
+    // Ensure the normal is normalized (should be from VS, but good practice)
+    vec3 norm = normalize(v_normal);
+    vec3 lightDir = normalize(u_lightDir);
 
-    // --- Color based on Displacement ---
+    // Ambient component
+    vec3 ambient = u_ambientColor * u_baseColor; // Apply ambient light to the base color
 
-    // Define the base color (e.g., green)
-    vec3 baseColor = vec3(0.0, 1.0, 0.0);
+    // Diffuse component (Lambertian reflectance)
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = u_lightColor * u_baseColor * diff; // Apply diffuse light to the base color
 
-    // Define a color to blend towards at maximum displacement (e.g., yellow)
-    vec3 peakColor = vec3(1.0, 0.0, 0.0);
+    // Combine lighting for the base surface
+    vec3 baseLighting = ambient + diffuse;
 
-    // Estimate the maximum possible displacement magnitude
-    // This is tricky because it depends on the wave's current state and location.
-    // A safe upper bound is maxInitialDisplacement * 1.0 (when propagationDecay and spatialStrength are max)
-    // You might need to experiment to find a good value for normalization.
-    float maxExpectedDisplacement = .1; // Simple estimate
+    // --- Wave Coloring based on Displacement ---
 
-    // Normalize the current displacement magnitude to a 0-1 range
-    // Clamp to ensure it stays within 0-1 in case estimation is off
-    float colorMixFactor = clamp(v_displacementMagnitude / maxExpectedDisplacement, 0.0, 1.0);
+    // Map displacement magnitude to a value between 0 and 1
+    // Use scale and offset, then clamp to ensure it's in the [0, 1] range
+    float displacementFactor = clamp(v_displacementMagnitude * u_waveColorScale + u_waveColorOffset, 0.0, 1.0);
 
-    // Interpolate between the base color and the peak color based on the normalized displacement
-    vec3 finalColor = mix(baseColor, peakColor, colorMixFactor);
+    // Interpolate between the base color and the wave peak color
+    vec3 waveColor = mix(u_baseColor, u_wavePeakColor, displacementFactor);
 
-    // Set the final fragment color
-    FragColor = vec4(finalColor, 1.0); // Use 1.0 alpha for solid points
+    // --- Combine Lighting and Wave Coloring ---
+
+    // A simple way: use the wave color as the surface color and apply the base lighting to it.
+    // This makes the colors driven by displacement, and the shading driven by normals and light.
+    vec3 finalColor = waveColor * baseLighting;
+
+    // You could also blend the lighting results:
+    // vec3 waveLighting = u_lightColor * u_wavePeakColor * diff; // Simplified diffuse for wave peaks
+    // vec3 finalColor = mix(baseLighting, ambient + waveLighting, displacementFactor); // Mix base lighting with wave lighting
+
+    FragColor = vec4(finalColor, 1.0); // Output the final color
 }

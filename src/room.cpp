@@ -126,6 +126,12 @@ int main() {
   setMVP(ourShader);
   ourShader.setVec3Array("u_spkrPos", spkrPos.data(), spkrPos.size());
   ourShader.setFloatArray("u_spkrDb", spkrDb.data(), spkrDb.size());
+  // Wave uniforms
+  ourShader.setFloat("u_waveSpeed", 1);
+  ourShader.setFloat("u_maxOverallDisplacement", 1);
+  ourShader.setFloat("u_spatialDecayRate", 1);
+  ourShader.setFloat("u_sourceDecayRate", 1);
+  ourShader.setFloat("u_oscillationFrequency", 1);
   std::cout << "Finished init\n";
 
   const double kStartTime = glfwGetTime(); // Get the start time
@@ -148,7 +154,8 @@ int main() {
       }
       std::cout << std::endl;
       // Do a size check here later for safety!
-      ourShader.setFloatArray("u_spkrDb", loudnessEpoch.speakerDbs.data(),
+      ourShader.setFloatArray("u_spkrAmplitude",
+                              loudnessEpoch.speakerDbs.data(),
                               loudnessEpoch.speakerDbs.size());
       loudnessEpoch = loudnessGenerator.nextLoudnessEpoch();
     }
