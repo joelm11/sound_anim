@@ -126,12 +126,25 @@ int main() {
   setMVP(ourShader);
   ourShader.setVec3Array("u_spkrPos", spkrPos.data(), spkrPos.size());
   ourShader.setFloatArray("u_spkrDb", spkrDb.data(), spkrDb.size());
-  // Wave uniforms
+  // Vertex wave uniforms
+  //   const float waveSpeed = 1.0;
+  // const float maxInitialDisplacement = 0.5;
+  // const float spatialDecayRate = 10.0;
+  // const float propagationDecayRate = 1.5;
+  // const float oscillationFrequency = 10.0;
   ourShader.setFloat("u_waveSpeed", 1);
-  ourShader.setFloat("u_maxOverallDisplacement", 1);
-  ourShader.setFloat("u_spatialDecayRate", 1);
-  ourShader.setFloat("u_sourceDecayRate", 1);
-  ourShader.setFloat("u_oscillationFrequency", 1);
+  ourShader.setFloat("u_maxOverallDisplacement", .6);
+  ourShader.setFloat("u_spatialDecayRate", 2.0);
+  ourShader.setFloat("u_sourceDecayRate", 1.5);
+  ourShader.setFloat("u_oscillationFrequency", 2.0);
+  // Fragment uniforms
+  ourShader.setVec3("u_lightDir", glm::vec3(-1.f, 0.f, -1.f));
+  ourShader.setVec3("u_lightColor", glm::vec3(1.f, 1.f, 0.5f));
+  ourShader.setVec3("u_ambientColor", glm::vec3(0.f, 1.f, 1.f));
+  ourShader.setVec3("u_baseColor", glm::vec3(0.161, 0.793, 0.850));
+  ourShader.setVec3("u_wavePeakColor", glm::vec3(0.850, 0.302, 0.0850));
+  ourShader.setFloat("u_waveColorScale", 1.f);
+  // ourShader.setFloat("u_waveColorOffset", );
   std::cout << "Finished init\n";
 
   const double kStartTime = glfwGetTime(); // Get the start time
