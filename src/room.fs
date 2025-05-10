@@ -20,6 +20,12 @@ uniform float u_waveColorScale; // Scales the v_displacementMagnitude to map it 
 uniform float u_waveColorOffset; // Optional offset for the displacement mapping
 
 void main() {
+    // Use gl_PointCoord to make the points round
+    float distToCenter = distance(gl_PointCoord, vec2(0.5, 0.5));
+    if(distToCenter > 0.5) {
+        discard; // Discard fragments outside the circle
+    }
+
     // --- Basic Lighting ---
     // Ensure the normal is normalized (should be from VS, but good practice)
     vec3 norm = normalize(v_normal);

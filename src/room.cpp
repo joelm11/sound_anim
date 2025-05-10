@@ -99,7 +99,7 @@ int main() {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-  const int kNumPoints = 1000;
+  const int kNumPoints = 2048;
   std::vector<glm::vec3> spherePoints =
       generateFibonacciSpherePoints(kNumPoints);
 
@@ -133,23 +133,25 @@ int main() {
   // const float propagationDecayRate = 1.5;
   // const float oscillationFrequency = 10.0;
   ourShader.setFloat("u_waveSpeed", 1);
-  ourShader.setFloat("u_maxOverallDisplacement", .6);
+  ourShader.setFloat("u_maxOverallDisplacement", .3);
   ourShader.setFloat("u_spatialDecayRate", 2.0);
   ourShader.setFloat("u_sourceDecayRate", 1.5);
   ourShader.setFloat("u_oscillationFrequency", 2.0);
   // Fragment uniforms
   ourShader.setVec3("u_lightDir", glm::vec3(-1.f, 0.f, -1.f));
-  ourShader.setVec3("u_lightColor", glm::vec3(1.f, 1.f, 0.5f));
+  ourShader.setVec3("u_lightColor", glm::vec3(1.f, 1.f, 1.f));
   ourShader.setVec3("u_ambientColor", glm::vec3(0.f, 1.f, 1.f));
-  ourShader.setVec3("u_baseColor", glm::vec3(0.161, 0.793, 0.850));
+  ourShader.setVec3("u_baseColor", glm::vec3(0.153, 0.0936, 0.390));
   ourShader.setVec3("u_wavePeakColor", glm::vec3(0.850, 0.302, 0.0850));
   ourShader.setFloat("u_waveColorScale", 1.f);
   // ourShader.setFloat("u_waveColorOffset", );
   std::cout << "Finished init\n";
 
   const double kStartTime = glfwGetTime(); // Get the start time
+  const float kEpochTime = 1.0f;           // Perfect.
   LoudnessGenerator loudnessGenerator(
-      "resources/audio/Mau P - Gimme That Bounce (Official Video).wav", .1);
+      "resources/audio/Mau P - Gimme That Bounce (Official Video).wav",
+      kEpochTime);
 
   LoudnessEpoch loudnessEpoch = loudnessGenerator.nextLoudnessEpoch();
 
@@ -162,10 +164,10 @@ int main() {
     ourShader.setFloat("u_time", time); // Set the time uniform
 
     if (time > loudnessEpoch.timeStamp) {
-      for (const auto db : loudnessEpoch.speakerDbs) {
-        std::cout << db << "\t";
-      }
-      std::cout << std::endl;
+      // for (const auto db : loudnessEpoch.speakerDbs) {
+      //   // std::cout << db << "\t";
+      // }
+      // std::cout << std::endl;
       // Do a size check here later for safety!
       ourShader.setFloatArray("u_spkrAmplitude",
                               loudnessEpoch.speakerDbs.data(),
