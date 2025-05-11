@@ -142,13 +142,13 @@ int main() {
   ourShader.setVec3("u_lightColor", glm::vec3(1.f, 1.f, 1.f));
   ourShader.setVec3("u_ambientColor", glm::vec3(0.f, 1.f, 1.f));
   ourShader.setVec3("u_baseColor", glm::vec3(0.153, 0.0936, 0.390));
-  ourShader.setVec3("u_wavePeakColor", glm::vec3(0.850, 0.302, 0.0850));
-  ourShader.setFloat("u_waveColorScale", 1.f);
+  ourShader.setVec3("u_wavePeakColor", glm::vec3(0.850, 0, 0));
+  ourShader.setFloat("u_waveColorScale", 5.f);
   // ourShader.setFloat("u_waveColorOffset", );
   std::cout << "Finished init\n";
 
   const double kStartTime = glfwGetTime(); // Get the start time
-  const float kEpochTime = 1.0f;           // Perfect.
+  const float kEpochTime = 0.03f;          // Perfect.
   LoudnessGenerator loudnessGenerator(
       "resources/audio/Mau P - Gimme That Bounce (Official Video).wav",
       kEpochTime);
@@ -164,11 +164,6 @@ int main() {
     ourShader.setFloat("u_time", time); // Set the time uniform
 
     if (time > loudnessEpoch.timeStamp) {
-      // for (const auto db : loudnessEpoch.speakerDbs) {
-      //   // std::cout << db << "\t";
-      // }
-      // std::cout << std::endl;
-      // Do a size check here later for safety!
       ourShader.setFloatArray("u_spkrAmplitude",
                               loudnessEpoch.speakerDbs.data(),
                               loudnessEpoch.speakerDbs.size());
