@@ -10,13 +10,11 @@ add_subdirectory(external/glfw-3.4)
 add_subdirectory(external/glad)
 add_subdirectory(external/stb)
 add_subdirectory(external/glm-1.0.1)
-add_subdirectory(external/AudioFile)
 
-add_executable(window src/room.cpp src/shaders/shader_m.h src/speaker_points/speaker_dbs.hpp)
+add_executable(window src/main.cpp src/shaders/shader_m.h )
 target_link_libraries(window 
     PUBLIC
         glfw
         glad
         stb
-        glm
-        AudioFile)
+        glm)

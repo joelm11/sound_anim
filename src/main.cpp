@@ -9,8 +9,6 @@
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "shaders/shader_m.h"
-#include "speaker_points/speaker_dbs.hpp"
-#include "speaker_points/speaker_points.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -86,37 +84,20 @@ int main() {
   const std::string vsPath = "src/shaders/waves.vs";
   const std::string fsPath = "src/shaders/waves.fs";
   Shader ourShader(cwd / vsPath, cwd / fsPath);
-  std::cout << "Built shaders\n";
-
-  // Calculate speaker uniform source positions
-  const std::vector<glm::vec3> spkrPos = {
-      sphericalToCartesian(1.f, 30.f, 0.f),
-      sphericalToCartesian(1.f, -30.f, 0.f),
-      // sphericalToCartesian(1.f, 0.f, 0.f)
-  };
-  // Calculate speaker loudnesses
-  std::vector<float> spkrDb = {
-      1.f, .3f,
-      // .5f,
-  };
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-  const int kNumPoints = 2048;
-  std::vector<glm::vec3> spherePoints =
-      generateFibonacciSpherePoints(kNumPoints);
-
-  unsigned int sphere_vert_buffer, VAO;
+  unsigned int vert_buffer, VAO;
   glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &sphere_vert_buffer);
+  glGenBuffers(1, &vert_buffer);
 
   glBindVertexArray(VAO);
 
-  glBindBuffer(GL_ARRAY_BUFFER, sphere_vert_buffer);
-  glBufferData(GL_ARRAY_BUFFER, spherePoints.size() * sizeof(glm::vec3),
-               spherePoints.data(), GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-  glEnableVertexAttribArray(0);
+  // glBindBuffer(GL_ARRAY_BUFFER, vert_buffer);
+  // glBufferData(GL_ARRAY_BUFFER, spherePoints.size() * sizeof(glm::vec3),
+  //              spherePoints.data(), GL_STATIC_DRAW);
+  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void
+  // *)0); glEnableVertexAttribArray(0);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
@@ -127,52 +108,9 @@ int main() {
   ourShader.use();
   // Set uniforms
   setMVP(ourShader);
-  ourShader.setVec3Array("u_spkrPos", spkrPos.data(), spkrPos.size());
-  ourShader.setFloatArray("u_spkrDb", spkrDb.data(), spkrDb.size());
-  // Vertex wave uniforms
-  //   const float waveSpeed = 1.0;
-  // const float maxInitialDisplacement = 0.5;
-  // const float spatialDecayRate = 10.0;
-  // const float propagationDecayRate = 1.5;
-  // const float oscillationFrequency = 10.0;
-  ourShader.setFloat("u_waveSpeed", 1);
-  ourShader.setFloat("u_maxOverallDisplacement", .3);
-  ourShader.setFloat("u_spatialDecayRate", 2.0);
-  ourShader.setFloat("u_sourceDecayRate", 1.5);
-  ourShader.setFloat("u_oscillationFrequency", 2.0);
-  // Fragment uniforms
-  ourShader.setVec3("u_lightDir", glm::vec3(-1.f, 0.f, -1.f));
-  ourShader.setVec3("u_lightColor", glm::vec3(1.f, 1.f, 1.f));
-  ourShader.setVec3("u_ambientColor", glm::vec3(0.f, 1.f, 1.f));
-  ourShader.setVec3("u_baseColor", glm::vec3(0.153, 0.0936, 0.390));
-  ourShader.setVec3("u_wavePeakColor", glm::vec3(0.850, 0, 0));
-  ourShader.setFloat("u_waveColorScale", 5.f);
-  // ourShader.setFloat("u_waveColorOffset", );
-  std::cout << "Finished init\n";
-
-  const double kStartTime = glfwGetTime(); // Get the start time
-  const float kEpochTime = 0.03f;          // Perfect.
-  LoudnessGenerator loudnessGenerator(
-      "resources/audio/Mau P - Gimme That Bounce (Official Video).wav",
-      kEpochTime);
-
-  LoudnessEpoch loudnessEpoch = loudnessGenerator.nextLoudnessEpoch();
-
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
-    // calculate delta time
-    double currentTime = glfwGetTime();
-    float time = static_cast<float>(currentTime - kStartTime);
-    ourShader.setFloat("u_time", time); // Set the time uniform
-
-    if (time > loudnessEpoch.timeStamp) {
-      ourShader.setFloatArray("u_spkrAmplitude",
-                              loudnessEpoch.speakerDbs.data(),
-                              loudnessEpoch.speakerDbs.size());
-      loudnessEpoch = loudnessGenerator.nextLoudnessEpoch();
-    }
-
     // input
     // -----
     processInput(window);
@@ -185,7 +123,7 @@ int main() {
     // render container
     glBindVertexArray(VAO);
     glPointSize(7.f);
-    glDrawArrays(GL_POINTS, 0, kNumPoints);
+    // glDrawArrays(GL_POINTS, 0, kNumPoints);
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)
@@ -197,7 +135,7 @@ int main() {
   // optional: de-allocate all resources once they've outlived their purpose:
   // ------------------------------------------------------------------------
   glDeleteVertexArrays(1, &VAO);
-  glDeleteBuffers(1, &sphere_vert_buffer);
+  glDeleteBuffers(1, &vert_buffer);
 
   // glfw: terminate, clearing all previously allocated GLFW resources.
   // ------------------------------------------------------------------

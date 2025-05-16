@@ -1,9 +1,9 @@
 [
 {
   "directory": "/Users/joelm/Desktop/sound_anim/build",
-  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glfw-3.4/include -I/Users/joelm/Desktop/sound_anim/external/glad/include -I/Users/joelm/Desktop/sound_anim/external/stb/include -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/window.dir/src/room.cpp.o -c /Users/joelm/Desktop/sound_anim/src/room.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/src/room.cpp",
-  "output": "CMakeFiles/window.dir/src/room.cpp.o"
+  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glfw-3.4/include -I/Users/joelm/Desktop/sound_anim/external/glad/include -I/Users/joelm/Desktop/sound_anim/external/stb/include -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=gnu++20 -arch arm64 -o CMakeFiles/window.dir/src/main.cpp.o -c /Users/joelm/Desktop/sound_anim/src/main.cpp",
+  "file": "/Users/joelm/Desktop/sound_anim/src/main.cpp",
+  "output": "CMakeFiles/window.dir/src/main.cpp.o"
 },
 {
   "directory": "/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src",
@@ -142,47 +142,5 @@
   "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=c++20 -arch arm64 -Wno-c++98-compat -Wno-c++98-compat-pedantic -o CMakeFiles/glm.dir/detail/glm.cpp.o -c /Users/joelm/Desktop/sound_anim/external/glm-1.0.1/glm/detail/glm.cpp",
   "file": "/Users/joelm/Desktop/sound_anim/external/glm-1.0.1/glm/detail/glm.cpp",
   "output": "external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o"
-},
-{
-  "directory": "/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples",
-  "command": "/usr/bin/clang++ -DPROJECT_BINARY_DIR=\\\"/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples\\\" -D_USE_MATH_DEFINES -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/Example.dir/examples.cpp.o -c /Users/joelm/Desktop/sound_anim/external/AudioFile/examples/examples.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/external/AudioFile/examples/examples.cpp",
-  "output": "external/AudioFile/examples/CMakeFiles/Example.dir/examples.cpp.o"
-},
-{
-  "directory": "/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests",
-  "command": "/usr/bin/clang++ -DPROJECT_BINARY_DIR=\\\"/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests\\\" -D_USE_MATH_DEFINES -I/Users/joelm/Desktop/sound_anim/external/AudioFile/tests -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/Tests.dir/AiffLoadingTests.cpp.o -c /Users/joelm/Desktop/sound_anim/external/AudioFile/tests/AiffLoadingTests.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/external/AudioFile/tests/AiffLoadingTests.cpp",
-  "output": "external/AudioFile/tests/CMakeFiles/Tests.dir/AiffLoadingTests.cpp.o"
-},
-{
-  "directory": "/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests",
-  "command": "/usr/bin/clang++ -DPROJECT_BINARY_DIR=\\\"/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests\\\" -D_USE_MATH_DEFINES -I/Users/joelm/Desktop/sound_anim/external/AudioFile/tests -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/Tests.dir/FileWritingTests.cpp.o -c /Users/joelm/Desktop/sound_anim/external/AudioFile/tests/FileWritingTests.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/external/AudioFile/tests/FileWritingTests.cpp",
-  "output": "external/AudioFile/tests/CMakeFiles/Tests.dir/FileWritingTests.cpp.o"
-},
-{
-  "directory": "/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests",
-  "command": "/usr/bin/clang++ -DPROJECT_BINARY_DIR=\\\"/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests\\\" -D_USE_MATH_DEFINES -I/Users/joelm/Desktop/sound_anim/external/AudioFile/tests -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/Tests.dir/GeneralTests.cpp.o -c /Users/joelm/Desktop/sound_anim/external/AudioFile/tests/GeneralTests.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/external/AudioFile/tests/GeneralTests.cpp",
-  "output": "external/AudioFile/tests/CMakeFiles/Tests.dir/GeneralTests.cpp.o"
-},
-{
-  "directory": "/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests",
-  "command": "/usr/bin/clang++ -DPROJECT_BINARY_DIR=\\\"/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests\\\" -D_USE_MATH_DEFINES -I/Users/joelm/Desktop/sound_anim/external/AudioFile/tests -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/Tests.dir/SampleConversionTests.cpp.o -c /Users/joelm/Desktop/sound_anim/external/AudioFile/tests/SampleConversionTests.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/external/AudioFile/tests/SampleConversionTests.cpp",
-  "output": "external/AudioFile/tests/CMakeFiles/Tests.dir/SampleConversionTests.cpp.o"
-},
-{
-  "directory": "/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests",
-  "command": "/usr/bin/clang++ -DPROJECT_BINARY_DIR=\\\"/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests\\\" -D_USE_MATH_DEFINES -I/Users/joelm/Desktop/sound_anim/external/AudioFile/tests -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/Tests.dir/WavLoadingTests.cpp.o -c /Users/joelm/Desktop/sound_anim/external/AudioFile/tests/WavLoadingTests.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/external/AudioFile/tests/WavLoadingTests.cpp",
-  "output": "external/AudioFile/tests/CMakeFiles/Tests.dir/WavLoadingTests.cpp.o"
-},
-{
-  "directory": "/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests",
-  "command": "/usr/bin/clang++ -DPROJECT_BINARY_DIR=\\\"/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests\\\" -D_USE_MATH_DEFINES -I/Users/joelm/Desktop/sound_anim/external/AudioFile/tests -I/Users/joelm/Desktop/sound_anim/external/AudioFile -g -std=gnu++20 -arch arm64 -o CMakeFiles/Tests.dir/main.cpp.o -c /Users/joelm/Desktop/sound_anim/external/AudioFile/tests/main.cpp",
-  "file": "/Users/joelm/Desktop/sound_anim/external/AudioFile/tests/main.cpp",
-  "output": "external/AudioFile/tests/CMakeFiles/Tests.dir/main.cpp.o"
 }
 ]
