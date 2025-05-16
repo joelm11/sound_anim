@@ -1,4 +1,6 @@
 #include "glm/ext/vector_float3.hpp"
+#include <filesystem>
+#include <ostream>
 #define GL_SILENCE_DEPRECATION
 #define GLFW_INCLUDE_NONE
 #include "glm/ext/matrix_clip_space.hpp"
@@ -6,7 +8,7 @@
 #include "glm/trigonometric.hpp"
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include "shader_m.h"
+#include "shaders/shader_m.h"
 #include "speaker_points/speaker_dbs.hpp"
 #include "speaker_points/speaker_points.hpp"
 #include <glm/glm.hpp>
@@ -80,8 +82,10 @@ int main() {
 
   // build and compile our shader zprogram
   // ------------------------------------
-  Shader ourShader("/Users/joelm/Desktop/sound_anim/src/room.vs",
-                   "/Users/joelm/Desktop/sound_anim/src/room.fs");
+  const auto cwd = std::filesystem::current_path();
+  const std::string vsPath = "src/shaders/waves.vs";
+  const std::string fsPath = "src/shaders/waves.fs";
+  Shader ourShader(cwd / vsPath, cwd / fsPath);
   std::cout << "Built shaders\n";
 
   // Calculate speaker uniform source positions
