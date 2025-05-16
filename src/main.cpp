@@ -1,3 +1,4 @@
+#include "glm/ext/scalar_constants.hpp"
 #include "glm/ext/vector_float3.hpp"
 #include <filesystem>
 #include <ostream>
@@ -8,13 +9,13 @@
 #include "glm/trigonometric.hpp"
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
+#include "lib/utils.hh"
 #include "shaders/shader_m.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <stb/stb_image.h>
-
 #include <iostream>
+#include <stb/stb_image.h>
 
 // settings
 const unsigned int SCR_WIDTH = 720;
@@ -35,7 +36,8 @@ void setMVP(const Shader shader) {
   glm::mat4 model, view, projection;
   model = view = projection = glm::mat4(1.0f);
 
-  view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+  view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+  view = glm::rotate(view, glm::pi<float>() / 2, glm::vec3(1, 0, 0));
 
   // Constant.
   projection = glm::perspective(
@@ -87,27 +89,28 @@ int main() {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
+  const int kNumPoints = 64;
+  const auto kPoints = unitSquareXPlanePoints(kNumPoints);
   unsigned int vert_buffer, VAO;
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &vert_buffer);
 
   glBindVertexArray(VAO);
 
-  // glBindBuffer(GL_ARRAY_BUFFER, vert_buffer);
-  // glBufferData(GL_ARRAY_BUFFER, spherePoints.size() * sizeof(glm::vec3),
-  //              spherePoints.data(), GL_STATIC_DRAW);
-  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void
-  // *)0); glEnableVertexAttribArray(0);
+  glBindBuffer(GL_ARRAY_BUFFER, vert_buffer);
+  glBufferData(GL_ARRAY_BUFFER, kPoints.size() * sizeof(glm::vec3),
+               kPoints.data(), GL_STATIC_DRAW);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glEnableVertexAttribArray(0);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
 
-  // Set constants before loop like rendering params, MVP uniforms, and activate
-  // shader.
+  // Set rendering params and MVP uniforms.
   glParams();
   ourShader.use();
-  // Set uniforms
   setMVP(ourShader);
+
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
@@ -123,7 +126,7 @@ int main() {
     // render container
     glBindVertexArray(VAO);
     glPointSize(7.f);
-    // glDrawArrays(GL_POINTS, 0, kNumPoints);
+    glDrawArrays(GL_POINTS, 0, kNumPoints);
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)
