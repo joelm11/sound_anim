@@ -1,4 +1,4 @@
-# Install script for directory: /Users/joelm/Desktop/joelgl 2
+# Install script for directory: /Users/joelm/Desktop/sound_anim
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,33 +39,33 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/cmake_install.cmake")
+  include("/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/joelm/Desktop/joelgl 2/build/external/glad/cmake_install.cmake")
+  include("/Users/joelm/Desktop/sound_anim/build/external/glad/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/joelm/Desktop/joelgl 2/build/external/stb/cmake_install.cmake")
+  include("/Users/joelm/Desktop/sound_anim/build/external/stb/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/cmake_install.cmake")
+  include("/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/cmake_install.cmake")
+  include("/Users/joelm/Desktop/sound_anim/build/external/AudioFile/cmake_install.cmake")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/joelm/Desktop/joelgl 2/build/install_local_manifest.txt"
+  file(WRITE "/Users/joelm/Desktop/sound_anim/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -81,6 +81,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/joelm/Desktop/joelgl 2/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/joelm/Desktop/sound_anim/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

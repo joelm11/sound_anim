@@ -1,75 +1,75 @@
-/Users/joelm/Desktop/joelgl 2/build/CMakeFiles/window.dir
-/Users/joelm/Desktop/joelgl 2/build/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/CMakeFiles/uninstall.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/glfw.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/update_mappings.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/src/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/docs/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/docs/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/docs/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/docs/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/docs/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/docs/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glad/CMakeFiles/glad.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glad/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glad/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glad/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glad/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glad/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glad/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/stb/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/stb/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/stb/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/stb/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/stb/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/stb/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/glm/CMakeFiles/glm.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/glm/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/glm/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/glm/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/glm/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/glm/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/glm-1.0.1/glm/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/CMakeFiles/AudioFile.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/examples/CMakeFiles/Example.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/examples/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/examples/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/examples/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/examples/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/examples/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/examples/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/tests/CMakeFiles/Tests.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/tests/CMakeFiles/edit_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/tests/CMakeFiles/rebuild_cache.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/tests/CMakeFiles/list_install_components.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/tests/CMakeFiles/install.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/tests/CMakeFiles/install/local.dir
-/Users/joelm/Desktop/joelgl 2/build/external/AudioFile/tests/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/CMakeFiles/window.dir
+/Users/joelm/Desktop/sound_anim/build/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/CMakeFiles/uninstall.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/glfw.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/update_mappings.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/src/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/docs/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/docs/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/docs/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/docs/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/docs/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/docs/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/glad/CMakeFiles/glad.dir
+/Users/joelm/Desktop/sound_anim/build/external/glad/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glad/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glad/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/glad/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/glad/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/glad/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/stb/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/stb/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/stb/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/stb/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/stb/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/stb/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/glm.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/CMakeFiles/AudioFile.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples/CMakeFiles/Example.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/examples/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests/CMakeFiles/Tests.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/external/AudioFile/tests/CMakeFiles/install/strip.dir

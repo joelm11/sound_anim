@@ -1,9 +1,9 @@
 
-if (NOT EXISTS "/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/install_manifest.txt")
-    message(FATAL_ERROR "Cannot find install manifest: \"/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/install_manifest.txt\"")
+if (NOT EXISTS "/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/install_manifest.txt")
+    message(FATAL_ERROR "Cannot find install manifest: \"/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/install_manifest.txt\"")
 endif()
 
-file(READ "/Users/joelm/Desktop/joelgl 2/build/external/glfw-3.4/install_manifest.txt" files)
+file(READ "/Users/joelm/Desktop/sound_anim/build/external/glfw-3.4/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})

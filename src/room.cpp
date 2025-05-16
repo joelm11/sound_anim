@@ -1,5 +1,4 @@
 #include "glm/ext/vector_float3.hpp"
-#include <vector>
 #define GL_SILENCE_DEPRECATION
 #define GLFW_INCLUDE_NONE
 #include "glm/ext/matrix_clip_space.hpp"
@@ -81,8 +80,8 @@ int main() {
 
   // build and compile our shader zprogram
   // ------------------------------------
-  Shader ourShader("/Users/joelm/Desktop/joelgl 2/src/room.vs",
-                   "/Users/joelm/Desktop/joelgl 2/src/room.fs");
+  Shader ourShader("/Users/joelm/Desktop/sound_anim/src/room.vs",
+                   "/Users/joelm/Desktop/sound_anim/src/room.fs");
   std::cout << "Built shaders\n";
 
   // Calculate speaker uniform source positions
