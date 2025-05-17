@@ -36,7 +36,7 @@ void setMVP(const Shader shader) {
   glm::mat4 model, view, projection;
   model = view = projection = glm::mat4(1.0f);
 
-  view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+  view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
   view = glm::rotate(view, glm::pi<float>() / 2, glm::vec3(1, 0, 0));
 
   // Constant.
@@ -114,6 +114,8 @@ int main() {
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
+    ourShader.setFloat("u_time", glfwGetTime());
+
     // input
     // -----
     processInput(window);
