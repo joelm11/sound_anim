@@ -22,3 +22,5 @@
 - Generate points on a mesh
 - Generate EBO indices for mesh points
 - Render mesh as a solid surface with triangles.
+- Implement some sort of simple lighting to start.
+- Implement a more interesting wave function.

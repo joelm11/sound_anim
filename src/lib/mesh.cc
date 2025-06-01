@@ -5,13 +5,13 @@ PlaneMeshData GenerateSquarePlane(const int num_quads) {
   const float kStepSize = 2.0f / static_cast<float>(num_quads);
 
   // Generate points
-  std::vector<glm::vec3> points;
+  std::vector<Vertex> points;
   for (int i = 0; i <= num_quads; ++i) {
     for (int j = 0; j <= num_quads; ++j) {
       const float x = j * kStepSize - 1.0f;
       const float z = i * kStepSize - 1.0f;
       const float y = 0.0f;
-      points.push_back(glm::vec3(x, y, z));
+      points.push_back({.point = glm::vec3(x, y, z)});
     }
   }
 

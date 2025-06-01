@@ -10,7 +10,6 @@
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "lib/mesh.hh"
-#include "lib/utils.hh"
 #include "shaders/shader_m.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -33,6 +32,7 @@ void glParams() {
   // // Accept fragment if it closer to the camera than the former one
   // glDepthFunc(GL_LESS);
 }
+
 void setMVP(const Shader shader) {
   glm::mat4 model, view, projection;
   model = view = projection = glm::mat4(1.0f);
@@ -48,6 +48,11 @@ void setMVP(const Shader shader) {
   shader.setMat4("u_model", model);
   shader.setMat4("u_view", view);
   shader.setMat4("u_projection", projection);
+}
+
+void setLightingUniforms(const Shader shader) {
+  shader.setVec3("u_lightpos", 0.0, 1.0, 0.0);
+  shader.setVec3("u_camerapos", 0.0, 5.0, 0.0);
 }
 
 int main() {
@@ -99,9 +104,9 @@ int main() {
   glBindVertexArray(VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, vert_buffer);
-  glBufferData(GL_ARRAY_BUFFER, kMesh.verts.size() * sizeof(glm::vec3),
+  glBufferData(GL_ARRAY_BUFFER, kMesh.verts.size() * sizeof(Vertex),
                kMesh.verts.data(), GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -116,6 +121,7 @@ int main() {
   glParams();
   ourShader.use();
   setMVP(ourShader);
+  setLightingUniforms(ourShader);
 
   // render loop
   // -----------
