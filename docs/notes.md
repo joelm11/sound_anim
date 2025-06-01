@@ -15,25 +15,10 @@
 - Stores indices that define how to connect vertices to form geometric shapes like triangles, lines, or quads.
 - Reduces the number of vertices required to draw shapes.
 
-### What I need
+### Drawing rasterized waves
 
-1. Initially a unit cube with the speaker positions.
-2. Need transforms that give 3 views - side, top, back, iso.
+## What I need
 
-#### Constants
-
-- Known screen size for each view.
-- Room doesn't change, just camera placement. Room may be slightly scaled for different views and some walls are not drawn.
-
-### Development Procedure
-
-1. Draw unit cube with a different colour on each face.
-2. Move camera to view cube from different views.
-3. Adjust views to match dimensions given in drawings.
-4. Add textures to cube walls.
-5. Remove textures from wall to see into cube.
-6. Add different textures to different walls.
-7. Add models to cube views.
-8. Add speaker placements in unit cube.
-9. Attempt to draw speakers for each room view.
-10. Attempt to draw spheres that move within the space for each room view.
+- Generate points on a mesh
+- Generate EBO indices for mesh points
+- Render mesh as a solid surface with triangles.

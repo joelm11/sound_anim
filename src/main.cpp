@@ -9,6 +9,7 @@
 #include "glm/trigonometric.hpp"
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
+#include "lib/mesh.hh"
 #include "lib/utils.hh"
 #include "shaders/shader_m.h"
 #include <glm/glm.hpp>
@@ -24,7 +25,7 @@ const unsigned int SCR_HEIGHT = 546;
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 void glParams() {
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   // Enable depth test
   // glEnable(GL_DEPTH_TEST);
@@ -89,19 +90,24 @@ int main() {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-  const int kNumPoints = 64;
-  const auto kPoints = unitSquareXPlanePoints(kNumPoints);
-  unsigned int vert_buffer, VAO;
+  const PlaneMeshData kMesh = GenerateSquarePlane(64);
+  unsigned int vert_buffer, VAO, EBO;
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &vert_buffer);
+  glGenBuffers(1, &EBO);
 
   glBindVertexArray(VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, vert_buffer);
-  glBufferData(GL_ARRAY_BUFFER, kPoints.size() * sizeof(glm::vec3),
-               kPoints.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, kMesh.verts.size() * sizeof(glm::vec3),
+               kMesh.verts.data(), GL_STATIC_DRAW);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+               kMesh.indices.size() * sizeof(TriangleIdcs),
+               kMesh.indices.data(), GL_STATIC_DRAW);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
@@ -127,8 +133,7 @@ int main() {
 
     // render container
     glBindVertexArray(VAO);
-    glPointSize(7.f);
-    glDrawArrays(GL_POINTS, 0, kNumPoints);
+    glDrawElements(GL_TRIANGLES, kMesh.indices.size() * 3, GL_UNSIGNED_INT, 0);
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)

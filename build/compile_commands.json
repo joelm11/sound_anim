@@ -142,5 +142,11 @@
   "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=c++20 -arch arm64 -Wno-c++98-compat -Wno-c++98-compat-pedantic -o CMakeFiles/glm.dir/detail/glm.cpp.o -c /Users/joelm/Desktop/sound_anim/external/glm-1.0.1/glm/detail/glm.cpp",
   "file": "/Users/joelm/Desktop/sound_anim/external/glm-1.0.1/glm/detail/glm.cpp",
   "output": "external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o"
+},
+{
+  "directory": "/Users/joelm/Desktop/sound_anim/build/src/lib",
+  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=gnu++20 -arch arm64 -o CMakeFiles/mesh.dir/mesh.cc.o -c /Users/joelm/Desktop/sound_anim/src/lib/mesh.cc",
+  "file": "/Users/joelm/Desktop/sound_anim/src/lib/mesh.cc",
+  "output": "src/lib/CMakeFiles/mesh.dir/mesh.cc.o"
 }
 ]
