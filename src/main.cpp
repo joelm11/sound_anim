@@ -10,6 +10,7 @@
 #include "glm/trigonometric.hpp"
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
+#include "../external/imgui/src/jimgui.hh"
 #include "lib/mesh.hh"
 #include "shaders/shader_m.h"
 #include <glm/glm.hpp>
@@ -137,6 +138,7 @@ int main() {
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
   glfwSetMouseButtonCallback(window, mouse_button_callback);
   glfwSetCursorPosCallback(window, cursor_position_callback);
+  JimGUI::initImGUI(window);
 
   // glad: load all OpenGL function pointers
   // ---------------------------------------
@@ -186,6 +188,7 @@ int main() {
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
+    JimGUI::prepNewFrame();
     ourShader.setFloat("u_time", glfwGetTime());
 
     // input
@@ -204,6 +207,7 @@ int main() {
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, kMesh.indices.size() * 3, GL_UNSIGNED_INT, 0);
 
+    JimGUI::renderFrame();
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)
     // -------------------------------------------------------------------------------
@@ -215,7 +219,7 @@ int main() {
   // ------------------------------------------------------------------------
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &vert_buffer);
-
+  JimGUI::shutdown();
   // glfw: terminate, clearing all previously allocated GLFW resources.
   // ------------------------------------------------------------------
   glfwTerminate();

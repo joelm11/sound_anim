@@ -1,6 +1,8 @@
 
+#include <GLFW/glfw3.h>
+
 namespace JimGUI {
-void initImGUI();
+void initImGUI(GLFWwindow *window);
 
 void prepNewFrame();
 
