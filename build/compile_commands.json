@@ -144,6 +144,24 @@
   "output": "external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o"
 },
 {
+  "directory": "/Users/joelm/Desktop/sound_anim/build/external/imgui",
+  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/imgui/src -I/Users/joelm/Desktop/sound_anim/external/imgui/imgui-src/backends -I/Users/joelm/Desktop/sound_anim/external/glfw-3.4/include -g -std=gnu++20 -arch arm64 -o CMakeFiles/jimgui.dir/src/imgui_impl_glfw.cpp.o -c /Users/joelm/Desktop/sound_anim/external/imgui/src/imgui_impl_glfw.cpp",
+  "file": "/Users/joelm/Desktop/sound_anim/external/imgui/src/imgui_impl_glfw.cpp",
+  "output": "external/imgui/CMakeFiles/jimgui.dir/src/imgui_impl_glfw.cpp.o"
+},
+{
+  "directory": "/Users/joelm/Desktop/sound_anim/build/external/imgui",
+  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/imgui/src -I/Users/joelm/Desktop/sound_anim/external/imgui/imgui-src/backends -I/Users/joelm/Desktop/sound_anim/external/glfw-3.4/include -g -std=gnu++20 -arch arm64 -o CMakeFiles/jimgui.dir/src/imgui_impl_opengl3.cpp.o -c /Users/joelm/Desktop/sound_anim/external/imgui/src/imgui_impl_opengl3.cpp",
+  "file": "/Users/joelm/Desktop/sound_anim/external/imgui/src/imgui_impl_opengl3.cpp",
+  "output": "external/imgui/CMakeFiles/jimgui.dir/src/imgui_impl_opengl3.cpp.o"
+},
+{
+  "directory": "/Users/joelm/Desktop/sound_anim/build/external/imgui",
+  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/imgui/src -I/Users/joelm/Desktop/sound_anim/external/imgui/imgui-src/backends -I/Users/joelm/Desktop/sound_anim/external/glfw-3.4/include -g -std=gnu++20 -arch arm64 -o CMakeFiles/jimgui.dir/src/jimgui.cc.o -c /Users/joelm/Desktop/sound_anim/external/imgui/src/jimgui.cc",
+  "file": "/Users/joelm/Desktop/sound_anim/external/imgui/src/jimgui.cc",
+  "output": "external/imgui/CMakeFiles/jimgui.dir/src/jimgui.cc.o"
+},
+{
   "directory": "/Users/joelm/Desktop/sound_anim/build/src/lib",
   "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=gnu++20 -arch arm64 -o CMakeFiles/mesh.dir/mesh.cc.o -c /Users/joelm/Desktop/sound_anim/src/lib/mesh.cc",
   "file": "/Users/joelm/Desktop/sound_anim/src/lib/mesh.cc",

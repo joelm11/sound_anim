@@ -24,6 +24,7 @@
 - Render mesh as a solid surface with triangles.
 - Implement some sort of simple lighting to start.
 - Implement a more interesting wave function.
+- Add GUI for tweaking wave function and other params.
 - Enable moving the mouse around the fixed scene
 - Add better details to wave function
 - Add better lighting
