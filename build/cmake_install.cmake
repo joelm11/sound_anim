@@ -59,6 +59,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/Users/joelm/Desktop/sound_anim/build/external/imgui/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/Users/joelm/Desktop/sound_anim/build/src/lib/cmake_install.cmake")
 endif()
 

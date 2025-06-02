@@ -1,7 +1,7 @@
 [
 {
   "directory": "/Users/joelm/Desktop/sound_anim/build",
-  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glfw-3.4/include -I/Users/joelm/Desktop/sound_anim/external/glad/include -I/Users/joelm/Desktop/sound_anim/external/stb/include -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=gnu++20 -arch arm64 -o CMakeFiles/window.dir/src/main.cpp.o -c /Users/joelm/Desktop/sound_anim/src/main.cpp",
+  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glfw-3.4/include -I/Users/joelm/Desktop/sound_anim/external/glad/include -I/Users/joelm/Desktop/sound_anim/external/stb/include -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -I/Users/joelm/Desktop/sound_anim/external/imgui/imgui-src -g -std=gnu++20 -arch arm64 -o CMakeFiles/window.dir/src/main.cpp.o -c /Users/joelm/Desktop/sound_anim/src/main.cpp",
   "file": "/Users/joelm/Desktop/sound_anim/src/main.cpp",
   "output": "CMakeFiles/window.dir/src/main.cpp.o"
 },
@@ -142,6 +142,12 @@
   "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=c++20 -arch arm64 -Wno-c++98-compat -Wno-c++98-compat-pedantic -o CMakeFiles/glm.dir/detail/glm.cpp.o -c /Users/joelm/Desktop/sound_anim/external/glm-1.0.1/glm/detail/glm.cpp",
   "file": "/Users/joelm/Desktop/sound_anim/external/glm-1.0.1/glm/detail/glm.cpp",
   "output": "external/glm-1.0.1/glm/CMakeFiles/glm.dir/detail/glm.cpp.o"
+},
+{
+  "directory": "/Users/joelm/Desktop/sound_anim/build/external/imgui",
+  "command": "/usr/bin/clang++   -g -std=gnu++20 -arch arm64 -o CMakeFiles/imgui.dir/src/jimgui.cc.o -c /Users/joelm/Desktop/sound_anim/external/imgui/src/jimgui.cc",
+  "file": "/Users/joelm/Desktop/sound_anim/external/imgui/src/jimgui.cc",
+  "output": "external/imgui/CMakeFiles/imgui.dir/src/jimgui.cc.o"
 },
 {
   "directory": "/Users/joelm/Desktop/sound_anim/build/src/lib",

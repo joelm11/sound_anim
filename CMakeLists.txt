@@ -11,6 +11,7 @@ add_subdirectory(external/glfw-3.4)
 add_subdirectory(external/glad)
 add_subdirectory(external/stb)
 add_subdirectory(external/glm-1.0.1)
+add_subdirectory(external/imgui)
 
 # Internal libs
 add_subdirectory(src/lib)
@@ -22,4 +23,5 @@ target_link_libraries(window
         glad
         stb
         glm
+        imgui
         mesh)

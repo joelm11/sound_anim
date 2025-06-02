@@ -1,3 +1,6 @@
 [submodule "external/AudioFile"]
 	path = external/AudioFile
 	url = https://github.com/adamstark/AudioFile.git
+[submodule "external/imgui/imgui-src"]
+	path = external/imgui/imgui-src
+	url = https://github.com/ocornut/imgui.git
