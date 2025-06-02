@@ -34,12 +34,55 @@ void glParams() {
   // glDepthFunc(GL_LESS);
 }
 
+// Camera orbit parameters
+float cameraYaw = glm::pi<float>() / 2.0f;   // azimuth, horizontal angle
+float cameraPitch = glm::pi<float>() / 2.0f; // elevation, vertical angle
+float cameraRadius = 5.0f;                   // fixed distance from origin
+
+// Mouse drag state
+bool mouseDragging = false;
+double lastMouseX = 0.0, lastMouseY = 0.0;
+
+void mouse_button_callback(GLFWwindow *window, int button, int action,
+                           int mods) {
+  if (button == GLFW_MOUSE_BUTTON_LEFT) {
+    if (action == GLFW_PRESS) {
+      mouseDragging = true;
+      glfwGetCursorPos(window, &lastMouseX, &lastMouseY);
+    } else if (action == GLFW_RELEASE) {
+      mouseDragging = false;
+    }
+  }
+}
+
+void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
+  if (!mouseDragging)
+    return;
+  double dx = xpos - lastMouseX;
+  double dy = ypos - lastMouseY;
+  lastMouseX = xpos;
+  lastMouseY = ypos;
+
+  // Sensitivity factors
+  float sensitivity = 0.005f;
+  cameraYaw -= dx * sensitivity;
+  cameraPitch -= dy * sensitivity;
+
+  // Clamp pitch to avoid flipping
+  float epsilon = 0.01f;
+  cameraPitch = glm::clamp(cameraPitch, epsilon, glm::pi<float>() - epsilon);
+}
+
 void setMVP(const Shader shader) {
   glm::mat4 model, view, projection;
   model = view = projection = glm::mat4(1.0f);
 
-  view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-  view = glm::rotate(view, glm::pi<float>() / 2, glm::vec3(1, 0, 0));
+  // Camera position in spherical coordinates
+  float x = cameraRadius * sin(cameraPitch) * cos(cameraYaw);
+  float y = cameraRadius * cos(cameraPitch);
+  float z = cameraRadius * sin(cameraPitch) * sin(cameraYaw);
+  glm::vec3 camPos = glm::vec3(x, y, z);
+  view = glm::lookAt(camPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
   // Constant.
   projection = glm::perspective(
@@ -92,6 +135,8 @@ int main() {
   }
   glfwMakeContextCurrent(window);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwSetMouseButtonCallback(window, mouse_button_callback);
+  glfwSetCursorPosCallback(window, cursor_position_callback);
 
   // glad: load all OpenGL function pointers
   // ---------------------------------------
@@ -146,6 +191,9 @@ int main() {
     // input
     // -----
     processInput(window);
+
+    // Update camera/view each frame in case of drag
+    setMVP(ourShader);
 
     // render
     // ------

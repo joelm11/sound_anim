@@ -12,17 +12,11 @@ out vec3 FragPosW;
 out vec3 FragNormal;
 
 // --- Sum of Sines Parameters ---
-#define N_SINES 3 // Number of sines
-
-// Amplitude for each sine wave
+#define N_SINES 3
 uniform float u_amplitudes[N_SINES];
-// Frequency for each sine wave
 uniform float u_frequencies[N_SINES];
-// Phase offset for each sine wave
 uniform float u_phases[N_SINES];
-// Direction of propagation (1.0 for X, 0.0 for Z; or 0.0 for X, 1.0 for Z)
-// Or a combination for diagonal waves, e.g., vec2(0.707, 0.707)
-uniform vec2 u_wavedirs[N_SINES]; // X and Z components for propagation direction
+uniform vec2 u_wavedirs[N_SINES];
 
 void main() {
     vec3 basePos = a_position;
