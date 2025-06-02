@@ -97,22 +97,11 @@ void setMVP(const Shader shader) {
 }
 
 void setWaveParamUniforms(const Shader shader) {
-  static const int kNumSines = 3;
-  static float kAmps[kNumSines] = {0.07, 0.09, 0.04};
-  static float kFreqs[kNumSines] = {0.65, 1.0, 0.65};
-  static float kPhases[kNumSines] = {1.7, glm::pi<float>(), 1.7};
-  static glm::vec2 kDirs[kNumSines] = {{1.0, 0.0}, {0.0, 1.0}, {0.7, 0.7}};
-  // -- -Fixed - size C - style array of floats(e.g., float[5])-- -
-  ImGui::Text("Float Array (Sliders):");
-  for (int i = 0; i < kNumSines; ++i) {
-    // Push a unique ID for each widget.
-    // Using the loop index 'i' is common and usually sufficient.
-    ImGui::PushID(i);
-    ImGui::SliderFloat("Value", &kPhases[i], 0.0f, 5.0f, "%.2f");
-    ImGui::PopID(); // Pop the ID to avoid it affecting subsequent widgets
-                    // outside this loop
-  }
-  ImGui::Separator();
+  const int kNumSines = 3;
+  float kAmps[kNumSines] = {0.07, 0.09, 0.04};
+  float kFreqs[kNumSines] = {0.65, 1.0, 0.65};
+  float kPhases[kNumSines] = {1.7, glm::pi<float>(), 1.7};
+  glm::vec2 kDirs[kNumSines] = {{1.0, 0.0}, {0.0, 1.0}, {0.7, 0.7}};
 
   shader.setFloatArray("u_amplitudes", kAmps, kNumSines);
   shader.setFloatArray("u_frequencies", kFreqs, kNumSines);
