@@ -52,7 +52,6 @@
 /Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/install.dir
 /Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/install/local.dir
 /Users/joelm/Desktop/sound_anim/build/external/glm-1.0.1/glm/CMakeFiles/install/strip.dir
-/Users/joelm/Desktop/sound_anim/build/external/imgui/CMakeFiles/imgui.dir
 /Users/joelm/Desktop/sound_anim/build/external/imgui/CMakeFiles/edit_cache.dir
 /Users/joelm/Desktop/sound_anim/build/external/imgui/CMakeFiles/rebuild_cache.dir
 /Users/joelm/Desktop/sound_anim/build/external/imgui/CMakeFiles/list_install_components.dir

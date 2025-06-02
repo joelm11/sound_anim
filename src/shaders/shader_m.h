@@ -1,6 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <cstddef>
 #include <exception>
 #include <filesystem>
 #include <glad/glad.h>
@@ -92,6 +93,10 @@ public:
   // ------------------------------------------------------------------------
   void setVec2(const std::string &name, const glm::vec2 &value) const {
     glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+  }
+  void setVec2Array(const std::string &name, const glm::vec2 *values,
+                    const size_t count) const {
+    glUniform2fv(glGetUniformLocation(ID, name.c_str()), count, &values[0][0]);
   }
   void setVec2(const std::string &name, float x, float y) const {
     glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);

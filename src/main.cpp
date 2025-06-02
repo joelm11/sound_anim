@@ -1,5 +1,6 @@
 #include "glm/ext/scalar_constants.hpp"
 #include "glm/ext/vector_float3.hpp"
+#include "glm/fwd.hpp"
 #include <filesystem>
 #include <ostream>
 #define GL_SILENCE_DEPRECATION
@@ -48,6 +49,19 @@ void setMVP(const Shader shader) {
   shader.setMat4("u_model", model);
   shader.setMat4("u_view", view);
   shader.setMat4("u_projection", projection);
+}
+
+void setWaveParamUniforms(const Shader shader) {
+  const int kNumSines = 3;
+  const float kAmps[kNumSines] = {0.5, 0.25, 0.1};
+  const float kFreqs[kNumSines] = {1.0, 0.8, 0.4};
+  const float kPhases[kNumSines] = {0.0, glm::pi<float>(), 3.0};
+  const glm::vec2 kDirs[kNumSines] = {{1.0, 0.0}, {0.0, 1.0}, {0.7, 0.7}};
+
+  shader.setFloatArray("u_amplitudes", kAmps, kNumSines);
+  shader.setFloatArray("u_frequencies", kFreqs, kNumSines);
+  shader.setFloatArray("u_phases", kPhases, kNumSines);
+  shader.setVec2Array("u_wavedirs", kDirs, kNumSines);
 }
 
 void setLightingUniforms(const Shader shader) {
@@ -121,6 +135,7 @@ int main() {
   glParams();
   ourShader.use();
   setMVP(ourShader);
+  setWaveParamUniforms(ourShader);
   setLightingUniforms(ourShader);
 
   // render loop

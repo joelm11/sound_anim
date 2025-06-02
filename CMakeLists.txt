@@ -23,5 +23,5 @@ target_link_libraries(window
         glad
         stb
         glm
-        imgui
+        # imgui
         mesh)
