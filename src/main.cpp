@@ -30,10 +30,10 @@ void glParams() {
   // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   // Enable depth test
-  // glEnable(GL_DEPTH_TEST);
+  glEnable(GL_DEPTH_TEST);
 
   // // Accept fragment if it closer to the camera than the former one
-  // glDepthFunc(GL_LESS);
+  glDepthFunc(GL_LESS);
 }
 
 // Camera orbit parameters
@@ -157,7 +157,7 @@ int main() {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-  const PlaneMeshData kMesh = GenerateSquarePlane(64);
+  const PlaneMeshData kMesh = GenerateSquarePlane(1024);
   unsigned int vert_buffer, VAO, EBO;
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &vert_buffer);
@@ -203,7 +203,7 @@ int main() {
     // render
     // ------
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // render container
     glBindVertexArray(VAO);
