@@ -21,7 +21,8 @@ void prepNewFrame() {
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
-  ImGui::ShowDemoWindow();
+  float foo = 0.0;
+  ImGui::SliderFloat("Float Value", &foo, 0.0f, 1.0f);
 }
 
 void renderFrame() {

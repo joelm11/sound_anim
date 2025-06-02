@@ -1,6 +1,7 @@
 #include "glm/ext/scalar_constants.hpp"
 #include "glm/ext/vector_float3.hpp"
 #include "glm/fwd.hpp"
+#include "imgui.h"
 #include <filesystem>
 #include <ostream>
 #define GL_SILENCE_DEPRECATION
@@ -96,11 +97,22 @@ void setMVP(const Shader shader) {
 }
 
 void setWaveParamUniforms(const Shader shader) {
-  const int kNumSines = 3;
-  const float kAmps[kNumSines] = {0.5, 0.25, 0.1};
-  const float kFreqs[kNumSines] = {1.0, 0.8, 0.4};
-  const float kPhases[kNumSines] = {0.0, glm::pi<float>(), 3.0};
-  const glm::vec2 kDirs[kNumSines] = {{1.0, 0.0}, {0.0, 1.0}, {0.7, 0.7}};
+  static const int kNumSines = 3;
+  static float kAmps[kNumSines] = {0.07, 0.09, 0.04};
+  static float kFreqs[kNumSines] = {0.65, 1.0, 0.65};
+  static float kPhases[kNumSines] = {1.7, glm::pi<float>(), 1.7};
+  static glm::vec2 kDirs[kNumSines] = {{1.0, 0.0}, {0.0, 1.0}, {0.7, 0.7}};
+  // -- -Fixed - size C - style array of floats(e.g., float[5])-- -
+  ImGui::Text("Float Array (Sliders):");
+  for (int i = 0; i < kNumSines; ++i) {
+    // Push a unique ID for each widget.
+    // Using the loop index 'i' is common and usually sufficient.
+    ImGui::PushID(i);
+    ImGui::SliderFloat("Value", &kPhases[i], 0.0f, 5.0f, "%.2f");
+    ImGui::PopID(); // Pop the ID to avoid it affecting subsequent widgets
+                    // outside this loop
+  }
+  ImGui::Separator();
 
   shader.setFloatArray("u_amplitudes", kAmps, kNumSines);
   shader.setFloatArray("u_frequencies", kFreqs, kNumSines);
@@ -182,13 +194,14 @@ int main() {
   glParams();
   ourShader.use();
   setMVP(ourShader);
-  setWaveParamUniforms(ourShader);
+  // setWaveParamUniforms(ourShader);
   setLightingUniforms(ourShader);
 
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
     JimGUI::prepNewFrame();
+    setWaveParamUniforms(ourShader);
     ourShader.setFloat("u_time", glfwGetTime());
 
     // input
