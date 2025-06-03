@@ -23,37 +23,41 @@ void main() {
     float totalHeight = 0.0;
     vec3 totalNormalInfluence = vec3(0.0); // For accumulating normal contributions
 
-    // Calculate vertex displacement and normal influence for each sine wave
+    // Calculate vertex displacement and normal influence for each wave
     for(int i = 0; i < N_SINES; ++i) {
         // Calculate the dot product with the position for wave propagation direction
         float waveInputX = dot(basePos.xz, vec2(u_wavedirs[i].x, 0.0));
         float waveInputZ = dot(basePos.xz, vec2(0.0, u_wavedirs[i].y));
         float waveInput = waveInputX + waveInputZ; // Sum for combined X and Z propagation
 
-        // Individual wave height
-        float waveHeight = u_amplitudes[i] * sin(2.0 * 3.14159 * u_frequencies[i] * (waveInput + u_time) + u_phases[i]);
+        // Calculate the argument for the sine function within the exponential
+        float sineArg = 2.0 * 3.14159 * u_frequencies[i] * (waveInput + u_time) + u_phases[i];
+
+        // Individual wave height using e^(sin(x) - 1)
+        float waveHeight = u_amplitudes[i] * exp(sin(sineArg) - 1.0);
         totalHeight += waveHeight;
 
-        // Individual normal contribution (derivative of sine)
-        // We're calculating the derivative with respect to basePos.x and basePos.z
-        // d/dx (A * sin(2*pi*f*(x*dir.x + z*dir.y + t) + p))
-        //   = A * cos(...) * 2*pi*f * dir.x
-        // d/dz (A * sin(2*pi*f*(x*dir.x + z*dir.y + t) + p))
-        //   = A * cos(...) * 2*pi*f * dir.y
-        float cosTerm = cos(2.0 * 3.14159 * u_frequencies[i] * (waveInput + u_time) + u_phases[i]);
+        // Individual normal contribution (derivative of e^(sin(x) - 1))
+        // The derivative of A * e^(sin(G(x,z,t)) - 1) with respect to x (or z)
+        // is A * e^(sin(G) - 1) * cos(G) * dG/dx (or dG/dz)
+        // where G = 2*pi*f*(x*dir.x + z*dir.y + t) + p
+        // dG/dx = 2*pi*f * dir.x
+        // dG/dz = 2*pi*f * dir.y
+        float expTerm = exp(sin(sineArg) - 1.0);
+        float cosTerm = cos(sineArg);
+        float commonFactor = 2.0 * 3.14159 * u_frequencies[i];
 
-        float dX = u_amplitudes[i] * cosTerm * 2.0 * 3.14159 * u_frequencies[i] * u_wavedirs[i].x;
-        float dZ = u_amplitudes[i] * cosTerm * 2.0 * 3.14159 * u_frequencies[i] * u_wavedirs[i].y;
+        float dX = u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].x;
+        float dZ = u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].y;
 
         // Accumulate these derivatives. These are the components of the surface gradient.
-        // The normal will be proportional to (-dX, 1, -dZ) before normalization.
         totalNormalInfluence += vec3(dX, 0.0, dZ);
     }
 
     // Apply vertex displacement
     vec3 displacedPos = vec3(basePos.x, basePos.y + totalHeight, basePos.z);
 
-    // Calculate surface normal for the sum of sines
+    // Calculate surface normal for the sum of waves
     // The surface normal is perpendicular to the gradient vector (dX, dY, dZ)
     // where dY is 1 because our 'y' coordinate is the height, and we are computing
     // the normal to the displaced surface.
