@@ -20,7 +20,11 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
 std::vector<WaveParams> genWaveParams() {
   // We'll actually populate some values here after we've found some nice
   // combinations with the gui
-  return {};
+
+  // Placeholder values for refactor
+  const int kNumSines = 3;
+  const WaveParams params{.07, .65, 1.7, {1.0, 0.0}};
+  return {params};
 }
 
 LightingParams genLightingParamsStatic(const glm::vec3 cameraPos) {

@@ -1,15 +1,11 @@
-#include "glm/ext/scalar_constants.hpp"
 #include "glm/ext/vector_float3.hpp"
 #include "glm/fwd.hpp"
-#include "imgui.h"
+#include "uniforms/src/uniforms.hh"
 #include <filesystem>
 #include <glad/glad.h>
 #include <ostream>
 #define GL_SILENCE_DEPRECATION
 #define GLFW_INCLUDE_NONE
-#include "glm/ext/matrix_clip_space.hpp"
-#include "glm/ext/matrix_transform.hpp"
-#include "glm/trigonometric.hpp"
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../external/imgui/src/jimgui.hh"
@@ -30,41 +26,6 @@ void glParams() {
 
   // // Accept fragment if it closer to the camera than the former one
   glDepthFunc(GL_LESS);
-}
-
-void setMVP(const Shader shader) {
-  glm::mat4 model, view, projection;
-  model = view = projection = glm::mat4(1.0f);
-
-  glm::vec3 camPos = glm::vec3(0.0, 3.0, -5.0);
-  view = glm::lookAt(camPos, glm::vec3(0.0f), glm::vec3(0.0f, 4.0f, 0.0f));
-
-  // Constant.
-  projection = glm::perspective(glm::radians(45.0f), (float)720 / (float)546,
-                                0.1f, 100.0f);
-
-  // We set these uniforms once as our view is constant for now.
-  shader.setMat4("u_model", model);
-  shader.setMat4("u_view", view);
-  shader.setMat4("u_projection", projection);
-}
-
-void setWaveParamUniforms(const Shader shader) {
-  const int kNumSines = 3;
-  float kAmps[kNumSines] = {0.07, 0.09, 0.04};
-  float kFreqs[kNumSines] = {0.65, 1.0, 0.65};
-  float kPhases[kNumSines] = {1.7, glm::pi<float>(), 1.7};
-  glm::vec2 kDirs[kNumSines] = {{1.0, 0.0}, {0.0, 1.0}, {0.7, 0.7}};
-
-  shader.setFloatArray("u_amplitudes", kAmps, kNumSines);
-  shader.setFloatArray("u_frequencies", kFreqs, kNumSines);
-  shader.setFloatArray("u_phases", kPhases, kNumSines);
-  shader.setVec2Array("u_wavedirs", kDirs, kNumSines);
-}
-
-void setLightingUniforms(const Shader shader) {
-  shader.setVec3("u_lightpos", 0.0, 1.0, 0.0);
-  shader.setVec3("u_camerapos", 0.0, 5.0, 0.0);
 }
 
 int main() {
@@ -115,26 +76,21 @@ int main() {
   // Set rendering params and MVP uniforms.
   glParams();
   ourShader.use();
-  setMVP(ourShader);
-  // setWaveParamUniforms(ourShader);
-  setLightingUniforms(ourShader);
+  const glm::vec3 camPos = {0.0, 5.0, -5.0};
+  Uniforms::setLightingParamsUniforms(
+      ourShader, Uniforms::genLightingParamsStatic(camPos));
+  Uniforms::setViewParamsUniforms(
+      ourShader, Uniforms::genViewParamsStatic(720, 550, camPos));
+  Uniforms::setWaveParamsUniforms(ourShader, Uniforms::genWaveParams());
 
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
-    JimGUI::prepNewFrame();
-#ifdef DEBUG
-    // Do the uniform updating here
-#endif
-    setWaveParamUniforms(ourShader);
     ourShader.setFloat("u_time", glfwGetTime());
 
     // input
     // -----
     processInput(window);
-
-    // Update camera/view each frame in case of drag
-    setMVP(ourShader);
 
     // render
     // ------
@@ -145,7 +101,6 @@ int main() {
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, kMesh.indices.size() * 3, GL_UNSIGNED_INT, 0);
 
-    JimGUI::renderFrame();
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)
     // -------------------------------------------------------------------------------

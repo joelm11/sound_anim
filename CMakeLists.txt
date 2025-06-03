@@ -29,4 +29,5 @@ target_link_libraries(window
         shader_m
         jimgui
         init_routines
+        uniforms
         mesh)
