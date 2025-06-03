@@ -1,4 +1,5 @@
 #pragma once
+#include "glm/fwd.hpp"
 #include "shader_m.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -20,7 +21,7 @@ struct LightingParams {
   glm::vec3 camerapos;
 };
 
-void initUniforms(const Shader &shader);
+void initUniforms(const Shader &shader, const glm::vec3 &camPos);
 
 // Putting the uniform data generating functions here for now
 ViewParams genViewParamsStatic(const int scWidth, const int scHeight,

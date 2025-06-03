@@ -6,8 +6,7 @@
 
 namespace Uniforms {
 
-void initUniforms(const Shader &shader) {
-  const glm::vec3 camPos = {0.0, 5.0, -5.0};
+void initUniforms(const Shader &shader, const glm::vec3 &camPos) {
   Uniforms::setLightingParamsUniforms(
       shader, Uniforms::genLightingParamsStatic(camPos));
   Uniforms::setViewParamsUniforms(
@@ -29,7 +28,7 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
   return params;
 }
 
-#define NUM_WAVES 8
+#define NUM_WAVES 16
 std::vector<WaveParams> genWaveParams() {
   std::vector<WaveParams> params;
   params.reserve(NUM_WAVES);

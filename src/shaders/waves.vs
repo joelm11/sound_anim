@@ -12,7 +12,7 @@ out vec3 FragPosW;
 out vec3 FragNormal;
 
 // --- Sum of Sines Parameters ---
-#define N_SINES 3
+#define N_SINES 16
 uniform float u_amplitudes[N_SINES];
 uniform float u_frequencies[N_SINES];
 uniform float u_phases[N_SINES];

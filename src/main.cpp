@@ -1,4 +1,5 @@
 #include "uniforms/src/uniforms.hh"
+#include <cmath>
 #include <filesystem>
 #include <glad/glad.h>
 #include <ostream>
@@ -14,6 +15,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+
+// Camera controls (cleanup later?)
+extern float g_azimuth;
+extern float g_elevation;
+extern float g_radius;
+extern float g_lastX;
+extern bool g_dragging;
 
 void processInput(GLFWwindow *window);
 void glParams() {
@@ -74,16 +82,28 @@ int main() {
   // Set rendering params and MVP uniforms.
   glParams();
   ourShader.use();
-  Uniforms::initUniforms(ourShader);
+  Uniforms::initUniforms(ourShader, {0.0, 1.0, -5.0});
 
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
+    // Calculate camera position from spherical coordinates
+    float x = g_radius * std::sin(g_elevation) * std::sin(g_azimuth);
+    float y = g_radius * std::cos(g_elevation);
+    float z = g_radius * std::sin(g_elevation) * std::cos(g_azimuth);
+    glm::vec3 camPos = glm::vec3(x, y, z);
     ourShader.setFloat("u_time", glfwGetTime());
 
     // input
     // -----
     processInput(window);
+
+    // Update uniforms with new camera position
+    Uniforms::setLightingParamsUniforms(
+        ourShader, Uniforms::genLightingParamsStatic(camPos));
+    Uniforms::setViewParamsUniforms(
+        ourShader, Uniforms::genViewParamsStatic(720, 550, camPos));
+    // (Wave params can remain static)
 
     // render
     // ------
