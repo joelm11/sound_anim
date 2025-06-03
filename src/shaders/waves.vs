@@ -12,7 +12,7 @@ out vec3 FragPosW;
 out vec3 FragNormal;
 
 // --- Sum of Sines Parameters ---
-#define N_SINES 16
+#define N_SINES 32
 uniform float u_amplitudes[N_SINES];
 uniform float u_frequencies[N_SINES];
 uniform float u_phases[N_SINES];
@@ -30,11 +30,16 @@ void main() {
         float waveInputZ = dot(basePos.xz, vec2(0.0, u_wavedirs[i].y));
         float waveInput = waveInputX + waveInputZ; // Sum for combined X and Z propagation
 
+        // Brownian(esque)?
+        float bf = 0.01;
+        float ampBM = 1.0 - bf * i;
+        float freqBM = 1.0 + bf * i;
+
         // Calculate the argument for the sine function within the exponential
-        float sineArg = 2.0 * 3.14159 * u_frequencies[i] * (waveInput + u_time) + u_phases[i];
+        float sineArg = 2.0 * 3.14159 * freqBM * u_frequencies[i] * (waveInput + u_time) + u_phases[i];
 
         // Individual wave height using e^(sin(x) - 1)
-        float waveHeight = u_amplitudes[i] * exp(sin(sineArg) - 1.0);
+        float waveHeight = ampBM * u_amplitudes[i] * exp(sin(sineArg) - 1.0);
         totalHeight += waveHeight;
 
         // Individual normal contribution (derivative of e^(sin(x) - 1))
@@ -47,8 +52,8 @@ void main() {
         float cosTerm = cos(sineArg);
         float commonFactor = 2.0 * 3.14159 * u_frequencies[i];
 
-        float dX = u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].x;
-        float dZ = u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].y;
+        float dX = ampBM * u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].x;
+        float dZ = ampBM * u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].y;
 
         // Accumulate these derivatives. These are the components of the surface gradient.
         totalNormalInfluence += vec3(dX, 0.0, dZ);

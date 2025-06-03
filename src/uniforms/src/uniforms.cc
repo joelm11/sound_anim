@@ -28,7 +28,7 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
   return params;
 }
 
-#define NUM_WAVES 16
+#define NUM_WAVES 32
 std::vector<WaveParams> genWaveParams() {
   std::vector<WaveParams> params;
   params.reserve(NUM_WAVES);
@@ -37,8 +37,8 @@ std::vector<WaveParams> genWaveParams() {
       std::chrono::high_resolution_clock::now().time_since_epoch().count());
 
   // Define distributions for each parameter
-  std::uniform_real_distribution<float> amplitudeDist(0.1f, 0.8f);
-  std::uniform_real_distribution<float> frequencyDist(0.1f, 1.0f);
+  std::uniform_real_distribution<float> amplitudeDist(0.01f, 0.1f);
+  std::uniform_real_distribution<float> frequencyDist(0.05f, 0.8f);
   std::uniform_real_distribution<float> phaseDist(0.0f, glm::two_pi<float>());
   std::uniform_real_distribution<float> directionAngleDist(
       0.0f, glm::two_pi<float>());
