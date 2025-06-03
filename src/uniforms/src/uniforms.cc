@@ -39,19 +39,17 @@ std::vector<WaveParams> genWaveParams() {
   // Define distributions for each parameter
   std::uniform_real_distribution<float> amplitudeDist(0.01f, 0.1f);
   // Use log-uniform for frequency for more low-freq waves
-  std::uniform_real_distribution<float> logFreqDist(std::log(0.09f),
-                                                    std::log(1.0f));
+  // std::uniform_real_distribution<float> logFreqDist(std::log(0.09f),
+  //                                                   std::log(1.0f));
   std::uniform_real_distribution<float> phaseDist(0.0f, glm::two_pi<float>());
   std::uniform_real_distribution<float> angleDist(0.0f, glm::two_pi<float>());
 
   for (int i = 0; i < NUM_WAVES; ++i) {
     WaveParams wave;
     wave.amplitude = amplitudeDist(rng);
-    // Log-uniform frequency
-    wave.frequency = std::exp(logFreqDist(rng));
+    wave.frequency = 1.0f;
     wave.phase = phaseDist(rng);
 
-    // Random direction using angle
     float angle = angleDist(rng);
     wave.direction = glm::vec2(std::cos(angle), std::sin(angle));
     params.push_back(wave);
