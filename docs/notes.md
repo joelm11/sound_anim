@@ -29,3 +29,8 @@
 - Add better details to wave function
 - Add better lighting
 - Write as web shader
+
+## Refactoring / Cleanup work
+
+- Move GLFW init elsewhere
+-

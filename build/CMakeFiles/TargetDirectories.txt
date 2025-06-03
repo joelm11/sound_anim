@@ -66,3 +66,10 @@
 /Users/joelm/Desktop/sound_anim/build/src/lib/CMakeFiles/install.dir
 /Users/joelm/Desktop/sound_anim/build/src/lib/CMakeFiles/install/local.dir
 /Users/joelm/Desktop/sound_anim/build/src/lib/CMakeFiles/install/strip.dir
+/Users/joelm/Desktop/sound_anim/build/src/init/CMakeFiles/init_routines.dir
+/Users/joelm/Desktop/sound_anim/build/src/init/CMakeFiles/edit_cache.dir
+/Users/joelm/Desktop/sound_anim/build/src/init/CMakeFiles/rebuild_cache.dir
+/Users/joelm/Desktop/sound_anim/build/src/init/CMakeFiles/list_install_components.dir
+/Users/joelm/Desktop/sound_anim/build/src/init/CMakeFiles/install.dir
+/Users/joelm/Desktop/sound_anim/build/src/init/CMakeFiles/install/local.dir
+/Users/joelm/Desktop/sound_anim/build/src/init/CMakeFiles/install/strip.dir
