@@ -24,11 +24,13 @@ void main() {
     vec3 totalNormalInfluence = vec3(0.0); // For accumulating normal contributions
 
     // Calculate vertex displacement and normal influence for each wave
+    float dX = 0.0;
+    float dZ = 0.0;
     for(int i = 0; i < N_SINES; ++i) {
         // Calculate the dot product with the position for wave propagation direction
         float waveInputX = dot(basePos.xz, vec2(u_wavedirs[i].x, 0.0));
         float waveInputZ = dot(basePos.xz, vec2(0.0, u_wavedirs[i].y));
-        float waveInput = dot(basePos.xz, u_wavedirs[i]);
+        float waveInput = dot(basePos.xz + vec2(dX, dZ), u_wavedirs[i]);
 
         // Brownian(esque)?
         float bf = 0.018;
@@ -52,8 +54,8 @@ void main() {
         float cosTerm = cos(sineArg);
         float commonFactor = 2.0 * 3.14159 * u_frequencies[i];
 
-        float dX = ampBM * u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].x;
-        float dZ = ampBM * u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].y;
+        dX = ampBM * u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].x;
+        dZ = ampBM * u_amplitudes[i] * expTerm * cosTerm * commonFactor * u_wavedirs[i].y;
 
         // Accumulate these derivatives. These are the components of the surface gradient.
         totalNormalInfluence += vec3(dX, 0.0, dZ);

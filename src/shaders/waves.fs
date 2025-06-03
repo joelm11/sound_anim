@@ -10,13 +10,14 @@ uniform vec3 u_camerapos;
 const float ambientStrength = 0.1;
 const float diffuseStrength = 1.0;
 const vec3 lightColor = vec3(1.0);
+const vec3 ambientColor = vec3(0.69, 0.58, 0.4);
 
 void main() {
     vec3 BaseColor = vec3(0.22, 0.27, 0.51);
 
     // Calculate lighting components
     // Ambient
-    vec3 ambient = ambientStrength * BaseColor;
+    vec3 ambient = ambientStrength * ambientColor;
     // Diffuse
     vec3 norm = normalize(FragNormal);
     vec3 lightDir = normalize(u_lightpos - FragPosW);
