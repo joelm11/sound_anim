@@ -2,6 +2,7 @@
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "imgui.h"
+#include <random>
 
 namespace Uniforms {
 
@@ -28,11 +29,46 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
   return params;
 }
 
+#define NUM_WAVES 8
 std::vector<WaveParams> genWaveParams() {
-  std::vector<WaveParams> params = {
-      {0.070f, 1.131f, 0.569f, glm::vec2(0.436f, 0.485f)},
-      {0.038f, 0.420f, 3.785f, glm::vec2(-0.573f, 0.591f)},
-      {0.035f, 0.791f, 0.569f, glm::vec2(-0.008f, 1.000f)}};
+  std::vector<WaveParams> params;
+  params.reserve(NUM_WAVES); // Pre-allocate memory for efficiency
+
+  // Random number generation setup
+  // Use a high-quality random number generator
+  std::mt19937 rng(
+      std::chrono::high_resolution_clock::now().time_since_epoch().count());
+
+  // Define distributions for each parameter
+  // Amplitude: e.g., 0.1 to 1.0 (smaller waves to larger waves)
+  std::uniform_real_distribution<float> amplitudeDist(0.1f, 0.8f);
+  // Frequency: e.g., 0.5 to 3.0 (slower to faster oscillations)
+  std::uniform_real_distribution<float> frequencyDist(0.1f, 1.0f);
+  // Phase: e.g., 0 to 2*PI (random starting point in wave cycle)
+  std::uniform_real_distribution<float> phaseDist(
+      0.0f, glm::two_pi<float>()); // glm::two_pi is 2 * PI
+  // Direction: angle in radians, then converted to a unit vector
+  std::uniform_real_distribution<float> directionAngleDist(
+      0.0f, glm::two_pi<float>());
+
+  for (int i = 0; i < NUM_WAVES; ++i) {
+    WaveParams wave;
+
+    // Generate random values for each parameter
+    wave.amplitude = amplitudeDist(rng);
+    wave.frequency = frequencyDist(rng);
+    wave.phase = phaseDist(rng);
+
+    // Generate a random direction vector
+    float angle = directionAngleDist(rng);
+    wave.direction = glm::vec2(std::cos(angle), std::sin(angle));
+    // Optional: Normalize just to be safe, though cos/sin of angle should
+    // produce unit vector
+    wave.direction = glm::normalize(wave.direction);
+
+    params.push_back(wave);
+  }
+
   return params;
 }
 

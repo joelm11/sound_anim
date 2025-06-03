@@ -80,8 +80,6 @@ int main() {
   // -----------
   while (!glfwWindowShouldClose(window)) {
     ourShader.setFloat("u_time", glfwGetTime());
-    JimGUI::prepNewFrame();
-    Uniforms::setWaveParamsUniforms(ourShader, Uniforms::genWaveParams());
 
     // input
     // -----
@@ -99,7 +97,6 @@ int main() {
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)
     // -------------------------------------------------------------------------------
-    JimGUI::renderFrame();
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
