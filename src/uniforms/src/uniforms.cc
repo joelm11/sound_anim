@@ -28,7 +28,7 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
   return params;
 }
 
-#define NUM_WAVES 8
+#define NUM_WAVES 32
 std::vector<WaveParams> genWaveParams() {
   std::vector<WaveParams> params;
   params.reserve(NUM_WAVES);
@@ -38,20 +38,22 @@ std::vector<WaveParams> genWaveParams() {
 
   // Define distributions for each parameter
   std::uniform_real_distribution<float> amplitudeDist(0.01f, 0.1f);
-  std::uniform_real_distribution<float> frequencyDist(0.05f, 0.8f);
+  // Use log-uniform for frequency for more low-freq waves
+  std::uniform_real_distribution<float> logFreqDist(std::log(0.09f),
+                                                    std::log(1.0f));
   std::uniform_real_distribution<float> phaseDist(0.0f, glm::two_pi<float>());
-  std::uniform_real_distribution<float> directionAngleDist(
-      0.0f, glm::two_pi<float>());
+  std::uniform_real_distribution<float> angleDist(0.0f, glm::two_pi<float>());
 
   for (int i = 0; i < NUM_WAVES; ++i) {
     WaveParams wave;
     wave.amplitude = amplitudeDist(rng);
-    wave.frequency = frequencyDist(rng);
+    // Log-uniform frequency
+    wave.frequency = std::exp(logFreqDist(rng));
     wave.phase = phaseDist(rng);
 
-    float angle = directionAngleDist(rng);
-    wave.direction = glm::vec2(frequencyDist(rng), frequencyDist(rng) - 1.0);
-    wave.direction = glm::normalize(wave.direction);
+    // Random direction using angle
+    float angle = angleDist(rng);
+    wave.direction = glm::vec2(std::cos(angle), std::sin(angle));
     params.push_back(wave);
   }
 

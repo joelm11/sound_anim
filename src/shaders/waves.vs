@@ -12,7 +12,7 @@ out vec3 FragPosW;
 out vec3 FragNormal;
 
 // --- Sum of Sines Parameters ---
-#define N_SINES 8
+#define N_SINES 32
 uniform float u_amplitudes[N_SINES];
 uniform float u_frequencies[N_SINES];
 uniform float u_phases[N_SINES];
@@ -28,10 +28,10 @@ void main() {
         // Calculate the dot product with the position for wave propagation direction
         float waveInputX = dot(basePos.xz, vec2(u_wavedirs[i].x, 0.0));
         float waveInputZ = dot(basePos.xz, vec2(0.0, u_wavedirs[i].y));
-        float waveInput = waveInputX + waveInputZ; // Sum for combined X and Z propagation
+        float waveInput = dot(basePos.xz, u_wavedirs[i]);
 
         // Brownian(esque)?
-        float bf = 0.01;
+        float bf = 0.018;
         float ampBM = 1.0 - bf * i;
         float freqBM = 1.0 + bf * i;
 
