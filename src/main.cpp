@@ -1,5 +1,3 @@
-#include "glm/ext/vector_float3.hpp"
-#include "glm/fwd.hpp"
 #include "uniforms/src/uniforms.hh"
 #include <filesystem>
 #include <glad/glad.h>
@@ -24,7 +22,7 @@ void glParams() {
   // Enable depth test
   glEnable(GL_DEPTH_TEST);
 
-  // // Accept fragment if it closer to the camera than the former one
+  // Accept fragment if it closer to the camera than the former one
   glDepthFunc(GL_LESS);
 }
 
@@ -76,17 +74,14 @@ int main() {
   // Set rendering params and MVP uniforms.
   glParams();
   ourShader.use();
-  const glm::vec3 camPos = {0.0, 5.0, -5.0};
-  Uniforms::setLightingParamsUniforms(
-      ourShader, Uniforms::genLightingParamsStatic(camPos));
-  Uniforms::setViewParamsUniforms(
-      ourShader, Uniforms::genViewParamsStatic(720, 550, camPos));
-  Uniforms::setWaveParamsUniforms(ourShader, Uniforms::genWaveParams());
+  Uniforms::initUniforms(ourShader);
 
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
     ourShader.setFloat("u_time", glfwGetTime());
+    JimGUI::prepNewFrame();
+    Uniforms::setWaveParamsUniforms(ourShader, Uniforms::genWaveParams());
 
     // input
     // -----
@@ -104,6 +99,7 @@ int main() {
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)
     // -------------------------------------------------------------------------------
+    JimGUI::renderFrame();
     glfwSwapBuffers(window);
     glfwPollEvents();
   }

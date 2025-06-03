@@ -1,8 +1,19 @@
 #include "uniforms.hh"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
+#include "imgui.h"
 
 namespace Uniforms {
+
+void initUniforms(const Shader &shader) {
+  const glm::vec3 camPos = {0.0, 5.0, -5.0};
+  Uniforms::setLightingParamsUniforms(
+      shader, Uniforms::genLightingParamsStatic(camPos));
+  Uniforms::setViewParamsUniforms(
+      shader, Uniforms::genViewParamsStatic(720, 550, camPos));
+  Uniforms::setWaveParamsUniforms(shader, Uniforms::genWaveParams());
+}
+
 ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
                                const glm::vec3 cameraPos) {
   ViewParams params;
@@ -18,13 +29,11 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
 }
 
 std::vector<WaveParams> genWaveParams() {
-  // We'll actually populate some values here after we've found some nice
-  // combinations with the gui
-
-  // Placeholder values for refactor
-  const int kNumSines = 3;
-  const WaveParams params{.07, .65, 1.7, {1.0, 0.0}};
-  return {params};
+  std::vector<WaveParams> params = {
+      {0.070f, 1.131f, 0.569f, glm::vec2(0.436f, 0.485f)},
+      {0.038f, 0.420f, 3.785f, glm::vec2(-0.573f, 0.591f)},
+      {0.035f, 0.791f, 0.569f, glm::vec2(-0.008f, 1.000f)}};
+  return params;
 }
 
 LightingParams genLightingParamsStatic(const glm::vec3 cameraPos) {

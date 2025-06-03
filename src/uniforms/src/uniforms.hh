@@ -20,6 +20,8 @@ struct LightingParams {
   glm::vec3 camerapos;
 };
 
+void initUniforms(const Shader &shader);
+
 // Putting the uniform data generating functions here for now
 ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
                                const glm::vec3 cameraPos);

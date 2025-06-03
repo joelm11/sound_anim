@@ -205,7 +205,7 @@
 },
 {
   "directory": "/Users/joelm/Desktop/sound_anim/build/src/uniforms",
-  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/src/shaders -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -g -std=gnu++20 -arch arm64 -o CMakeFiles/uniforms.dir/src/uniforms.cc.o -c /Users/joelm/Desktop/sound_anim/src/uniforms/src/uniforms.cc",
+  "command": "/usr/bin/clang++  -I/Users/joelm/Desktop/sound_anim/src/shaders -I/Users/joelm/Desktop/sound_anim/external/glm-1.0.1 -I/Users/joelm/Desktop/sound_anim/external/imgui/imgui-src -I/Users/joelm/Desktop/sound_anim/external/imgui/imgui-src/backends -I/Users/joelm/Desktop/sound_anim/external/imgui/src -g -std=gnu++20 -arch arm64 -o CMakeFiles/uniforms.dir/src/uniforms.cc.o -c /Users/joelm/Desktop/sound_anim/src/uniforms/src/uniforms.cc",
   "file": "/Users/joelm/Desktop/sound_anim/src/uniforms/src/uniforms.cc",
   "output": "src/uniforms/CMakeFiles/uniforms.dir/src/uniforms.cc.o"
 },
