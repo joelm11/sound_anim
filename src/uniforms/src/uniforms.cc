@@ -28,7 +28,7 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
   return params;
 }
 
-#define NUM_WAVES 32
+#define NUM_WAVES 8
 std::vector<WaveParams> genWaveParams() {
   std::vector<WaveParams> params;
   params.reserve(NUM_WAVES);
@@ -50,7 +50,7 @@ std::vector<WaveParams> genWaveParams() {
     wave.phase = phaseDist(rng);
 
     float angle = directionAngleDist(rng);
-    wave.direction = glm::vec2(std::cos(angle), std::sin(angle));
+    wave.direction = glm::vec2(frequencyDist(rng), frequencyDist(rng) - 1.0);
     wave.direction = glm::normalize(wave.direction);
     params.push_back(wave);
   }
