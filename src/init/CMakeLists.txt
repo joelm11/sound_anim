@@ -14,4 +14,6 @@ target_include_directories(init_routines PUBLIC "${CMAKE_CURRENT_LIST_DIR}/src")
 target_link_libraries(init_routines 
      PRIVATE
           glfw
-          glad)
+          glad
+          glm
+          shader_m)

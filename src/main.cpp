@@ -20,9 +20,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
-#include <stb/stb_image.h>
 
-void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 void glParams() {
   // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -71,7 +69,9 @@ void setLightingUniforms(const Shader shader) {
 
 int main() {
   GLFWwindow *window = InitRoutines::initWindow(720, 546);
+
   InitRoutines::initWindowCallbacks(window);
+
   JimGUI::initImGUI(window);
 
   // glad: load all OpenGL function pointers
@@ -123,6 +123,9 @@ int main() {
   // -----------
   while (!glfwWindowShouldClose(window)) {
     JimGUI::prepNewFrame();
+#ifdef DEBUG
+    // Do the uniform updating here
+#endif
     setWaveParamUniforms(ourShader);
     ourShader.setFloat("u_time", glfwGetTime());
 

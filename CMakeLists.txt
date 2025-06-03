@@ -15,15 +15,18 @@ add_subdirectory(external/imgui)
 
 # Internal libs
 add_subdirectory(src/lib)
+add_subdirectory(src/shaders)
+add_subdirectory(src/uniforms)
 add_subdirectory(src/init)
 
-add_executable(window src/main.cpp src/shaders/shader_m.h src/shaders/shader_m.cc)
+add_executable(window src/main.cpp)
 target_link_libraries(window 
     PUBLIC
         glfw
         glad
         stb
         glm
+        shader_m
         jimgui
         init_routines
         mesh)

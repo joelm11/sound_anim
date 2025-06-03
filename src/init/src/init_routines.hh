@@ -4,5 +4,4 @@
 namespace InitRoutines {
 GLFWwindow *initWindow(const int scWidth, const int scHeight);
 GLFWwindow *initWindowCallbacks(GLFWwindow *window);
-void initOpenglBinds();
 } // namespace InitRoutines
