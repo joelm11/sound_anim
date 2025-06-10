@@ -4,10 +4,10 @@
         "name": "Window Debug",
         "type": "cppdbg",
         "request": "launch",
-        "program": "/Users/joelm/Desktop/joelgl 2/build/window",
+        "program": "/Users/joelm/Desktop/sound_anim/build/window",
         "args": [],
         "stopAtEntry": false,
-        "cwd": ".",
+        "cwd": "build",
         "environment": [],
         "externalConsole": false,
         "MIMode": "lldb"

@@ -15,8 +15,8 @@ add_subdirectory(external/imgui)
 
 # Internal libs
 add_subdirectory(src/lib)
-add_subdirectory(src/shaders)
 add_subdirectory(src/uniforms)
+add_subdirectory(src/shaders)
 add_subdirectory(src/init)
 
 add_executable(window src/main.cpp)
@@ -30,4 +30,5 @@ target_link_libraries(window
         jimgui
         init_routines
         uniforms
+        shader
         mesh)
