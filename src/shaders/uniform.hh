@@ -1,6 +1,5 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -79,7 +78,6 @@ template <> struct UniformDispatcher<const glm::mat3 &> {
 template <> struct UniformDispatcher<const glm::mat4 &> {
   static void set(const int shaderId, const std::string name,
                   const glm::mat4 &data) {
-    std::cout << "Hit (const glm::mat4&)\n";
     glUniformMatrix4fv(glGetUniformLocation(shaderId, name.c_str()), 1, 0,
                        &data[0][0]);
   }
@@ -89,7 +87,6 @@ template <> struct UniformDispatcher<const glm::mat4 &> {
 template <> struct UniformDispatcher<const std::vector<float> &> {
   static void set(const int shaderId, const std::string name,
                   const std::vector<float> &data) {
-    std::cout << "Hit float vec\n";
     glUniform1fv(glGetUniformLocation(shaderId, name.c_str()), data.size(),
                  data.data());
   }
@@ -98,7 +95,6 @@ template <> struct UniformDispatcher<const std::vector<float> &> {
 template <> struct UniformDispatcher<const std::vector<glm::vec2> &> {
   static void set(const int shaderId, const std::string name,
                   const std::vector<glm::vec2> &data) {
-    std::cout << "Hit float vec2\n";
     glUniform2fv(glGetUniformLocation(shaderId, name.c_str()), data.size(),
                  &data[0][0]);
   }

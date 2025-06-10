@@ -13,6 +13,11 @@ public:
     initUniforms();
   }
 
+  ~WaveShader() {
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &vertexBufferData);
+  }
+
   virtual void initBuffers() override {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &vertexBufferData);
@@ -55,6 +60,7 @@ private:
     addUniform("u_model", vparams.model);
     addUniform("u_view", vparams.view);
     addUniform("u_projection", vparams.projection);
+
     std::vector<Uniforms::WaveParams> wparams = Uniforms::genWaveParams();
     std::vector<float> amp, freq, phase;
     std::vector<glm::vec2> dir;
@@ -69,6 +75,7 @@ private:
     addUniform("u_phases", phase);
     addUniform("u_wavedirs", dir);
     addUniform("u_time", 0);
+
     // Set FS uniforms
     Uniforms::LightingParams lparams =
         Uniforms::genLightingParamsStatic({0.0, 1.0, -5.0});
