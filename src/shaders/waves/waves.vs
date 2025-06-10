@@ -45,7 +45,7 @@ void main() {
         totalHeight += waveHeight;
 
         // Individual normal contribution (derivative of e^(sin(x) - 1))
-        // The derivative of A * e^(sin(G(x,z,t)) - 1) with respect to x (or z)
+        // The derivative of A * e^(sin(G) - 1) with respect to x (or z)
         // is A * e^(sin(G) - 1) * cos(G) * dG/dx (or dG/dz)
         // where G = 2*pi*f*(x*dir.x + z*dir.y + t) + p
         // dG/dx = 2*pi*f * dir.x
@@ -77,5 +77,5 @@ void main() {
 
     // Apply Model, View, and Projection matrices
     gl_Position = u_projection * u_view * u_model * vec4(displacedPos, 1.0);
-    FragPosW = vec3(u_model * vec4(a_position, 1.0)); // Position in worldspace
+    FragPosW = vec3(u_model * vec4(displacedPos, 1.0)); // Position in worldspace
 }

@@ -19,6 +19,8 @@ public:
 
   virtual void draw() override;
 
+  unsigned textureID;
+
 private:
   virtual void initBuffers() override;
 
@@ -29,5 +31,4 @@ private:
   std::array<SkyboxVertex, 8> verts_;
   std::array<TriangleIdcs, 12> idcs_;
   unsigned vertexBufferData, vao, ebo;
-  unsigned textureID;
 };

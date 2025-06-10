@@ -59,7 +59,7 @@ std::vector<WaveParams> genWaveParams() {
 }
 
 LightingParams genLightingParamsStatic(const glm::vec3 cameraPos) {
-  return {.camerapos = cameraPos, .lightpos = {0.0, 1.0, 3.0}};
+  return {.camerapos = cameraPos, .lightpos = {-4.0, 1.0, -6.0}};
 }
 
 void setViewParamsUniforms(const Shader &shader, const ViewParams &params) {

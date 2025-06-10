@@ -84,6 +84,12 @@ private:
         Uniforms::genLightingParamsStatic({0.0, 1.0, -5.0});
     addUniform("u_lightpos", lparams.lightpos);
     addUniform("u_camerapos", lparams.camerapos);
+    addUniform("u_skyboxTexture", 1);
+
+    // Add Mie scattering coefficient uniform
+    addUniform("u_mieCoefficient", 0.02f);
+    addUniform("u_horizonBlurStrength", 5.0f);
+    addUniform("u_horizonHeight", 0.0f);
 
     // Apply uniforms
     for (const auto &val : uniforms_) {

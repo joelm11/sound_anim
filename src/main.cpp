@@ -84,6 +84,10 @@ int main() {
     wavesShader->setUniform("u_view", vparams.view);
     wavesShader->setUniform("u_camerapos", camPos);
     wavesShader->setUniform("u_time", glfwGetTime());
+    // Pass the skybox texture to the wave shader
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxShader->textureID);
+    // wavesShader->setUniform("u_skyboxTexture", 1);
     wavesShader->draw();
 
     processInput(window);
