@@ -37,7 +37,7 @@ std::vector<WaveParams> genWaveParams() {
       std::chrono::high_resolution_clock::now().time_since_epoch().count());
 
   // Define distributions for each parameter
-  std::uniform_real_distribution<float> amplitudeDist(0.01f, 0.1f);
+  std::uniform_real_distribution<float> amplitudeDist(0.001f, 0.01f);
   // Use log-uniform for frequency for more low-freq waves
   std::uniform_real_distribution<float> logFreqDist(std::log(0.09f),
                                                     std::log(1.0f));

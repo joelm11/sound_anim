@@ -1,3 +1,4 @@
+#pragma once
 #include "uniform.hh"
 #include <filesystem>
 #include <fstream>

@@ -2,6 +2,7 @@
 #include "mesh.hh"
 #include "shader.hh"
 #include "uniforms.hh"
+#include <OpenGL/OpenGL.h>
 
 class WaveShader : public ShaderProgram {
 public:
@@ -42,11 +43,13 @@ public:
   }
 
   virtual void draw() override {
-    // ------
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    use();
 
-    // render container
+    // Enable depth test
+    glEnable(GL_DEPTH_TEST);
+    // Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);
+
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, kMesh.indices.size() * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

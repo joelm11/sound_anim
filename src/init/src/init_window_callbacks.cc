@@ -43,8 +43,8 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
 
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
   g_radius -= (float)yoffset * 0.5f;
-  if (g_radius < 2.0f)
-    g_radius = 2.0f;
+  if (g_radius < 0.3f)
+    g_radius = 0.3f;
   if (g_radius > 50.0f)
     g_radius = 50.0f;
 }

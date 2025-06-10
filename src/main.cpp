@@ -10,6 +10,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../external/imgui/src/jimgui.hh"
 #include "init_routines.hh"
+#include "skybox/skybox.hh"
 #include "waves/wave_shader.hh"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -51,32 +52,41 @@ int main() {
   // build and compile our shader zprogram
   // ------------------------------------
   const auto cwd = std::filesystem::current_path();
-  const std::string vsPath = "src/shaders/waves.vs";
-  const std::string fsPath = "src/shaders/waves.fs";
-  auto waveShader = std::make_unique<WaveShader>(cwd / vsPath, cwd / fsPath);
-
-  waveShader->use();
-
-  // Set rendering params.
-  glParams();
+  const std::string vsPathSB = "src/shaders/skybox/skybox.vs";
+  const std::string fsPathSB = "src/shaders/skybox/skybox.fs";
+  const std::string vsPathWave = "src/shaders/waves/waves.vs";
+  const std::string fsPathWave = "src/shaders/waves/waves.fs";
+  auto skyboxShader =
+      std::make_unique<SkyboxShader>(cwd / vsPathSB, cwd / fsPathSB);
+  auto wavesShader =
+      std::make_unique<WaveShader>(cwd / vsPathWave, cwd / fsPathWave);
 
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
+    // Clear the frame
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     // Calculate camera position from spherical coordinates
     float x = g_radius * std::sin(g_elevation) * std::sin(g_azimuth);
     float y = g_radius * std::cos(g_elevation);
     float z = g_radius * std::sin(g_elevation) * std::cos(g_azimuth);
     glm::vec3 camPos = glm::vec3(x, y, z);
     // Update uniforms with new camera position
-    waveShader->setUniform(
-        "u_view", Uniforms::genViewParamsStatic(720, 550, camPos).view);
-    waveShader->setUniform("u_camerapos", glm::vec3(x, y, z));
-    waveShader->setUniform("u_time", glfwGetTime());
+    const Uniforms::ViewParams vparams =
+        Uniforms::genViewParamsStatic(720, 550, camPos);
+    skyboxShader->use();
+    skyboxShader->setUniform("u_view", vparams.view);
+    skyboxShader->draw();
+
+    wavesShader->use();
+    wavesShader->setUniform("u_view", vparams.view);
+    wavesShader->setUniform("u_camerapos", camPos);
+    wavesShader->setUniform("u_time", glfwGetTime());
+    wavesShader->draw();
 
     processInput(window);
-
-    waveShader->draw();
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse
     // moved etc.)
