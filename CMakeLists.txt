@@ -31,4 +31,5 @@ target_link_libraries(window
         init_routines
         uniforms
         shader
+        skybox-shader
         mesh)
