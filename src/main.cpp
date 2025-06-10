@@ -10,7 +10,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../external/imgui/src/jimgui.hh"
 #include "init_routines.hh"
-#include "wave_shader.hh"
+#include "waves/wave_shader.hh"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
