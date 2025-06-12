@@ -91,6 +91,14 @@ private:
     addUniform("u_horizonBlurStrength", 5.0f);
     addUniform("u_horizonHeight", 0.0f);
 
+    // Add fog uniforms
+    addUniform("u_fogColor",
+               glm::vec3(0.5f, 0.6f, 0.7f)); // Light blue-grey fog
+    addUniform("u_fogDensity",
+               0.05f); // Adjust this value to control fog thickness
+    addUniform("u_fogGradient",
+               2.0f); // Controls how quickly fog increases with distance
+
     // Apply uniforms
     for (const auto &val : uniforms_) {
       val.second->apply();

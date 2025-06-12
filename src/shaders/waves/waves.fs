@@ -18,6 +18,11 @@ uniform float u_mieCoefficient; // New uniform for Mie scattering coefficient
 uniform float u_horizonBlurStrength; // Add a uniform for horizon blur strength
 uniform float u_horizonHeight; // Add a uniform for horizon height
 
+// Fog uniforms
+uniform vec3 u_fogColor;
+uniform float u_fogDensity;
+uniform float u_fogGradient;
+
 void main() {
     vec3 BaseColor = vec3(0.22, 0.27, 0.51);
 
@@ -61,5 +66,10 @@ void main() {
     // Mix the final color with the skybox color based on the blur factor
     vec3 blurredColor = mix(finalColorWithMie, skyboxColor, blurFactor);
 
-    FragColor = vec4(blurredColor, 1.0);
+    // Calculate distance-based fog
+    float fogDistance = length(u_camerapos - FragPosW);
+    float fogAmount = 1.0 - exp(-pow(fogDistance * u_fogDensity, u_fogGradient));
+    vec3 finalColorWithFog = mix(blurredColor, u_fogColor, fogAmount);
+
+    FragColor = vec4(finalColorWithFog, 1.0);
 }

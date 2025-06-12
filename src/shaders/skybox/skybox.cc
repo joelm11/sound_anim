@@ -6,7 +6,7 @@
 
 void SkyboxShader::initBuffers() {
   // Generate vertices on the unit cube.
-  const int kCubeWidth = 8;
+  const int kCubeWidth = 16;
   verts_ = {SkyboxVertex{{-kCubeWidth, -kCubeWidth, -kCubeWidth}},
             SkyboxVertex{{kCubeWidth, -kCubeWidth, -kCubeWidth}},
             SkyboxVertex{{kCubeWidth, kCubeWidth, -kCubeWidth}},
