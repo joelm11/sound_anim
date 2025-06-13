@@ -1,5 +1,3 @@
-#include "uniforms.hh"
-#include <cmath>
 #include <filesystem>
 #include <glad/glad.h>
 #include <memory>
@@ -10,7 +8,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../external/imgui/src/jimgui.hh"
 #include "init_routines.hh"
-#include "skybox/skybox.hh"
 #include "waves/wave_shader.hh"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -60,7 +57,7 @@ int main() {
   // -----------
   while (!glfwWindowShouldClose(window)) {
     // Clear the frame
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(1.f, 1.f, 240.f / 255, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Calculate camera position from spherical coordinates

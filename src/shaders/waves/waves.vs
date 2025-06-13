@@ -14,7 +14,7 @@ out vec3 FragNormal;
 #define PI 3.14159
 
 vec3 displacement(vec3 vert) {
-    float amp = 1.0;
+    float amp = 0.5;
     float speed = 1.0;
     float freq = 1.0;
     vec2 dir = vec2(1.0, 0.0);
