@@ -8,5 +8,5 @@ target_include_directories(shader INTERFACE ${CMAKE_CURRENT_LIST_DIR})
 target_link_libraries(shader INTERFACE glm glad mesh uniforms stb)
 
 # Shader implementations
-add_library(skybox-shader STATIC skybox/skybox.hh skybox/skybox.cc)
+add_library(skybox-shader STATIC waves/wave_shader.cc skybox/skybox.hh skybox/skybox.cc)
 target_link_libraries(skybox-shader PUBLIC shader)

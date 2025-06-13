@@ -1,0 +1,68 @@
+#include "wave_shader.hh"
+#include "uniforms.hh"
+#include <glm/vec2.hpp>
+#include <vector>
+
+WaveShader::WaveShader(const std::filesystem::path &vertexPath,
+                       const std::filesystem::path &fragmentPath)
+    : ShaderProgram(vertexPath, fragmentPath) {
+  use();
+  initBuffers();
+  initUniforms();
+}
+
+WaveShader::~WaveShader() {
+  glDeleteVertexArrays(1, &VAO);
+  glDeleteBuffers(1, &vertexBufferData);
+}
+
+void WaveShader::initBuffers() {
+  glGenVertexArrays(1, &VAO);
+  glGenBuffers(1, &vertexBufferData);
+  glGenBuffers(1, &EBO);
+
+  glBindVertexArray(VAO);
+
+  glBindBuffer(GL_ARRAY_BUFFER, vertexBufferData);
+  glBufferData(GL_ARRAY_BUFFER, kMesh.verts.size() * sizeof(Vertex),
+               kMesh.verts.data(), GL_STATIC_DRAW);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+  glEnableVertexAttribArray(0);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+               kMesh.indices.size() * sizeof(TriangleIdcs),
+               kMesh.indices.data(), GL_STATIC_DRAW);
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindVertexArray(0);
+}
+
+void WaveShader::draw() {
+  use();
+
+  // Enable depth test
+  glEnable(GL_DEPTH_TEST);
+  // Accept fragment if it closer to the camera than the former one
+  glDepthFunc(GL_LESS);
+
+  glBindVertexArray(VAO);
+  glDrawElements(GL_TRIANGLES, kMesh.indices.size() * 3, GL_UNSIGNED_INT, 0);
+  glBindVertexArray(0);
+}
+
+void WaveShader::initUniforms() {
+  // Set VS uniforms
+  Uniforms::ViewParams vparams =
+      Uniforms::genViewParamsStatic(720, 550, {0.0, 5.0, -5.0});
+  addUniform("u_model", vparams.model);
+  addUniform("u_view", vparams.view);
+  addUniform("u_projection", vparams.projection);
+
+  addUniform("u_time", 0);
+
+  // Apply uniforms
+  for (const auto &val : uniforms_) {
+    val.second->apply();
+  }
+}

@@ -40,8 +40,6 @@ int main() {
 
   InitRoutines::initWindowCallbacks(window);
 
-  // JimGUI::initImGUI(window);
-
   // glad: load all OpenGL function pointers
   // ---------------------------------------
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -52,12 +50,9 @@ int main() {
   // build and compile our shader zprogram
   // ------------------------------------
   const auto cwd = std::filesystem::current_path();
-  const std::string vsPathSB = "src/shaders/skybox/skybox.vs";
-  const std::string fsPathSB = "src/shaders/skybox/skybox.fs";
   const std::string vsPathWave = "src/shaders/waves/waves.vs";
   const std::string fsPathWave = "src/shaders/waves/waves.fs";
-  auto skyboxShader =
-      std::make_unique<SkyboxShader>(cwd / vsPathSB, cwd / fsPathSB);
+
   auto wavesShader =
       std::make_unique<WaveShader>(cwd / vsPathWave, cwd / fsPathWave);
 
@@ -69,25 +64,15 @@ int main() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Calculate camera position from spherical coordinates
-    float x = g_radius * std::sin(g_elevation) * std::sin(g_azimuth);
-    float y = g_radius * std::cos(g_elevation);
-    float z = g_radius * std::sin(g_elevation) * std::cos(g_azimuth);
-    glm::vec3 camPos = glm::vec3(x, y, z);
-    // Update uniforms with new camera position
-    const Uniforms::ViewParams vparams =
-        Uniforms::genViewParamsStatic(720, 550, camPos);
-    skyboxShader->use();
-    skyboxShader->setUniform("u_view", vparams.view);
-    // skyboxShader->draw();
-
+    // float x = g_radius * std::sin(g_elevation) * std::sin(g_azimuth);
+    // float y = g_radius * std::cos(g_elevation);
+    // float z = g_radius * std::sin(g_elevation) * std::cos(g_azimuth);
+    // glm::vec3 camPos = glm::vec3(x, y, z);
+    // // Update uniforms with new camera position
+    // const Uniforms::ViewParams vparams =
+    //     Uniforms::genViewParamsStatic(720, 550, camPos);
     wavesShader->use();
-    wavesShader->setUniform("u_view", vparams.view);
-    wavesShader->setUniform("u_camerapos", camPos);
     wavesShader->setUniform("u_time", glfwGetTime());
-    // Pass the skybox texture to the wave shader
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxShader->textureID);
-    // wavesShader->setUniform("u_skyboxTexture", 1);
     wavesShader->draw();
 
     processInput(window);
@@ -99,7 +84,6 @@ int main() {
     glfwPollEvents();
   }
 
-  // JimGUI::shutdown();
   glfwTerminate();
   return 0;
 }

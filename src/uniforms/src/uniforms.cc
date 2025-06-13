@@ -22,7 +22,7 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
   params.model = params.view = params.projection = glm::mat4(1.0f);
 
   params.view =
-      glm::lookAt(cameraPos, glm::vec3(0.0f), glm::vec3(0.0f, 4.0f, 0.0f));
+      glm::lookAt(cameraPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
   // Constant.
   params.projection = glm::perspective(
@@ -30,7 +30,7 @@ ViewParams genViewParamsStatic(const int scWidth, const int scHeight,
   return params;
 }
 
-#define NUM_WAVES 32
+#define NUM_WAVES 1
 std::vector<WaveParams> genWaveParams() {
   std::vector<WaveParams> params;
   params.reserve(NUM_WAVES);
