@@ -78,7 +78,7 @@ int main() {
         Uniforms::genViewParamsStatic(720, 550, camPos);
     skyboxShader->use();
     skyboxShader->setUniform("u_view", vparams.view);
-    skyboxShader->draw();
+    // skyboxShader->draw();
 
     wavesShader->use();
     wavesShader->setUniform("u_view", vparams.view);

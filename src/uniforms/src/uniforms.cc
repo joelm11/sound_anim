@@ -1,6 +1,8 @@
 #include "uniforms.hh"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
+#include "glm/geometric.hpp"
+#include "glm/gtc/constants.hpp"
 // #include "imgui.h"
 #include <random>
 
@@ -59,7 +61,7 @@ std::vector<WaveParams> genWaveParams() {
 }
 
 LightingParams genLightingParamsStatic(const glm::vec3 cameraPos) {
-  return {.camerapos = cameraPos, .lightpos = {-4.0, 1.0, -6.0}};
+  return {.camerapos = cameraPos, .lightpos = {0.0, 1.0, 0.0}};
 }
 
 void setViewParamsUniforms(const Shader &shader, const ViewParams &params) {
