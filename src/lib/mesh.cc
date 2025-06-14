@@ -2,7 +2,7 @@
 
 // Generates points for a plane of size num_quads x num_quads
 PlaneMeshData GenerateSquarePlane(const int num_quads) {
-  const unsigned kMeshSizeLen = 2;
+  const unsigned kMeshSizeLen = 4;
   const float kStepSize = kMeshSizeLen / static_cast<float>(num_quads);
 
   // Generate points

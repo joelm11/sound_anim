@@ -1,5 +1,7 @@
 #include "wave_shader.hh"
 #include "glm/ext/vector_float3.hpp"
+#include "glm/fwd.hpp"
+#include "glm/gtc/constants.hpp"
 #include "uniforms.hh"
 #include <glm/vec2.hpp>
 #include <vector>
@@ -61,6 +63,12 @@ void WaveShader::initUniforms() {
   addUniform("u_view", vparams.view);
   addUniform("u_projection", vparams.projection);
   addUniform("u_time", 0);
+  // Wave params
+  const unsigned kNumWaves = 4;
+  auto params = generateWaveParams(kNumWaves);
+  addUniform("u_amps", params.amplitudes);
+  addUniform("u_freqs", params.frequencies);
+  addUniform("u_dirs", params.directions);
 
   // Set FS uniforms
   addUniform("u_lightPos", glm::vec3(0.0, 5.0, 0.0));
@@ -70,4 +78,35 @@ void WaveShader::initUniforms() {
   for (const auto &val : uniforms_) {
     val.second->apply();
   }
+}
+
+WaveParams WaveShader::generateWaveParams(const int numWaves) {
+  std::vector<float> amps, freqs;
+  std::vector<glm::vec2> dirs;
+
+  const float kSpeed = 0.5;
+  const float kFreq = glm::two_pi<float>() * 1.0;
+  const float kMedianWavelength = kSpeed / kFreq;
+  const float kWLRatio = 0.2;
+
+  const float windAngle = glm::radians(30.0f);
+  glm::vec2 windDir = glm::vec2(std::cos(windAngle), std::sin(windAngle));
+  const float maxAngleOffset = glm::radians(20.0f);
+
+  for (int i = 0; i < numWaves; ++i) {
+    float angleOffset =
+        ((float)rand() / RAND_MAX) * 2.0f * maxAngleOffset - maxAngleOffset;
+    float waveAngle = windAngle + angleOffset;
+    glm::vec2 direction = glm::vec2(std::cos(waveAngle), std::sin(waveAngle));
+
+    float wavelength = kMedianWavelength * (0.5f + ((float)rand() / RAND_MAX));
+    float amplitude = kWLRatio * wavelength;
+    float frequency = kSpeed / wavelength;
+    float phase = ((float)rand() / RAND_MAX) * glm::two_pi<float>();
+
+    amps.push_back(amplitude);
+    freqs.push_back(frequency);
+    dirs.push_back(direction);
+  }
+  return {amps, freqs, dirs};
 }
