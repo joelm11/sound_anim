@@ -1,4 +1,5 @@
 #include "wave_shader.hh"
+#include "glm/ext/vector_float3.hpp"
 #include "uniforms.hh"
 #include <glm/vec2.hpp>
 #include <vector>
@@ -58,8 +59,8 @@ void WaveShader::initUniforms() {
   addUniform("u_model", vparams.model);
   addUniform("u_view", vparams.view);
   addUniform("u_projection", vparams.projection);
-
   addUniform("u_time", 0);
+  addUniform("u_lightPos", glm::vec3(0.0, 5.0, 0.0));
 
   // Apply uniforms
   for (const auto &val : uniforms_) {
