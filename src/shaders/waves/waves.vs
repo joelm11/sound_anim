@@ -39,7 +39,8 @@ void main() {
     vec3 displacedPos = vec3(a_position.x, displacement(a_position), a_position.z);
 
     FragPosW = vec3(u_model * vec4(displacedPos, 1.0));
-    FragNormal = normalize(cross(binormal(a_position), tangent(a_position)));
+    FragNormal = mat3(transpose(inverse(u_model)))\
+    * normalize(cross(binormal(a_position), tangent(a_position)));
 
     // Apply Model, View, and Projection matrices
     gl_Position = u_projection * u_view * u_model * vec4(displacedPos, 1.0);

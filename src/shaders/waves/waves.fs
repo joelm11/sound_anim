@@ -3,21 +3,31 @@ in vec3 FragPosW;
 in vec3 FragNormal;
 
 uniform vec3 u_lightPos;
+uniform vec3 u_viewPos;
 
 out vec4 FragColor;
 
 vec3 phong_lighting(vec3 baseColor) {
     const float kAmbientStrength = 0.1;
+    float kSpecularStrength = 0.5;
     const vec3 kLightColor = vec3(1., 1., 1.);
 
+    // Ambient calculation
     vec3 ambient = kAmbientStrength * kLightColor;
 
+    // Diffuse calculation
     vec3 norm = normalize(FragNormal);
     vec3 lightDir = normalize(u_lightPos - FragPosW);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * kLightColor;
 
-    vec3 result = (ambient + diffuse) * baseColor;
+    // Specular calculation
+    vec3 viewDir = normalize(u_viewPos - FragPosW);
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    vec3 specular = kSpecularStrength * spec * kLightColor;
+
+    vec3 result = (ambient + diffuse + specular) * baseColor;
     return result;
 }
 

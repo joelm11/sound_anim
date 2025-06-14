@@ -54,13 +54,17 @@ void WaveShader::draw() {
 
 void WaveShader::initUniforms() {
   // Set VS uniforms
+  const glm::vec3 kCameraPos(0.0, 5.0, -5.0);
   Uniforms::ViewParams vparams =
-      Uniforms::genViewParamsStatic(720, 550, {0.0, 5.0, -5.0});
+      Uniforms::genViewParamsStatic(720, 550, kCameraPos);
   addUniform("u_model", vparams.model);
   addUniform("u_view", vparams.view);
   addUniform("u_projection", vparams.projection);
   addUniform("u_time", 0);
+
+  // Set FS uniforms
   addUniform("u_lightPos", glm::vec3(0.0, 5.0, 0.0));
+  addUniform("u_viewPos", kCameraPos);
 
   // Apply uniforms
   for (const auto &val : uniforms_) {
