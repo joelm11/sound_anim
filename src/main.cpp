@@ -1,3 +1,5 @@
+#include "skybox/skybox.hh"
+#include "uniforms.hh"
 #include <filesystem>
 #include <glad/glad.h>
 #include <memory>
@@ -34,7 +36,6 @@ void glParams() {
 
 int main() {
   GLFWwindow *window = InitRoutines::initWindow(720, 546);
-
   InitRoutines::initWindowCallbacks(window);
 
   // glad: load all OpenGL function pointers
@@ -44,14 +45,18 @@ int main() {
     return -1;
   }
 
-  // build and compile our shader zprogram
+  // build and compile our shader program
   // ------------------------------------
   const auto cwd = std::filesystem::current_path();
   const std::string vsPathWave = "src/shaders/waves/waves.vs";
   const std::string fsPathWave = "src/shaders/waves/waves.fs";
+  const std::string vsPathSB = "src/shaders/skybox/skybox.vs";
+  const std::string fsPathSB = "src/shaders/skybox/skybox.fs";
 
   auto wavesShader =
       std::make_unique<WaveShader>(cwd / vsPathWave, cwd / fsPathWave);
+  auto sbShader =
+      std::make_unique<SkyboxShader>(cwd / vsPathSB, cwd / fsPathSB);
 
   // render loop
   // -----------
@@ -61,13 +66,17 @@ int main() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Calculate camera position from spherical coordinates
-    // float x = g_radius * std::sin(g_elevation) * std::sin(g_azimuth);
-    // float y = g_radius * std::cos(g_elevation);
-    // float z = g_radius * std::sin(g_elevation) * std::cos(g_azimuth);
-    // glm::vec3 camPos = glm::vec3(x, y, z);
-    // // Update uniforms with new camera position
-    // const Uniforms::ViewParams vparams =
-    //     Uniforms::genViewParamsStatic(720, 550, camPos);
+    float x = g_radius * std::sin(g_elevation) * std::sin(g_azimuth);
+    float y = g_radius * std::cos(g_elevation);
+    float z = g_radius * std::sin(g_elevation) * std::cos(g_azimuth);
+    glm::vec3 camPos = glm::vec3(x, y, z);
+    // Update uniforms with new camera position
+    const Uniforms::ViewParams vparams =
+        Uniforms::genViewParamsStatic(720, 550, camPos);
+    // wavesShader->setUniform("u_view", vparams.view);
+
+    sbShader->use();
+    sbShader->draw();
 
     wavesShader->use();
     wavesShader->setUniform("u_time", glfwGetTime());

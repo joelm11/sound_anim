@@ -16,7 +16,7 @@ out vec3 FragPosW;
 out vec3 FragNormal;
 
 #define PI 3.14159
-const float kSpeed = 0.5;
+const float kSpeed = 0.2;
 const float kK = 2.5;
 
 float phase_const(vec3 vert, vec2 dir, float freq, float speed) {

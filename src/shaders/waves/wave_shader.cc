@@ -87,7 +87,7 @@ WaveParams WaveShader::generateWaveParams(const int numWaves) {
   const float kSpeed = 0.5;
   const float kFreq = glm::two_pi<float>() * 1.0;
   const float kMedianWavelength = kSpeed / kFreq;
-  const float kWLRatio = 0.2;
+  const float kWLRatio = 0.05;
 
   const float windAngle = glm::radians(30.0f);
   glm::vec2 windDir = glm::vec2(std::cos(windAngle), std::sin(windAngle));

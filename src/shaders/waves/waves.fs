@@ -33,6 +33,7 @@ vec3 phong_lighting(vec3 baseColor) {
 
 void main() {
     vec3 BaseColor = vec3(0.22, 0.27, 0.51);
+    // More realistic ocean colour: vec3(58. / 256, 73. / 256, 101. / 256)
 
     FragColor = vec4(phong_lighting(BaseColor), 1.0);
 }
