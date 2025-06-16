@@ -19,9 +19,12 @@ public:
   virtual void initBuffers() override;
   virtual void draw() override;
 
+  void setSkyboxTextureID(unsigned texID) { skyboxTextureID = texID; }
+
 private:
   WaveParams generateWaveParams(const int numWaves);
   void initUniforms();
   const PlaneMeshData kMesh = GenerateSquarePlane(1024);
   unsigned vertexBufferData, VAO, EBO;
+  unsigned skyboxTextureID = 0;
 };

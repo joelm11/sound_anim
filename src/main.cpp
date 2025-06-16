@@ -58,6 +58,8 @@ int main() {
   auto sbShader =
       std::make_unique<SkyboxShader>(cwd / vsPathSB, cwd / fsPathSB);
 
+  wavesShader->setSkyboxTextureID(sbShader->textureID);
+
   // render loop
   // -----------
   while (!glfwWindowShouldClose(window)) {
@@ -73,13 +75,15 @@ int main() {
     // Update uniforms with new camera position
     const Uniforms::ViewParams vparams =
         Uniforms::genViewParamsStatic(720, 550, camPos);
-    // wavesShader->setUniform("u_view", vparams.view);
 
     sbShader->use();
+    sbShader->setUniform("u_camerapos", camPos);
+    sbShader->setUniform("u_view", vparams.view);
     sbShader->draw();
 
     wavesShader->use();
     wavesShader->setUniform("u_time", glfwGetTime());
+    wavesShader->setUniform("u_view", vparams.view);
     wavesShader->draw();
 
     processInput(window);

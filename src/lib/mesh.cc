@@ -2,7 +2,7 @@
 
 // Generates points for a plane of size num_quads x num_quads
 PlaneMeshData GenerateSquarePlane(const int num_quads) {
-  const unsigned kMeshSizeLen = 4;
+  const unsigned kMeshSizeLen = 16;
   const float kStepSize = kMeshSizeLen / static_cast<float>(num_quads);
 
   // Generate points
@@ -11,7 +11,7 @@ PlaneMeshData GenerateSquarePlane(const int num_quads) {
     for (int j = 0; j <= num_quads; ++j) {
       const float x = j * kStepSize - kMeshSizeLen / 2.0f;
       const float z = i * kStepSize - kMeshSizeLen / 2.0f;
-      const float y = 0.0f;
+      const float y = 2.0f;
       points.push_back({.point = glm::vec3(x, y, z)});
     }
   }

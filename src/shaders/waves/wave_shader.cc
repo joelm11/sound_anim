@@ -43,15 +43,20 @@ void WaveShader::initBuffers() {
 
 void WaveShader::draw() {
   use();
-
   // Enable depth test
   glEnable(GL_DEPTH_TEST);
-  // Accept fragment if it closer to the camera than the former one
   glDepthFunc(GL_LESS);
+
+  // Bind cubemap texture to unit 0 before drawing
+  glActiveTexture(GL_TEXTURE0);
+  if (skyboxTextureID) {
+    glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTextureID);
+  }
 
   glBindVertexArray(VAO);
   glDrawElements(GL_TRIANGLES, kMesh.indices.size() * 3, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
+  glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
 void WaveShader::initUniforms() {
@@ -73,6 +78,7 @@ void WaveShader::initUniforms() {
   // Set FS uniforms
   addUniform("u_lightPos", glm::vec3(0.0, 5.0, 0.0));
   addUniform("u_viewPos", kCameraPos);
+  addUniform("u_skyboxTexture", 0);
 
   // Apply uniforms
   for (const auto &val : uniforms_) {
@@ -87,7 +93,7 @@ WaveParams WaveShader::generateWaveParams(const int numWaves) {
   const float kSpeed = 0.5;
   const float kFreq = glm::two_pi<float>() * 1.0;
   const float kMedianWavelength = kSpeed / kFreq;
-  const float kWLRatio = 0.05;
+  const float kWLRatio = 0.01;
 
   const float windAngle = glm::radians(30.0f);
   glm::vec2 windDir = glm::vec2(std::cos(windAngle), std::sin(windAngle));
