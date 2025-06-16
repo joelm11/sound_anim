@@ -19,10 +19,14 @@ out vec3 FragNormal;
 const float kSpeed = 0.5;
 const float kK = 2.5;
 
+float phase_const(vec3 vert, int i) {
+    return dot(u_dirs[i], vert.xz) * 2.0 * PI * u_freqs[i] + u_time * kSpeed * 2.0 * PI * u_freqs[i];
+}
+
 float displacement(vec3 vert) {
     float h = 0.0;
     for(int i = 0; i < NUMWAVES; ++i) {
-        float phase = dot(u_dirs[i], vert.xz) * 2.0 * PI * u_freqs[i] + u_time * kSpeed * 2.0 * PI * u_freqs[i];
+        float phase = phase_const(vert, i);
         h += 2 * u_amps[i] * pow((sin(phase) + 1) / 2, kK);
     }
     return h;
@@ -31,7 +35,7 @@ float displacement(vec3 vert) {
 vec3 tangent(vec3 vert) {
     float dhdx = 0.0;
     for(int i = 0; i < NUMWAVES; ++i) {
-        float phase = dot(u_dirs[i], vert.xz) * 2.0 * PI * u_freqs[i] + u_time * kSpeed * 2.0 * PI * u_freqs[i];
+        float phase = phase_const(vert, i);
         dhdx += kK * u_dirs[i].x * 2.0 * PI * u_freqs[i] * u_amps[i] * pow((sin(phase) + 1) / 2, kK - 1) * cos(phase);
     }
     return normalize(vec3(1.0, dhdx, 0.0));
@@ -40,7 +44,7 @@ vec3 tangent(vec3 vert) {
 vec3 binormal(vec3 vert) {
     float dhdz = 0.0;
     for(int i = 0; i < NUMWAVES; ++i) {
-        float phase = dot(u_dirs[i], vert.xz) * 2.0 * PI * u_freqs[i] + u_time * kSpeed * 2.0 * PI * u_freqs[i];
+        float phase = phase_const(vert, i);
         dhdz += kK * u_dirs[i].y * 2.0 * PI * u_freqs[i] * u_amps[i] * pow((sin(phase) + 1) / 2, kK - 1) * cos(phase);
     }
     return normalize(vec3(0.0, dhdz, 1.0));
@@ -50,7 +54,7 @@ void main() {
     vec3 displacedPos = vec3(a_position.x, displacement(a_position), a_position.z);
 
     FragPosW = vec3(u_model * vec4(displacedPos, 1.0));
-    FragNormal = mat3(transpose(inverse(u_model)))\
+    FragNormal = mat3(transpose(inverse(u_model))) \
     * normalize(cross(binormal(a_position), tangent(a_position)));
 
     // Apply Model, View, and Projection matrices
