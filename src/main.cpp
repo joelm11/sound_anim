@@ -68,6 +68,7 @@ int main() {
     // // Update uniforms with new camera position
     // const Uniforms::ViewParams vparams =
     //     Uniforms::genViewParamsStatic(720, 550, camPos);
+
     wavesShader->use();
     wavesShader->setUniform("u_time", glfwGetTime());
     wavesShader->draw();
