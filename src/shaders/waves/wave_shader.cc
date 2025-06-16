@@ -64,7 +64,7 @@ void WaveShader::initUniforms() {
   addUniform("u_projection", vparams.projection);
   addUniform("u_time", 0);
   // Wave params
-  const unsigned kNumWaves = 4;
+  const unsigned kNumWaves = 8;
   auto params = generateWaveParams(kNumWaves);
   addUniform("u_amps", params.amplitudes);
   addUniform("u_freqs", params.frequencies);

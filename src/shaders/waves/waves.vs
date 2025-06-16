@@ -7,7 +7,7 @@ uniform mat4 u_view;
 uniform mat4 u_projection;
 uniform float u_time;
 
-#define NUMWAVES 4
+#define NUMWAVES 8
 uniform float u_amps[NUMWAVES];
 uniform float u_freqs[NUMWAVES];
 uniform vec2 u_dirs[NUMWAVES];
@@ -17,12 +17,13 @@ out vec3 FragNormal;
 
 #define PI 3.14159
 const float kSpeed = 0.5;
+const float kK = 2.5;
 
 float displacement(vec3 vert) {
     float h = 0.0;
     for(int i = 0; i < NUMWAVES; ++i) {
         float phase = dot(u_dirs[i], vert.xz) * 2.0 * PI * u_freqs[i] + u_time * kSpeed * 2.0 * PI * u_freqs[i];
-        h += u_amps[i] * sin(phase);
+        h += 2 * u_amps[i] * pow((sin(phase) + 1) / 2, kK);
     }
     return h;
 }
@@ -31,7 +32,7 @@ vec3 tangent(vec3 vert) {
     float dhdx = 0.0;
     for(int i = 0; i < NUMWAVES; ++i) {
         float phase = dot(u_dirs[i], vert.xz) * 2.0 * PI * u_freqs[i] + u_time * kSpeed * 2.0 * PI * u_freqs[i];
-        dhdx += u_amps[i] * cos(phase) * 2.0 * PI * u_freqs[i] * u_dirs[i].x;
+        dhdx += kK * u_dirs[i].x * 2.0 * PI * u_freqs[i] * u_amps[i] * pow((sin(phase) + 1) / 2, kK - 1) * cos(phase);
     }
     return normalize(vec3(1.0, dhdx, 0.0));
 }
@@ -40,7 +41,7 @@ vec3 binormal(vec3 vert) {
     float dhdz = 0.0;
     for(int i = 0; i < NUMWAVES; ++i) {
         float phase = dot(u_dirs[i], vert.xz) * 2.0 * PI * u_freqs[i] + u_time * kSpeed * 2.0 * PI * u_freqs[i];
-        dhdz += u_amps[i] * cos(phase) * 2.0 * PI * u_freqs[i] * u_dirs[i].y;
+        dhdz += kK * u_dirs[i].y * 2.0 * PI * u_freqs[i] * u_amps[i] * pow((sin(phase) + 1) / 2, kK - 1) * cos(phase);
     }
     return normalize(vec3(0.0, dhdz, 1.0));
 }
