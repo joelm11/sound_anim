@@ -54,6 +54,40 @@ void WaveShader::draw() {
   glBindVertexArray(0);
 }
 
+WaveParams generateWaveParams(const int numWaves) {
+  const float kAmpMed = 0.5;
+  const float kFreqMed = 2.0;
+  const float kSpeedMed = 0.5;
+  const float kWindAngle = glm::radians(30.0f);
+
+  std::vector<float> amps, freqs, speeds;
+  std::vector<glm::vec2> dirs;
+
+  // Wind direction setup
+  glm::vec2 windDir = glm::vec2(std::cos(kWindAngle), std::sin(kWindAngle));
+  const float maxAngleOffset = glm::radians(20.0f);
+
+  for (int i = 0; i < numWaves; ++i) {
+    // Generate direction with random deviation from wind angle
+    float angleOffset = ((float)rand() / RAND_MAX) * 2.0f;
+    glm::vec2 direction =
+        glm::vec2(std::cos(angleOffset), std::sin(angleOffset));
+
+    // Generate amplitude, frequency and speed with random variation around
+    // medians
+    float amplitude = kAmpMed * (0.5f + ((float)rand() / RAND_MAX));
+    float frequency = kFreqMed * (0.5f + ((float)rand() / RAND_MAX));
+    float speed = kSpeedMed * (0.5f + ((float)rand() / RAND_MAX));
+
+    amps.push_back(amplitude);
+    freqs.push_back(frequency);
+    speeds.push_back(speed);
+    dirs.push_back(direction);
+  }
+
+  return {amps, freqs, speeds, dirs};
+}
+
 void WaveShader::initUniforms() {
   // Set VS uniforms
   const glm::vec3 kCameraPos(0.0, 5.0, -5.0);
@@ -64,11 +98,12 @@ void WaveShader::initUniforms() {
   addUniform("u_projection", vparams.projection);
   addUniform("u_time", 0);
   // Wave params
-  const unsigned kNumWaves = 8;
+  const unsigned kNumWaves = 32;
   auto params = generateWaveParams(kNumWaves);
   addUniform("u_amps", params.amplitudes);
   addUniform("u_freqs", params.frequencies);
   addUniform("u_dirs", params.directions);
+  addUniform("u_speeds", params.speeds);
 
   // Set FS uniforms
   addUniform("u_lightPos", glm::vec3(0.0, 5.0, 0.0));
@@ -80,33 +115,34 @@ void WaveShader::initUniforms() {
   }
 }
 
-WaveParams WaveShader::generateWaveParams(const int numWaves) {
-  std::vector<float> amps, freqs;
-  std::vector<glm::vec2> dirs;
+// WaveParams WaveShader::generateWaveParams(const int numWaves) {
+//   std::vector<float> amps, freqs;
+//   std::vector<glm::vec2> dirs;
 
-  const float kSpeed = 0.5;
-  const float kFreq = glm::two_pi<float>() * 1.0;
-  const float kMedianWavelength = kSpeed / kFreq;
-  const float kWLRatio = 0.2;
+//   const float kSpeed = 0.5;
+//   const float kFreq = glm::two_pi<float>() * 1.0;
+//   const float kMedianWavelength = kSpeed / kFreq;
+//   const float kWLRatio = 0.2;
 
-  const float windAngle = glm::radians(30.0f);
-  glm::vec2 windDir = glm::vec2(std::cos(windAngle), std::sin(windAngle));
-  const float maxAngleOffset = glm::radians(20.0f);
+//   const float windAngle = glm::radians(30.0f);
+//   glm::vec2 windDir = glm::vec2(std::cos(windAngle), std::sin(windAngle));
+//   const float maxAngleOffset = glm::radians(20.0f);
 
-  for (int i = 0; i < numWaves; ++i) {
-    float angleOffset =
-        ((float)rand() / RAND_MAX) * 2.0f * maxAngleOffset - maxAngleOffset;
-    float waveAngle = windAngle + angleOffset;
-    glm::vec2 direction = glm::vec2(std::cos(waveAngle), std::sin(waveAngle));
+//   for (int i = 0; i < numWaves; ++i) {
+//     float angleOffset =
+//         ((float)rand() / RAND_MAX) * 2.0f * maxAngleOffset - maxAngleOffset;
+//     float waveAngle = windAngle + angleOffset;
+//     glm::vec2 direction = glm::vec2(std::cos(waveAngle),
+//     std::sin(waveAngle));
 
-    float wavelength = kMedianWavelength * (0.5f + ((float)rand() / RAND_MAX));
-    float amplitude = kWLRatio * wavelength;
-    float frequency = kSpeed / wavelength;
-    float phase = ((float)rand() / RAND_MAX) * glm::two_pi<float>();
+//     float wavelength = kMedianWavelength * (0.5f + ((float)rand() /
+//     RAND_MAX)); float amplitude = kWLRatio * wavelength; float frequency =
+//     kSpeed / wavelength; float phase = ((float)rand() / RAND_MAX) *
+//     glm::two_pi<float>();
 
-    amps.push_back(amplitude);
-    freqs.push_back(frequency);
-    dirs.push_back(direction);
-  }
-  return {amps, freqs, dirs};
-}
+//     amps.push_back(amplitude);
+//     freqs.push_back(frequency);
+//     dirs.push_back(direction);
+//   }
+//   return {amps, freqs, dirs};
+// }
